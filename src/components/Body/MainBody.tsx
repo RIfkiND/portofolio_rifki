@@ -1,4 +1,3 @@
-
 import GradientText from "@/components/Bits/GradientText";
 import DecryptedText from "@/components/Bits/DecryptedText";
 import { usePathname } from "next/navigation";
@@ -23,7 +22,7 @@ export function MainBody() {
 
       {/* VS Code-like Line Numbers */}
       <div className="absolute left-0 top-0 h-full py-4 px-3 text-gray-500 text-sm font-mono text-right leading-relaxed pt-9">
-        {Array.from({ length: 42 }, (_, i) => (
+        {Array.from({ length: 60 }, (_, i) => (
           <div key={i} className="w-6">
             {i + 1}
           </div>
@@ -49,7 +48,8 @@ export function MainBody() {
             speed={90}
             maxIterations={15}
             characters="ABCD1234!?$%@"
-            className="text-gray-300 text-lg sm:text-xl mt-4 font-medium hover:text-white transition"
+            className=" text-lg sm:text-xl mt-4 font-medium text-white hover:text-white   transition"
+            encryptedClassName="encrypted text-white transition "
           />
 
           {/* Experience Description */}
@@ -73,7 +73,13 @@ export function MainBody() {
           </p>
 
           {/* Skills Section */}
-        <TechStack/>
+          <TechStack />
+
+          {/* Quote About Learning */}
+          <p className="text-gray-400 text-md sm:text-lg mt-6 italic">
+            &quot;Technology is always evolving. The best developers are those
+            who keep learning and adapting. &quot; ✨
+          </p>
         </div>
       </div>
     </div>

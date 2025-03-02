@@ -18,18 +18,32 @@ import {
   SiDigitalocean,
   SiGit,
   SiLinux,
+  SiPhp,
+  SiNodedotjs,
+  
 } from "react-icons/si";
-import { FaVuejs, FaAws, FaBrain, FaHandHolding, FaGlobe, FaComment } from "react-icons/fa";
+import { FaVuejs, FaAws, FaBrain, FaHandHolding, FaGlobe, } from "react-icons/fa";
 import { BsMicrosoft } from "react-icons/bs";
 
 export default function TechStack() {
   return (
-    <div className="w-full max-w-5xl mx-auto text-gray-300 text-sm sm:text-md mt-8">
-      <h3 className="font-bold text-lg mb-4 text-center">
+    <div className="w-full max-w-5xl mx-auto text-gray-300 text-sm sm:text-md mt-10">
+      <h3 className="font-bold text-2xl mb-4 text-center">Main Stack</h3>
+      <div className="flex flex-wrap justify-center gap-4 text-4xl mb-6 mt-20 ">
+        <SiNextdotjs className="text-gray-300" />
+        <SiLaravel className="text-red-500" />
+        <SiExpress className="text-gray-400" />
+        <SiNestjs className="text-red-600" />
+        <SiGo className="text-blue-500" />
+        <SiTypescript className="text-blue-400" />
+        <SiPhp className="text-gray-400" />
+        <SiNodedotjs className="text-green-400" />
+      </div>
+      <h3 className="font-bold text-lg mb-4 text-center mt-20">
         🛠 Tech Stack & Skills
       </h3>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10 ">
         {/* Frontend Table */}
         <div className="overflow-x-auto">
           <h4 className="font-semibold text-md mb-2">Frontend Technologies</h4>
@@ -220,7 +234,7 @@ export default function TechStack() {
             <tbody>
               <tr>
                 <td className="flex items-center gap-2 px-4 py-2">
-                  <FaComment className="text-blue-500" /> Problem Solving
+                  <FaBrain className="text-blue-500" /> Problem Solving
                 </td>
               </tr>
               <tr>
