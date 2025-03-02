@@ -114,6 +114,11 @@
   width: 12px; /* Thicker scrollbar */
 }
 
+:root {
+  --font-jetbrains-mono: "JetBrains Mono", monospace;
+}
+
+
 /* Custom Scrollbar - Square, Black Border, 10% Opacity */
 ::-webkit-scrollbar {
   width: 15px; /* Adjust scrollbar width */

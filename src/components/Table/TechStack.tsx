@@ -7,7 +7,7 @@ import {
   SiTypescript,
   SiPhp,
   SiNodedotjs,
-  
+  SiPython,
 } from "react-icons/si";
 
 
@@ -25,13 +25,12 @@ export default function TechStack() {
         <SiGo className="text-blue-500" />
         <SiTypescript className="text-blue-400" />
         <SiPhp className="text-gray-400" />
+        <SiPython className="text-blue-400" />
         <SiNodedotjs className="text-green-400" />
       </div>
-      <h3 className="font-bold text-lg mb-4 text-center mt-20">
+      {/* <h3 className="font-bold text-lg mb-4 text-center mt-20">
         🛠 Tech Stack & Skills
-      </h3>
-
-  
+      </h3> */}
     </div>
   );
 }

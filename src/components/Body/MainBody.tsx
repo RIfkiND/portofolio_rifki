@@ -1,8 +1,11 @@
 import GradientText from "@/components/Bits/GradientText";
 import DecryptedText from "@/components/Bits/DecryptedText";
 import { usePathname } from "next/navigation";
-import TechStack from "../Table/TechStack";
+import TechStack from "@/components/Table/TechStack";
+import ShinyText from "@/components/Bits/ShinyText";
 import Line from "../ui/line";
+import { FaArrowRight } from "react-icons/fa";
+
 export function MainBody() {
   const pathname = usePathname();
   const fileMap: Record<string, string> = {
@@ -39,10 +42,10 @@ export function MainBody() {
           {/* Animated Text */}
           <DecryptedText
             text="Backend Developer | DevOps Enthusiast"
-            speed={90}
+            speed={20}
             maxIterations={15}
-            characters="ABCD1234!?$%@"
-            className=" text-lg sm:text-xl mt-4 font-medium text-white hover:text-white   transition"
+            characters="ABCD1234!?$%@" 
+            className=" text-lg sm:text-xl mt-4 font-medium text-white hover:text-white transition"
             encryptedClassName="encrypted text-white transition "
           />
 
@@ -68,6 +71,16 @@ export function MainBody() {
 
           {/* Skills Section */}
           <TechStack />
+
+          {/* Learn More About My Skill */}
+          <div className="flex items-center gap-2 mt-4 text-gray-400 hover:text-white transition cursor-pointer">
+            <ShinyText
+              text="Learn More About My skill"
+              disabled={false}
+              speed={3}
+            />
+            <FaArrowRight />
+          </div>
 
           {/* Quote About Learning */}
           <p className="text-gray-400 text-md sm:text-lg mt-6 italic">
