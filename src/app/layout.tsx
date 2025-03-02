@@ -20,9 +20,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${jetBrainsMono.variable} antialiased`}>
-          {children}
+    <html lang="en" className="h-full">
+      <body
+        className={`${jetBrainsMono.variable} antialiased h-full overflow-hidden`}
+      >
+        {children}
       </body>
     </html>
   );

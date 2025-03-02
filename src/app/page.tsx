@@ -7,14 +7,15 @@ import TabSection from "@/components/Header/TabSection";
 
 export default function Home() {
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen overflow-hidden">
       {/* Header */}
       <Header />
 
       {/* Main Layout */}
-      <div className="flex flex-1">
+      <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
         <Sidebar />
+
         {/* Main Content Area */}
         <div className="flex flex-col flex-1">
           {/* Tab Section Below Header */}

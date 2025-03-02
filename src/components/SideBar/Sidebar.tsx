@@ -7,12 +7,19 @@ import {
   VscExtensions,
   VscAccount,
   VscSettings,
-  VscChevronRight,
-  VscChevronDown,
+  VscEllipsis,
   VscGithub,
   VscBookmark,
+  VscFile,
+  VscFolder,
+  VscFolderOpened,
 } from "react-icons/vsc";
-import { FaDocker, FaDatabase } from "react-icons/fa";
+import {
+  FaDocker,
+  FaDatabase,
+  FaChevronRight,
+  FaChevronDown,
+} from "react-icons/fa";
 import { SiKubernetes } from "react-icons/si";
 
 export default function Sidebar() {
@@ -22,13 +29,16 @@ export default function Sidebar() {
   );
 
   const toggleFolder = (folder: string) => {
-    setOpenFolders((prev) => ({ ...prev, [folder]: !prev[folder] }));
+    setOpenFolders((prev) => ({
+      ...prev,
+      [folder]: !prev[folder],
+    }));
   };
 
   return (
     <div className="flex h-full">
       {/* Sidebar */}
-      <div className="w-16 bg-neutral-900 text-white flex flex-col items-center py-4 space-y-6 justify-between">
+      <div className="w-16 bg-neutral-800 text-white flex flex-col items-center py-4 space-y-6 justify-between">
         <div className="flex flex-col space-y-6">
           <VscFiles
             className="text-xl hover:text-blue-400 cursor-pointer"
@@ -49,41 +59,81 @@ export default function Sidebar() {
         </div>
       </div>
 
-      {/* File System (Expands when clicking the Files icon) */}
+      {/* File Explorer */}
       {showFiles && (
-        <div className="w-64 bg-neutral-800 text-white p-3 flex flex-col">
-          <h2 className="text-lg font-semibold mb-3">File Explorer</h2>
-          <div className="space-y-2">
-            {/* Dummy Folders and Files */}
-            <div>
-              <div
-                className="flex items-center cursor-pointer hover:bg-neutral-700 px-2 py-1 rounded-md"
-                onClick={() => toggleFolder("src")}
-              >
-                {openFolders["src"] ? <VscChevronDown /> : <VscChevronRight />}
-                <span className="ml-2">src</span>
-              </div>
-              {openFolders["src"] && (
-                <div className="ml-5 space-y-1">
-                  <div className="cursor-pointer hover:bg-neutral-700 px-2 py-1 rounded-md">
-                    components/
-                  </div>
-                  <div className="cursor-pointer hover:bg-neutral-700 px-2 py-1 rounded-md">
-                    pages/
-                  </div>
-                  <div className="cursor-pointer hover:bg-neutral-700 px-2 py-1 rounded-md">
-                    utils/
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className="cursor-pointer hover:bg-neutral-700 px-2 py-1 rounded-md">
-              package.json
-            </div>
-            <div className="cursor-pointer hover:bg-neutral-700 px-2 py-1 rounded-md">
-              README.md
-            </div>
+        <div className="w-64 bg-neutral-950 text-white flex flex-col">
+          <div className="flex items-center justify-between px-3 pt-3 mb-3">
+            <h2 className="text-sm">Explorer</h2>
+            <VscEllipsis
+              className="text-gray-400 text-lg cursor-pointer hover:text-gray-500"
+              title="More Options"
+            />
           </div>
+
+          {/* Root Folder */}
+          <div
+            className="flex items-center bg-neutral-900 w-full py-1 px-3 cursor-pointer"
+            onClick={() => toggleFolder("root")}
+          >
+            {openFolders["root"] ? (
+              <FaChevronDown className="text-gray-400 text-sm cursor-pointer hover:text-gray-500" />
+            ) : (
+              <FaChevronRight className="text-gray-400 text-sm cursor-pointer hover:text-gray-500" />
+            )}z
+         
+            <h2 className="text-sm ml-2">Rifki_ND</h2>
+          </div>
+
+          {/* Contents inside root */}
+          {openFolders["root"] && (
+            <div className="space-y-2 px-3 pb-3">
+              {/* SRC Folder */}
+              <div>
+                <div
+                  className="flex items-center cursor-pointer hover:bg-neutral-800 px-2 py-1 rounded"
+                  onClick={() => toggleFolder("src")}
+                >
+                  {openFolders["src"] ? (
+                    <FaChevronDown className="text-gray-400 text-sm cursor-pointer hover:text-gray-500" />
+                  ) : (
+                    <FaChevronRight className="text-gray-400 text-sm cursor-pointer hover:text-gray-500" />
+                  )}
+                  {openFolders["src"] ? (
+                    <VscFolderOpened className="ml-2 text-yellow-500" />
+                  ) : (
+                    <VscFolder className="ml-2 text-yellow-500" />
+                  )}
+                  <span className="ml-2">src</span>
+                </div>
+
+                {/* Inside SRC */}
+                {openFolders["src"] && (
+                  <div className="ml-5 space-y-1">
+                    {["components", "pages", "utils"].map((folder) => (
+                      <div
+                        key={folder}
+                        className="flex items-center cursor-pointer hover:bg-neutral-800 px-2 py-1 rounded"
+                      >
+                        <VscFolder className="text-yellow-500" />
+                        <span className="ml-2">{folder}/</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Files in root */}
+              {["package.json", "README.md"].map((file) => (
+                <div
+                  key={file}
+                  className="flex items-center cursor-pointer hover:bg-neutral-800 px-2 py-1 rounded"
+                >
+                  <VscFile className="text-gray-400" />
+                  <span className="ml-2">{file}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>
