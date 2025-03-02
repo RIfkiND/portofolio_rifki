@@ -62,7 +62,7 @@ export default function Sidebar() {
       {/* File Explorer */}
       {showFiles && (
         <div className="w-64 bg-neutral-950 text-white flex flex-col">
-          <div className="flex items-center justify-between px-3 pt-3 mb-3">
+          <div className="flex items-center justify-between px-3 pt-3 mb-1">
             <h2 className="text-sm">Explorer</h2>
             <VscEllipsis
               className="text-gray-400 text-lg cursor-pointer hover:text-gray-500"

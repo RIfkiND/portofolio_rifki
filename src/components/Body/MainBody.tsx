@@ -2,7 +2,7 @@ import GradientText from "@/components/Bits/GradientText";
 import DecryptedText from "@/components/Bits/DecryptedText";
 import { usePathname } from "next/navigation";
 import TechStack from "../Table/TechStack";
-
+import Line from "../ui/line";
 export function MainBody() {
   const pathname = usePathname();
   const fileMap: Record<string, string> = {
@@ -16,18 +16,12 @@ export function MainBody() {
   return (
     <div className="flex-1 flex flex-col items-center justify-center relative">
       {/* Sticky Header */}
-      <div className="sticky top-0 left-0 w-full bg-neutral-900 text-gray-300 text-sm px-4 pb-1 flex items-center">
+      <div className="sticky top- left-0 w-full bg-neutral-900 text-gray-300 text-sm px-4 py-2 flex items-center">
         <span className="font-mono">src &gt; {fileName}</span>
       </div>
 
       {/* VS Code-like Line Numbers */}
-      <div className="absolute left-0 top-0 h-full py-4 px-3 text-gray-500 text-sm font-mono text-right leading-relaxed pt-9">
-        {Array.from({ length: 60 }, (_, i) => (
-          <div key={i} className="w-6">
-            {i + 1}
-          </div>
-        ))}
-      </div>
+      <Line line={29} />
 
       {/* Centered Content */}
       <div className="flex justify-center items-start h-screen pt-20">
