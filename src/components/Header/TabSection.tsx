@@ -25,16 +25,16 @@ export default function TabSection() {
   ];
 
   return (
-    <div className="flex items-center justify-between bg-neutral-900 text-white p-2 border-b border-neutral-800">
+    <div className="flex items-center justify-between bg-neutral-900 text-white  border-neutral-800">
       {/* Tabs */}
       <div className="flex">
         {tabs.map(({ icon, name }) => (
           <div
             key={name}
             onClick={() => setActiveTab(name)}
-            className={`group flex items-center px-3 py-1 cursor-pointer transition duration-200 ${
+            className={`group flex items-center px-3 py-2 cursor-pointer transition duration-200 ${
               activeTab === name
-                ? "bg-neutral-800"
+                ? "bg-neutral-950"
                 : "bg-neutral-900 hover:bg-neutral-800"
             }`}
           >
