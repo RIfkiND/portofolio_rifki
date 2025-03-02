@@ -76,15 +76,13 @@ export default function Sidebar() {
             onClick={() => toggleFolder("root")}
           >
             {openFolders["root"] ? (
-              <FaChevronDown className="text-gray-400 text-sm cursor-pointer hover:text-gray-500" />
+              <FaChevronDown className="text-gray-400 text-sm" />
             ) : (
-              <FaChevronRight className="text-gray-400 text-sm cursor-pointer hover:text-gray-500" />
-            )}z
-         
+              <FaChevronRight className="text-gray-400 text-sm" />
+            )}
             <h2 className="text-sm ml-2">Rifki_ND</h2>
           </div>
 
-          {/* Contents inside root */}
           {openFolders["root"] && (
             <div className="space-y-2 px-3 pb-3">
               {/* SRC Folder */}
@@ -94,9 +92,9 @@ export default function Sidebar() {
                   onClick={() => toggleFolder("src")}
                 >
                   {openFolders["src"] ? (
-                    <FaChevronDown className="text-gray-400 text-sm cursor-pointer hover:text-gray-500" />
+                    <FaChevronDown className="text-gray-400 text-sm" />
                   ) : (
-                    <FaChevronRight className="text-gray-400 text-sm cursor-pointer hover:text-gray-500" />
+                    <FaChevronRight className="text-gray-400 text-sm" />
                   )}
                   {openFolders["src"] ? (
                     <VscFolderOpened className="ml-2 text-yellow-500" />
@@ -105,8 +103,6 @@ export default function Sidebar() {
                   )}
                   <span className="ml-2">src</span>
                 </div>
-
-                {/* Inside SRC */}
                 {openFolders["src"] && (
                   <div className="ml-5 space-y-1">
                     {["components", "pages", "utils"].map((folder) => (
@@ -124,6 +120,33 @@ export default function Sidebar() {
 
               {/* Files in root */}
               {["package.json", "README.md"].map((file) => (
+                <div
+                  key={file}
+                  className="flex items-center cursor-pointer hover:bg-neutral-800 px-2 py-1 rounded"
+                >
+                  <VscFile className="text-gray-400" />
+                  <span className="ml-2">{file}</span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Timeline Folder */}
+          <div
+            className="flex items-center bg-neutral-900 w-full py-1 px-3 cursor-pointer"
+            onClick={() => toggleFolder("timeline")}
+          >
+            {openFolders["timeline"] ? (
+              <FaChevronDown className="text-gray-400 text-sm" />
+            ) : (
+              <FaChevronRight className="text-gray-400 text-sm" />
+            )}
+            <h2 className="text-sm ml-2">timeline</h2>
+          </div>
+
+          {openFolders["timeline"] && (
+            <div className="space-y-2 px-3 pb-3 ml-4">
+              {["events.json", "history.md"].map((file) => (
                 <div
                   key={file}
                   className="flex items-center cursor-pointer hover:bg-neutral-800 px-2 py-1 rounded"
