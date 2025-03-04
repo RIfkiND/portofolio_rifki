@@ -2,10 +2,10 @@
 import Sidebar from "@/components/SideBar/Sidebar";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
-import { SkillBody } from "@/components/Body/SkillBody";
 import TabSection from "@/components/Header/TabSection";
+import NotFound from "@/components/Body/NotFound";
 
-export default function Skill() {
+export default function NotFoundPage() {
   return (
     <div className="flex flex-col h-screen overflow-hidden">
       {/* Header */}
@@ -21,10 +21,8 @@ export default function Skill() {
           {/* Tab Section Below Header */}
           <TabSection />
 
-          {/* Main Content */}
-          <div className="flex-1 overflow-auto bg-neutral-900">
-            <SkillBody />
-          </div>
+          {/* 404 Content */}
+          <NotFound />
         </div>
       </div>
 

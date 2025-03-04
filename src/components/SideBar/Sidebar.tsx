@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   VscFiles,
   VscSearch,
@@ -11,22 +12,24 @@ import {
   VscGithub,
   VscBookmark,
   VscFile,
-  VscFolder,
-  VscFolderOpened,
 } from "react-icons/vsc";
 import {
   FaDocker,
   FaDatabase,
   FaChevronRight,
   FaChevronDown,
+  FaExclamationCircle,
 } from "react-icons/fa";
-import { SiKubernetes } from "react-icons/si";
+import { SiKubernetes, SiGo, SiTypescript, SiPython } from "react-icons/si";
+import { usePathname } from "next/navigation";
 
 export default function Sidebar() {
   const [showFiles, setShowFiles] = useState(false);
   const [openFolders, setOpenFolders] = useState<{ [key: string]: boolean }>(
     {}
   );
+  const route = usePathname();
+  const router = useRouter();
 
   const toggleFolder = (folder: string) => {
     setOpenFolders((prev) => ({
@@ -34,6 +37,29 @@ export default function Sidebar() {
       [folder]: !prev[folder],
     }));
   };
+
+  const files = [
+    {
+      name: "skill.go",
+      icon: <SiGo className="text-blue-400" />,
+      route: "/skill",
+    },
+    {
+      name: "Experience.py",
+      icon: <SiPython className="text-yellow-400" />,
+      route: "/experience",
+    },
+    {
+      name: "Project.ts",
+      icon: <SiTypescript className="text-blue-500" />,
+      route: "/project",
+    },
+    {
+      name: "Rifki.md",
+      icon: <FaExclamationCircle className="text-blue-400" />,
+      route: "/",
+    },
+  ];
 
   return (
     <div className="flex h-full">
@@ -61,102 +87,77 @@ export default function Sidebar() {
 
       {/* File Explorer */}
       {showFiles && (
-        <div className="w-64 bg-neutral-950 text-white flex flex-col">
-          <div className="flex items-center justify-between px-3 pt-3 mb-1">
-            <h2 className="text-sm">Explorer</h2>
-            <VscEllipsis
-              className="text-gray-400 text-lg cursor-pointer hover:text-gray-500"
-              title="More Options"
-            />
-          </div>
+        <div className="w-64 bg-neutral-950 text-white flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between px-3 pt-3 mb-1">
+              <h2 className="text-sm">Explorer</h2>
+              <VscEllipsis
+                className="text-gray-400 text-lg cursor-pointer hover:text-gray-500"
+                title="More Options"
+              />
+            </div>
 
-          {/* Root Folder */}
-          <div
-            className="flex items-center bg-neutral-900 w-full py-1 px-3 cursor-pointer"
-            onClick={() => toggleFolder("root")}
-          >
-            {openFolders["root"] ? (
-              <FaChevronDown className="text-gray-400 text-sm" />
-            ) : (
-              <FaChevronRight className="text-gray-400 text-sm" />
-            )}
-            <h2 className="text-sm ml-2">Rifki_ND</h2>
-          </div>
+            {/* Root Folder */}
+            <div
+              className="flex items-center bg-neutral-900 w-full py-1 px-3 cursor-pointer"
+              onClick={() => toggleFolder("root")}
+            >
+              {openFolders["root"] ? (
+                <FaChevronDown className="text-gray-400 text-sm" />
+              ) : (
+                <FaChevronRight className="text-gray-400 text-sm" />
+              )}
+              <h2 className="text-sm ml-2">Rifki_ND</h2>
+            </div>
 
-          {openFolders["root"] && (
-            <div className="space-y-2 px-3 pb-3">
-              {/* SRC Folder */}
-              <div>
-                <div
-                  className="flex items-center cursor-pointer hover:bg-neutral-800 px-2 py-1 rounded"
-                  onClick={() => toggleFolder("src")}
-                >
-                  {openFolders["src"] ? (
-                    <FaChevronDown className="text-gray-400 text-sm" />
-                  ) : (
-                    <FaChevronRight className="text-gray-400 text-sm" />
-                  )}
-                  {openFolders["src"] ? (
-                    <VscFolderOpened className="ml-2 text-yellow-500" />
-                  ) : (
-                    <VscFolder className="ml-2 text-yellow-500" />
-                  )}
-                  <span className="ml-2">src</span>
-                </div>
-                {openFolders["src"] && (
-                  <div className="ml-5 space-y-1">
-                    {["components", "pages", "utils"].map((folder) => (
-                      <div
-                        key={folder}
-                        className="flex items-center cursor-pointer hover:bg-neutral-800 px-2 py-1 rounded"
-                      >
-                        <VscFolder className="text-yellow-500" />
-                        <span className="ml-2">{folder}/</span>
-                      </div>
-                    ))}
+            {openFolders["root"] && (
+              <div className="space-y-2 py-2">
+                {files.map((file) => (
+                  <div
+                    key={file.name}
+                    className={`flex items-center cursor-pointer px-2 py-1 rounded ${
+                      route === file.route
+                        ? "bg-neutral-700"
+                        : "hover:bg-neutral-800"
+                    }`}
+                    onClick={() => router.push(file.route)}
+                  >
+                    {file.icon}
+                    <span className="ml-2">{file.name}</span>
                   </div>
-                )}
+                ))}
               </div>
-
-              {/* Files in root */}
-              {["package.json", "README.md"].map((file) => (
-                <div
-                  key={file}
-                  className="flex items-center cursor-pointer hover:bg-neutral-800 px-2 py-1 rounded"
-                >
-                  <VscFile className="text-gray-400" />
-                  <span className="ml-2">{file}</span>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Timeline Folder */}
-          <div
-            className="flex items-center bg-neutral-900 w-full py-1 px-3 cursor-pointer"
-            onClick={() => toggleFolder("timeline")}
-          >
-            {openFolders["timeline"] ? (
-              <FaChevronDown className="text-gray-400 text-sm" />
-            ) : (
-              <FaChevronRight className="text-gray-400 text-sm" />
             )}
-            <h2 className="text-sm ml-2">timeline</h2>
           </div>
 
-          {openFolders["timeline"] && (
-            <div className="space-y-2 px-3 pb-3 ml-4">
-              {["events.json", "history.md"].map((file) => (
-                <div
-                  key={file}
-                  className="flex items-center cursor-pointer hover:bg-neutral-800 px-2 py-1 rounded"
-                >
-                  <VscFile className="text-gray-400" />
-                  <span className="ml-2">{file}</span>
-                </div>
-              ))}
+          {/* Timeline Folder (Moved to the Bottom) */}
+          <div>
+            <div
+              className="flex items-center bg-neutral-900 w-full py-1 px-3 cursor-pointer"
+              onClick={() => toggleFolder("timeline")}
+            >
+              {openFolders["timeline"] ? (
+                <FaChevronDown className="text-gray-400 text-sm" />
+              ) : (
+                <FaChevronRight className="text-gray-400 text-sm" />
+              )}
+              <h2 className="text-sm ml-2">timeline</h2>
             </div>
-          )}
+
+            {openFolders["timeline"] && (
+              <div className="space-y-2 px-3 pb-3 ml-4">
+                {["events.json", "history.md"].map((file) => (
+                  <div
+                    key={file}
+                    className="flex items-center cursor-pointer hover:bg-neutral-800 px-2 py-1 rounded"
+                  >
+                    <VscFile className="text-gray-400" />
+                    <span className="ml-2">{file}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

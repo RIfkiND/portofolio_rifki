@@ -54,7 +54,7 @@ export default function TabSection() {
       </div>
 
       {/* Actions */}
-      <div className="flex items-center space-x-3">
+      <div className="flex items-center space-x-3 pr-4">
         <VscRunAll
           className="text-green-400 text-lg cursor-pointer hover:text-green-500"
           title="Run Code"

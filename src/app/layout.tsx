@@ -26,7 +26,16 @@ export default function RootLayout({
           "antialiased h-full overflow-hidden"
         )}
       >
-        {children}
+        {/* Desktop View */}
+        <div className="hidden md:block h-full">{children}</div>
+
+        {/* Mobile View */}
+        <div className="flex items-center justify-center h-full md:hidden">
+          <p className="text-xl font-semibold text-center">
+            📱 Sorry! The mobile version is coming soon... 🚀
+            &apos; Stay Tune &apos;
+          </p>
+        </div>
       </body>
     </html>
   );
