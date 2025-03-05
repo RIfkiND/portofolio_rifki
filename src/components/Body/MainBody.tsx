@@ -107,7 +107,7 @@ export function MainBody() {
               <FaEnvelope /> Email
             </a>
             <a
-              href="https://linkedin.com/in/rifkinauvaldzaki"
+              href="www.linkedin.com/in/rifki-nd"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition text-lg flex items-center gap-2"
@@ -115,7 +115,7 @@ export function MainBody() {
               <FaLinkedin /> LinkedIn
             </a>
             <a
-              href="https://github.com/rifkinauvaldzaki"
+              href="https://github.com/RIfkiND"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition text-lg flex items-center gap-2"
