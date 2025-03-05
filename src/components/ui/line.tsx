@@ -4,9 +4,9 @@ interface LineProps {
 
 export default function Line({ line }: LineProps) {
   return (
-    <div className="absolute left-0 top-0 h-full py-4 px-3 text-gray-500 text-sm font-mono text-right leading-relaxed pt-9">
+    <div className="px-3 text-gray-500 text-lg font-mono text-right leading-[1.5] flex flex-col">
       {Array.from({ length: line }, (_, i) => (
-        <div key={i} className="w-6">
+        <div key={i} className="w-8 h-[1.5rem] flex items-center justify-end">
           {i + 1}
         </div>
       ))}

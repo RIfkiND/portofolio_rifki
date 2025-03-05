@@ -65,14 +65,14 @@ func main() {
       </div>
 
       {/* Layout */}
-      <div className="flex">
+      <div className="flex items-start">
         {/* VS Code-like Line Numbers */}
-        <div className="w-10 flex-none">
+        <div className="w-12">
           <Line line={skillCode.split("\n").length} />
         </div>
 
         {/* Code Block */}
-        <div className="flex-1 p-4">
+        <div className="flex-1">
           <SyntaxHighlighter
             language="go"
             style={atomDark}
@@ -81,8 +81,10 @@ func main() {
             customStyle={{
               background: "transparent",
               padding: "0px",
+              paddingLeft:"30px",
               margin: "0px",
-              fontSize: "0.9rem",
+              fontSize: "1rem",
+              lineHeight: "1.5rem",
             }}
           >
             {skillCode}

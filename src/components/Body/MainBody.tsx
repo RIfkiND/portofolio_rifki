@@ -4,7 +4,7 @@ import DecryptedText from "@/components/Bits/DecryptedText";
 import { usePathname, useRouter } from "next/navigation";
 import TechStack from "@/components/Table/TechStack";
 import ShinyText from "@/components/Bits/ShinyText";
-import Line from "../ui/line";
+
 
 export function MainBody() {
     const router = useRouter();
@@ -25,8 +25,6 @@ export function MainBody() {
         <span className="font-mono">src &gt; {fileName}</span>
       </div>
 
-      {/* VS Code-like Line Numbers */}
-      <Line line={35} />
 
       {/* Centered Content */}
       <div className="flex justify-center items-start h-screen pt-20">
