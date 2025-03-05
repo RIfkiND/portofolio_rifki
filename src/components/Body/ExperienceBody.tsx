@@ -26,7 +26,7 @@ me = Experience(
         "Freelance Backend Developer (June 2024 - Now)",
         "Backend Developer Intern at BBPPMVP BMTI Bandung (Sept 2024 - Jan 2025)",
         "Backend Developer Intern at PT Minilemon Nusantara (Nov 2024 - Jan 2025)",
-        "Backend Developer Lead at PT Minilemon Nusantara (Feb 2025 - Now)"
+        "Backend Developer Lead (partnership) at PT Minilemon Nusantara (Feb 2025 - Now)"
     ]
 )
 
