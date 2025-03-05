@@ -21,7 +21,7 @@ export function MainBody() {
   return (
     <div className="flex-1 flex flex-col items-center justify-center relative">
       {/* Sticky Header */}
-      <div className="sticky top-0 left-0 w-full bg-neutral-900 text-gray-300 text-sm px-4 py-2 flex items-center">
+      <div className="sticky top-0 left-0 w-full bg-neutral-900 text-gray-300 text-sm px-4 py-1 flex items-center">
         <span className="font-mono">src &gt; {fileName}</span>
       </div>
 

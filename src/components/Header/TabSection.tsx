@@ -1,7 +1,4 @@
 "use client";
-import { useState } from "react";
-import { FaExclamationCircle } from "react-icons/fa";
-import { SiTypescript } from "react-icons/si";
 import {
   VscClose,
   VscRunAll,
@@ -9,46 +6,43 @@ import {
   VscSplitHorizontal,
   VscEllipsis,
 } from "react-icons/vsc";
+import { useTabStore } from "@/components/store/useTabStore";
+import { useRouter } from "next/navigation";
 
 export default function TabSection() {
-  const [activeTab, setActiveTab] = useState("Rifki.md");
+  const { openTabs, selectedFile, setSelectedFile, closeTab } = useTabStore();
+  const router = useRouter();
 
-  const tabs = [
-    {
-      icon: <FaExclamationCircle className="text-blue-400 text-xl" />,
-      name: "Rifki.md",
-    },
-    {
-      icon: <SiTypescript className="text-blue-500 text-xl" />,
-      name: "dashboard.ts",
-    },
-  ];
+  const handleTabClick = (file: { name: string; route?: string }) => {
+    setSelectedFile(file);
+    if (file.route) {
+      router.push(file.route);
+    }
+  };
 
   return (
-    <div className="flex items-center justify-between bg-neutral-900 text-white  border-neutral-800">
+    <div className="flex items-center justify-between bg-neutral-900 text-white border-neutral-800">
       {/* Tabs */}
       <div className="flex">
-        {tabs.map(({ icon, name }) => (
+        {openTabs.map(({ icon, name, route }) => (
           <div
             key={name}
-            onClick={() => setActiveTab(name)}
+            onClick={() => handleTabClick({ name, route })}
             className={`group flex items-center px-3 py-2 cursor-pointer transition duration-200 ${
-              activeTab === name
+              selectedFile?.name === name
                 ? "bg-neutral-950"
                 : "bg-neutral-900 hover:bg-neutral-800"
             }`}
           >
             {icon}
             <span className="font-semibold text-sm ml-2">{name}</span>
-            <div
-              className={`ml-2 transition duration-150 ${
-                activeTab === name
-                  ? "opacity-100"
-                  : "opacity-0 group-hover:opacity-100"
-              }`}
-            >
-              <VscClose className="text-gray-400 text-sm hover:text-red-500 cursor-pointer" />
-            </div>
+            <VscClose
+              onClick={(e) => {
+                e.stopPropagation();
+                closeTab(name);
+              }}
+              className="ml-2 text-gray-400 text-sm hover:text-red-500 cursor-pointer"
+            />
           </div>
         ))}
       </div>

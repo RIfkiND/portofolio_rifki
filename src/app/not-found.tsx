@@ -6,6 +6,7 @@ import TabSection from "@/components/Header/TabSection";
 import NotFound from "@/components/Body/NotFound";
 
 export default function NotFoundPage() {
+    
   return (
     <div className="flex flex-col h-screen overflow-hidden">
       {/* Header */}

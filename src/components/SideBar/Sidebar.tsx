@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { JSX, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   VscFiles,
@@ -22,8 +22,15 @@ import {
 } from "react-icons/fa";
 import { SiKubernetes, SiGo, SiTypescript, SiPython } from "react-icons/si";
 import { usePathname } from "next/navigation";
-
+import { useTabStore } from "@/components/store/useTabStore";
 export default function Sidebar() {
+  interface FileTab {
+    name: string;
+    icon?: JSX.Element;
+    route: string;
+  }
+
+  const { openTabs, setOpenTabs, setSelectedFile } = useTabStore();
   const [showFiles, setShowFiles] = useState(false);
   const [openFolders, setOpenFolders] = useState<{ [key: string]: boolean }>(
     {}
@@ -37,8 +44,15 @@ export default function Sidebar() {
       [folder]: !prev[folder],
     }));
   };
+   const handleOpenFile = (file:FileTab) => {
+     if (!openTabs.some((tab) => tab.name === file.name)) {
+       setOpenTabs([...openTabs, file]);
+     }
+     setSelectedFile(file);
+     router.push(file.route);
+   };
 
-  const files = [
+  const files = [ 
     {
       name: "skill.go",
       icon: <SiGo className="text-blue-400" />,
@@ -120,7 +134,7 @@ export default function Sidebar() {
                         ? "bg-neutral-700"
                         : "hover:bg-neutral-800"
                     }`}
-                    onClick={() => router.push(file.route)}
+                    onClick={() => handleOpenFile(file)}
                   >
                     {file.icon}
                     <span className="ml-2">{file.name}</span>
