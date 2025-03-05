@@ -1,21 +1,27 @@
-import { FaExclamationTriangle, FaArrowRight } from "react-icons/fa";
+import {
+  FaExclamationTriangle,
+  FaArrowRight,
+  FaEnvelope,
+  FaLinkedin,
+  FaGithub,
+  FaDownload,
+} from "react-icons/fa";
 import GradientText from "@/components/Bits/GradientText";
-import DecryptedText from "@/components/Bits/DecryptedText";
 import { usePathname, useRouter } from "next/navigation";
 import TechStack from "@/components/Table/TechStack";
 import ShinyText from "@/components/Bits/ShinyText";
 
-
 export function MainBody() {
-    const router = useRouter();
-
+  const router = useRouter();
   const pathname = usePathname();
+
   const fileMap: Record<string, string> = {
     "/": "rifki.md",
     "/experience": "experience.go",
     "/projects": "projects.ts",
     "/contact": "contact.json",
   };
+
   const fileName = fileMap[pathname] || "unknown.file";
 
   return (
@@ -25,14 +31,13 @@ export function MainBody() {
         <span className="font-mono">src &gt; {fileName}</span>
       </div>
 
-
       {/* Centered Content */}
       <div className="flex justify-center items-start h-screen pt-20">
         <div className="max-w-5xl w-full flex flex-col items-center text-center">
           {/* Gradient Name */}
           <GradientText
             colors={["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"]}
-            animationSpeed={2}
+            animationSpeed={20}
             showBorder={false}
             className="text-4xl sm:text-5xl font-extrabold"
           >
@@ -40,16 +45,9 @@ export function MainBody() {
           </GradientText>
 
           {/* Animated Text */}
-          <DecryptedText
-            text="Backend Developer | DevOps Enthusiast"
-            speed={20}
-            maxIterations={15}
-            characters="ABCD1234!?$%@"
-            className="text-lg sm:text-xl mt-4 font-medium text-white hover:text-white transition"
-            encryptedClassName="encrypted text-white transition"
-          />
-
-          {/* Warning Section */}
+          <p className="text-lg sm:text-xl mt-4 font-medium text-white hover:text-white transition">
+            Backend Developer | DevOps Enthusiast
+          </p>
 
           {/* Experience Description */}
           <p className="text-gray-400 text-md sm:text-lg mt-4">
@@ -70,18 +68,28 @@ export function MainBody() {
           {/* Skills Section */}
           <TechStack />
 
-          {/* Learn More About My Skill */}
+          {/* Learn More About My Skills */}
           <div
             className="flex items-center gap-2 mt-4 text-gray-400 hover:text-white transition cursor-pointer"
             onClick={() => router.push("/skill")}
           >
             <ShinyText
-              text="Learn More About My skill"
+              text="Learn More About My Skill"
               disabled={false}
               speed={3}
             />
             <FaArrowRight />
           </div>
+
+          {/* Download Resume Button */}
+          <a
+            href="/cv/CV_Rifki.pdf"
+            download
+            className="mt-4 inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition"
+          >
+            <FaDownload />
+            Download My Resume
+          </a>
 
           {/* Quote About Learning */}
           <p className="text-gray-400 text-md sm:text-lg mt-6 italic">
@@ -90,6 +98,33 @@ export function MainBody() {
             a student.&quot; ✨
           </p>
 
+          {/* Contact Section */}
+          <div className="flex items-center gap-6 mt-6">
+            <a
+              href="mailto:rifkinauvaldzaki08@gmail.com"
+              className="text-gray-400 hover:text-white transition text-lg flex items-center gap-2"
+            >
+              <FaEnvelope /> Email
+            </a>
+            <a
+              href="https://linkedin.com/in/rifkinauvaldzaki"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition text-lg flex items-center gap-2"
+            >
+              <FaLinkedin /> LinkedIn
+            </a>
+            <a
+              href="https://github.com/rifkinauvaldzaki"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition text-lg flex items-center gap-2"
+            >
+              <FaGithub /> GitHub
+            </a>
+          </div>
+
+          {/* Development Warning */}
           <div className="flex items-center gap-2 bg-yellow-100 text-yellow-800 p-3 rounded-lg mt-6">
             <FaExclamationTriangle className="text-yellow-600" />
             <p className="text-md sm:text-lg font-medium">
