@@ -8,10 +8,16 @@ import {
 } from "react-icons/vsc";
 import { useTabStore } from "@/components/store/useTabStore";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function TabSection() {
   const { openTabs, selectedFile, setSelectedFile, closeTab } = useTabStore();
   const router = useRouter();
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   const handleTabClick = (file: { name: string; route?: string }) => {
     setSelectedFile(file);
@@ -19,6 +25,8 @@ export default function TabSection() {
       router.push(file.route);
     }
   };
+
+  if (!hydrated) return null; // Prevent SSR/CSR mismatch
 
   return (
     <div className="flex items-center justify-between bg-neutral-900 text-white border-neutral-800">

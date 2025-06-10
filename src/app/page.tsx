@@ -1,15 +1,11 @@
 "use client";
 import Sidebar from "@/components/SideBar/Sidebar";
-import Header from "@/components/Header/Header";
-import Footer from "@/components/Footer/Footer";
 import { MainBody } from "@/components/Body/MainBody";
 import TabSection from "@/components/Header/TabSection";
 
 export default function Home() {
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      {/* Header */}
-      <Header />
 
       {/* Main Layout */}
       <div className="flex flex-1 overflow-hidden">
@@ -28,8 +24,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
 
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -23,17 +25,25 @@ export default function RootLayout({
       <body
         className={cn(
           jetBrainsMono.className,
-          "antialiased h-full overflow-hidden"
+          "antialiased h-full bg-neutral-900 overflow-hidden"
         )}
       >
         {/* Desktop View */}
-        <div className="hidden md:block h-full">{children}</div>
+        <div className="hidden md:flex min-h-screen w-full items-center justify-center">
+          <div className="flex flex-col w-[90vw] max-w-[1600px] h-[90vh] max-h-screen bg-neutral-950 rounded-2xl shadow-2xl border border-neutral-800 overflow-hidden">
+            <Header />
+            <main className="flex-1 flex flex-col overflow-auto">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </div>
 
         {/* Mobile View */}
         <div className="flex items-center justify-center h-full md:hidden">
           <p className="text-xl font-semibold text-center">
-            📱 Sorry! The mobile version is coming soon... 🚀
-            &apos; Stay Tune &apos;
+            📱 Sorry! The mobile version is coming soon... 🚀 &apos; Stay Tune
+            &apos;
           </p>
         </div>
       </body>

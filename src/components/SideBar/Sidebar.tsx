@@ -1,5 +1,5 @@
 "use client";
-import { JSX, useState } from "react";
+import { JSX, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
   VscFiles,
@@ -23,6 +23,7 @@ import {
 import { SiKubernetes, SiGo, SiTypescript, SiPython } from "react-icons/si";
 import { usePathname } from "next/navigation";
 import { useTabStore } from "@/components/store/useTabStore";
+
 export default function Sidebar() {
   interface FileTab {
     name: string;
@@ -30,13 +31,42 @@ export default function Sidebar() {
     route: string;
   }
 
-  const { openTabs, setOpenTabs, setSelectedFile } = useTabStore();
-  const [showFiles, setShowFiles] = useState(false);
+  const {
+    openTabs,
+    setOpenTabs,
+    setSelectedFile,
+    isSidebarOpen,
+    setSidebarOpen,
+    toggleSidebar,
+  } = useTabStore();
   const [openFolders, setOpenFolders] = useState<{ [key: string]: boolean }>(
     {}
   );
   const route = usePathname();
   const router = useRouter();
+
+  // Sync sidebar, openTabs, and selectedFile state from localStorage after mount (avoids hydration error)
+  useEffect(() => {
+    // Sidebar open state
+    const storedSidebar = localStorage.getItem("isSidebarOpen");
+    if (storedSidebar !== null) setSidebarOpen(storedSidebar === "true");
+
+    // Open tabs
+    const storedTabs = localStorage.getItem("openTabs");
+    if (storedTabs) {
+      try {
+        setOpenTabs(JSON.parse(storedTabs));
+      } catch {}
+    }
+
+    // Selected file
+    const storedSelected = localStorage.getItem("selectedFile");
+    if (storedSelected) {
+      try {
+        setSelectedFile(JSON.parse(storedSelected));
+      } catch {}
+    }
+  }, [setOpenTabs, setSelectedFile, setSidebarOpen]);
 
   const toggleFolder = (folder: string) => {
     setOpenFolders((prev) => ({
@@ -44,15 +74,15 @@ export default function Sidebar() {
       [folder]: !prev[folder],
     }));
   };
-   const handleOpenFile = (file:FileTab) => {
-     if (!openTabs.some((tab) => tab.name === file.name)) {
-       setOpenTabs([...openTabs, file]);
-     }
-     setSelectedFile(file);
-     router.push(file.route);
-   };
+  const handleOpenFile = (file: FileTab) => {
+    if (!openTabs.some((tab) => tab.name === file.name)) {
+      setOpenTabs([...openTabs, file]);
+    }
+    setSelectedFile(file);
+    router.push(file.route);
+  };
 
-  const files = [ 
+  const files = [
     {
       name: "skill.go",
       icon: <SiGo className="text-blue-400" />,
@@ -82,7 +112,7 @@ export default function Sidebar() {
         <div className="flex flex-col space-y-6">
           <VscFiles
             className="text-xl hover:text-blue-400 cursor-pointer"
-            onClick={() => setShowFiles(!showFiles)}
+            onClick={toggleSidebar}
           />
           <VscSearch className="text-xl hover:text-blue-400 cursor-pointer" />
           <VscSourceControl className="text-xl hover:text-blue-400 cursor-pointer" />
@@ -100,7 +130,7 @@ export default function Sidebar() {
       </div>
 
       {/* File Explorer */}
-      {showFiles && (
+      {isSidebarOpen && (
         <div className="w-64 bg-neutral-950 text-white flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between px-3 pt-3 mb-1">
