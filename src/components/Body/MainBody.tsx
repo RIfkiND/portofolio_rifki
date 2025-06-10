@@ -46,21 +46,21 @@ export function MainBody() {
 
           {/* Animated Text */}
           <p className="text-lg sm:text-xl mt-4 font-medium text-white hover:text-white transition">
-            Backend Developer | DevOps Enthusiast
+            Backend Developer  | Fullstack | DevOps Enthusiast | AI Enthusiast
           </p>
 
           {/* Experience Description */}
           <p className="text-gray-400 text-md sm:text-lg mt-4">
             With <strong>1 year of experience</strong> in{" "}
             <strong>backend development</strong>, I have built{" "}
-            <strong>scalable web applications</strong>. Currently focusing on
-            learning <strong>Backend and AI</strong>.
+            <strong>scalable and secure web applications</strong>. Currently focusing on
+            learning <strong>Devops and AI</strong>.
           </p>
 
           {/* Fun Fact */}
           <p className="text-gray-400 text-md sm:text-lg mt-6 italic">
             You might be wondering why a <strong>backend developer</strong> is
-            making a portfolio website? Well, I actually enjoy some frontend
+            making a portfolio website? Well, I also Fullstack but mainly i am more a backend focus, well enjoy some frontend
             work too...
             <strong> but I hate CSS! 😅</strong>
           </p>
