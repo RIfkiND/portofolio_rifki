@@ -1,6 +1,7 @@
 "use client";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { SiGo } from "react-icons/si";
 import Line from "../ui/line";
 
 export function SkillBody() {
@@ -8,87 +9,110 @@ export function SkillBody() {
 
 import (
     "fmt"
+    "time"
+    "strings"
 )
 
 // Developer represents my skill set
 type Developer struct {
-    Name   string
-    Skills map[string][]string
-    Focus  string
+    Name        string
+    Skills      map[string][]string
+    Focus       string
+    Experience  string
+    Passion     string
 }
 
 func main() {
     me := Developer{
         Name: "Rifki Nauval Dzaki",
         Skills: map[string][]string{
-            "Frontend Tech": {
-                 "HTML", "CSS", "Vue.js", "React", "Next.js", "Tailwind Css",
+            "🎨 Frontend Tech": {
+                "HTML5", "CSS3", "Vue.js", "React", "Next.js", "Tailwind CSS",
             },
-            "Backend Tech": {
-                "Nest.js", "Express.js", "Laravel", "Golang", "Node.js", "Bun", "Gin", "Python", "Django" , "Flask"
+            "⚡ Backend Tech": {
+                "Nest.js", "Express.js", "Laravel", "Golang", "Node.js", 
+                "Bun", "Gin", "Python", "Django", "Flask",
             },
-            "Databases": {
+            "🗄️ Databases": {
                 "PostgreSQL", "MySQL", "SQLite", "MongoDB",
             },
-            "DevOps": {
-                "Docker", "Kubernetes", "GitHub Actions", "Jenkins", "ArgoCD",
+            "🚀 DevOps & Cloud": {
+                "Docker", "Kubernetes", "GitHub Actions", "Jenkins", 
+                "ArgoCD", "AWS", "Microsoft Azure", "Heroku", "Digital Ocean",
             },
-            "Cloud Providers": {
-                "AWS", "Microsoft Azure", "Heroku", "Digital Ocean",
+            "💻 Operating Systems": {
+                "Linux (Ubuntu, CentOS)", "Windows",
             },
-            "Operating Systems": {
-                "Linux", "Windows",
-            },
-            "Other": {
-                "English TOEIC (800)",
+            "🎯 Other Skills": {
+                "Git & GitHub", "RESTful APIs", "Microservices",
+                "Problem Solving", "Team Collaboration",
             },
         },
-        Focus: "Backend & AI",
+        Experience: "1+ years in backend development",
+        Focus:      "Backend Development & AI/ML",
+        Passion:    "Building scalable solutions & continuous learning",
     }
 
-    fmt.Println("Hi, I’m", me.Name)
-    fmt.Println("My Skills:")
+    fmt.Println("🚀 Initializing Developer Profile...")
+    time.Sleep(1 * time.Second)
+    
+    fmt.Printf("👋 Hi, I'm %s\\n", me.Name)
+    fmt.Printf("💼 Experience: %s\\n", me.Experience)
+    fmt.Printf("🎯 Current Focus: %s\\n", me.Focus)
+    fmt.Printf("❤️ Passion: %s\\n\\n", me.Passion)
+    
+    fmt.Println("📚 My Technical Skills:")
+    fmt.Println("========================")
+    
     for category, skills := range me.Skills {
-        fmt.Println(category + ":")
+        fmt.Printf("\\n%s\\n", category)
+        fmt.Println(strings.Repeat("-", len(category)))
         for _, skill := range skills {
-            fmt.Println("  -", skill)
+            fmt.Printf("  ✓ %s\\n", skill)
         }
     }
-    fmt.Println("Currently focusing on:", me.Focus)
+    
+    fmt.Println("\\n🔥 Status: Ready to build amazing things!")
+    fmt.Println("📧 Let's collaborate: rifkinauvaldzaki08@gmail.com")
 }`;
 
+
   return (
-    <div className="flex-1 flex flex-col relative bg-neutral-900 text-gray-300 font-mono">
-      {/* Sticky Header */}
-      <div className="sticky top-0 left-0 w-full bg-neutral-900 px-4 py-2 flex items-center">
-        <span className="text-sm">src &gt; skill.go</span>
+    <div className="h-full flex flex-col relative bg-neutral-900 text-gray-300 font-mono overflow-hidden">
+      {/* Enhanced Header with Compile Button */}
+      <div className="sticky top-0 left-0 w-full bg-neutral-900 px-4 py-2 flex items-center  z-50">
+        <SiGo className="mr-2 text-blue-400 text-lg" />
+        <span className="text-sm ml-1">src &gt; skills.go</span>
+        <span className="ml-auto text-xs text-gray-500">Go • {skillCode.split("\n").length} lines</span>
       </div>
 
-      {/* Layout */}
-      <div className="flex items-start">
-        {/* VS Code-like Line Numbers */}
-        <div className="w-12">
-          <Line line={skillCode.split("\n").length} />
-        </div>
+      {/* Layout - Single column code view */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="flex items-start">
+          {/* VS Code-like Line Numbers */}
+          <div className="w-12 bg-neutral-900 sticky top-0 border-r border-neutral-800">
+            <Line line={skillCode.split("\n").length} />
+          </div>
 
-        {/* Code Block */}
-        <div className="flex-1">
-          <SyntaxHighlighter
-            language="go"
-            style={atomDark}
-            showLineNumbers={false}
-            wrapLines={true}
-            customStyle={{
-              background: "transparent",
-              padding: "0px",
-              paddingLeft:"30px",
-              margin: "0px",
-              fontSize: "1rem",
-              lineHeight: "1.5rem",
-            }}
-          >
-            {skillCode}
-          </SyntaxHighlighter>
+          {/* Code Block */}
+          <div className="flex-1 pb-96">
+            <SyntaxHighlighter
+              language="go"
+              style={atomDark}
+              showLineNumbers={false}
+              wrapLines={true}
+              customStyle={{
+                background: "transparent",
+                padding: "0px",
+                paddingLeft:"30px",
+                margin: "0px",
+                fontSize: "0.9rem",
+                lineHeight: "1.4rem",
+              }}
+            >
+              {skillCode}
+            </SyntaxHighlighter>
+          </div>
         </div>
       </div>
     </div>

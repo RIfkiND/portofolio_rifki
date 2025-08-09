@@ -23,6 +23,7 @@ import {
 import { SiKubernetes, SiGo, SiTypescript, SiPython } from "react-icons/si";
 import { usePathname } from "next/navigation";
 import { useTabStore } from "@/components/store/useTabStore";
+import { useTerminalStore } from "@/components/store/useTerminalStore";
 
 export default function Sidebar() {
   interface FileTab {
@@ -39,6 +40,7 @@ export default function Sidebar() {
     setSidebarOpen,
     toggleSidebar,
   } = useTabStore();
+  const { isOpen: isTerminalOpen } = useTerminalStore();
   const [openFolders, setOpenFolders] = useState<{ [key: string]: boolean }>(
     {}
   );
@@ -131,8 +133,13 @@ export default function Sidebar() {
 
       {/* File Explorer */}
       {isSidebarOpen && (
-        <div className="w-64 bg-neutral-950 text-white flex flex-col justify-between">
-          <div>
+        <div 
+          className="w-64 bg-neutral-950 text-white flex flex-col justify-between transition-all duration-300"
+          style={{
+            height: isTerminalOpen ? 'calc(100% - 280px)' : '100%'
+          }}
+        >
+          <div className="flex-1 overflow-y-auto">
             <div className="flex items-center justify-between px-3 pt-3 mb-1">
               <h2 className="text-sm">Explorer</h2>
               <VscEllipsis

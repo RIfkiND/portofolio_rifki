@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Header from "@/components/Header/Header";
-import Terminal from "@/components/Terminal/Terminal";
+import GlobalTerminal from "@/components/Terminal/GlobalTerminal";
 import Footer from "@/components/Footer/Footer";
 import { useTerminalStore } from "@/components/store/useTerminalStore";
 
@@ -10,13 +10,23 @@ export default function LayoutWithTerminal({
 }: {
   children: React.ReactNode;
 }) {
-  const isTerminalOpen = useTerminalStore((state) => state.isOpen);
-
+  const { isOpen: isTerminalOpen } = useTerminalStore();
+  
+  console.log("🏗️ LayoutWithTerminal rendering - GlobalTerminal should be included");
+  
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col h-full relative">
       <Header />
-      <main className="flex-1 flex flex-col">{children}</main>
-      {isTerminalOpen && <Terminal />}
+      <div 
+        className="flex-1 flex"
+        style={{
+          height: isTerminalOpen ? 'calc(100% - 280px)' : 'calc(100% - 0px)',
+          overflow: 'hidden'
+        }}
+      >
+        {children}
+      </div>
+      <GlobalTerminal />
       <Footer />
     </div>
   );

@@ -7,11 +7,13 @@ import {
   VscEllipsis,
 } from "react-icons/vsc";
 import { useTabStore } from "@/components/store/useTabStore";
+import { useTerminalStore } from "@/components/store/useTerminalStore";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function TabSection() {
   const { openTabs, selectedFile, setSelectedFile, closeTab } = useTabStore();
+  const { open: openTerminal } = useTerminalStore();
   const router = useRouter();
   const [hydrated, setHydrated] = useState(false);
 
@@ -24,6 +26,11 @@ export default function TabSection() {
     if (file.route) {
       router.push(file.route);
     }
+  };
+
+  const handleRunCode = () => {
+    openTerminal();
+    // The terminal will use the selectedFile from the store
   };
 
   if (!hydrated) return null; // Prevent SSR/CSR mismatch
@@ -60,6 +67,7 @@ export default function TabSection() {
         <VscRunAll
           className="text-green-400 text-lg cursor-pointer hover:text-green-500"
           title="Run Code"
+          onClick={handleRunCode}
         />
         <VscOpenPreview
           className="text-gray-400 text-lg cursor-pointer hover:text-gray-500"

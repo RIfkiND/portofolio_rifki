@@ -1,6 +1,8 @@
 "use client";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { SiPython } from "react-icons/si";
+import { VscCode } from "react-icons/vsc";
 import Line from "../ui/line";
 
 export function ExperienceBody() {
@@ -32,22 +34,29 @@ me = Experience(
 
 me.display_experience()`;
 
+  const lineCount = experienceCode.split("\n").length;
+
   return (
-    <div className="flex-1 flex flex-col relative bg-neutral-900 text-gray-300 font-mono">
+    <div className="h-full flex flex-col relative bg-neutral-900 text-gray-300 font-mono overflow-hidden">
       {/* Sticky Header */}
-      <div className="sticky top-0 left-0 w-full bg-neutral-900 px-4 py-2 flex items-center">
-        <span className="text-sm">src &gt; experience.py</span>
+      <div className="sticky top-0 left-0 w-full bg-neutral-900 px-4 py-2 flex items-center  z-50">
+        <VscCode className="mr-2 text-blue-400" />
+        <span className="text-sm">src</span>
+        <span className="mx-2 text-gray-500">&gt;</span>
+        <SiPython className="mr-2 text-yellow-400" />
+        <span className="text-sm">experience.py</span>
+        <span className="ml-auto text-xs text-gray-500">Python {lineCount} lines</span>
       </div>
 
-      {/* Layout */}
-      <div className="flex items-start">
+      {/* Layout - This section scrolls */}
+      <div className="flex items-start flex-1 overflow-y-auto">
         {/* VS Code-like Line Numbers */}
         <div className="w-12">
-          <Line line={experienceCode.split("\n").length} />
+          <Line line={lineCount} />
         </div>
 
         {/* Code Block */}
-        <div className="flex-1">
+        <div className="flex-1 pb-20">
           <SyntaxHighlighter
             language="python"
             style={atomDark}

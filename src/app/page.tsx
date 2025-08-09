@@ -5,25 +5,24 @@ import TabSection from "@/components/Header/TabSection";
 
 export default function Home() {
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
+    <div className="flex flex-col h-screen" style={{ overflow: 'hidden' }}>
 
       {/* Main Layout */}
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1" style={{ overflow: 'hidden' }}>
         {/* Sidebar */}
         <Sidebar />
 
         {/* Main Content Area */}
-        <div className="flex flex-col flex-1">
+        <div className="flex flex-col flex-1" style={{ overflow: 'hidden' }}>
           {/* Tab Section Below Header */}
           <TabSection />
 
-          {/* Main Content */}
-          <div className="flex-1 overflow-auto bg-neutral-900">
+          {/* Main Content - Only the body component handles scrolling */}
+          <div className="flex-1 bg-neutral-900" style={{ height: '100%' }}>
             <MainBody />
           </div>
         </div>
       </div>
-
     </div>
   );
 }

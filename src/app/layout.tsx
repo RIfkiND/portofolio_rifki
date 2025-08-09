@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import Header from "@/components/Header/Header";
-import Footer from "@/components/Footer/Footer";
+import LayoutWithTerminal from "@/components/Layout/LayoutWithTerminal";
 
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -30,12 +29,12 @@ export default function RootLayout({
       >
         {/* Desktop View */}
         <div className="hidden md:flex min-h-screen w-full items-center justify-center">
-          <div className="flex flex-col w-[90vw] max-w-[1600px] h-[90vh] max-h-screen bg-neutral-950 rounded-2xl shadow-2xl border border-neutral-800 overflow-hidden">
-            <Header />
-            <main className="flex-1 flex flex-col overflow-auto">
-              {children}
-            </main>
-            <Footer />
+          <div className="relative flex flex-col w-[90vw] max-w-[1600px] h-[90vh] max-h-screen bg-neutral-950 rounded-2xl shadow-2xl border border-neutral-800 overflow-hidden">
+            <LayoutWithTerminal>
+              <div className="flex-1" style={{ overflow: 'hidden' }}>
+                {children}
+              </div>
+            </LayoutWithTerminal>
           </div>
         </div>
 
