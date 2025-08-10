@@ -24,7 +24,7 @@ export function ProjectBody({ searchTerm }: ProjectBodyProps) {
       description:
         "A marketplace for farmers to sell raw materials, integrated with Stripe for payments.",
       image:
-        "https://images.unsplash.com/photo-1574169208507-84376144848b?w=800&h=400&fit=crop&crop=center",
+        "/images/projects/hasilbumi.png",
       github: "https://github.com",
       demo: "https://demo.com",
       icons: [
@@ -60,7 +60,7 @@ export function ProjectBody({ searchTerm }: ProjectBodyProps) {
       description:
         "SINDARA (Sistem Informasi dan Integrasi Data Guru Pendidikan Dasar) is a centralized platform for elementary and junior high school teachers across Indonesia. As a Backend Developer, I contributed to streamlining teacher data access, visit planning, and consultation scheduling nationwide.",
       image:
-        "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&h=400&fit=crop&crop=center",
+        "/images/projects/sindara.png",
       github: "https://github.com",
       demo: "https://gurudikdas.dikdasmen.go.id/sindara",
       icons: [
@@ -76,7 +76,7 @@ export function ProjectBody({ searchTerm }: ProjectBodyProps) {
       description:
         "An Web Application CMS for BMTI Bandung to manage teacher and student training from all over Indonesia",
       image:
-        "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=400&fit=crop&crop=center",
+        "/images/projects/diklat.png",
       github: "https://github.com",
       demo: "https://edp.kejuruan.id/",
       icons: [

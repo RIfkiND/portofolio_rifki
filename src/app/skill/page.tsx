@@ -2,9 +2,9 @@
 import { SkillBody } from "@/components/Body/SkillBody";
 import ResponsiveLayout from "@/components/Layout/ResponsiveLayout";
 import { useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 
-export default function Skill() {
+function SkillContent() {
   const searchParams = useSearchParams();
   const search = searchParams.get('search');
 
@@ -20,5 +20,17 @@ export default function Skill() {
     <ResponsiveLayout>
       <SkillBody searchTerm={search} />
     </ResponsiveLayout>
+  );
+}
+
+export default function Skill() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen bg-neutral-900">
+        <div className="text-gray-300">Loading skills...</div>
+      </div>
+    }>
+      <SkillContent />
+    </Suspense>
   );
 }
