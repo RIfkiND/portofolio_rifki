@@ -1,7 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
-import Sidebar from "@/components/SideBar/Sidebar";
-import TabSection from "@/components/Header/TabSection";
+import ResponsiveLayout from "@/components/Layout/ResponsiveLayout";
 import { SiMarkdown } from "react-icons/si";
 import { VscCalendar, VscWatch, VscTag, VscArrowLeft } from "react-icons/vsc";
 import { useRouter } from "next/navigation";
@@ -718,38 +717,27 @@ This project reinforced my passion for building systems that make a real differe
 
   if (!post) {
     return (
-      <div className="flex flex-col h-screen" style={{ overflow: 'hidden' }}>
-        <div className="flex flex-1" style={{ overflow: 'hidden' }}>
-          <Sidebar />
-          <div className="flex flex-col flex-1" style={{ overflow: 'hidden' }}>
-            <TabSection />
-            <div className="flex-1 bg-neutral-900 flex items-center justify-center">
-              <div className="text-center text-gray-400">
-                <h1 className="text-2xl mb-4">Blog Post Not Found</h1>
-                <button 
-                  onClick={() => router.push('/blog')}
-                  className="text-blue-400 hover:text-blue-300"
-                >
-                  ← Back to Blog
-                </button>
-              </div>
-            </div>
+      <ResponsiveLayout>
+        <div className="flex-1 bg-neutral-900 flex items-center justify-center">
+          <div className="text-center text-gray-400">
+            <h1 className="text-2xl mb-4">Blog Post Not Found</h1>
+            <button 
+              onClick={() => router.push('/blog')}
+              className="text-blue-400 hover:text-blue-300"
+            >
+              ← Back to Blog
+            </button>
           </div>
         </div>
-      </div>
+      </ResponsiveLayout>
     );
   }
 
   const lineCount = post.content.split('\n').length + 10;
 
   return (
-    <div className="flex flex-col h-screen" style={{ overflow: 'hidden' }}>
-      <div className="flex flex-1" style={{ overflow: 'hidden' }}>
-        <Sidebar />
-        <div className="flex flex-col flex-1" style={{ overflow: 'hidden' }}>
-          <TabSection />
-          <div className="flex-1 bg-neutral-900" style={{ height: '100%' }}>
-            <div className="h-full flex flex-col relative bg-neutral-900 text-gray-300 font-mono overflow-hidden">
+    <ResponsiveLayout>
+      <div className="h-full flex flex-col relative bg-neutral-900 text-gray-300 font-mono overflow-hidden">
               {/* Sticky Header */}
               <div className="sticky top-0 left-0 w-full bg-neutral-900 px-4 py-2 flex items-center z-50 border-b border-neutral-700">
                 <button 
@@ -898,9 +886,6 @@ This project reinforced my passion for building systems that make a real differe
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    </ResponsiveLayout>
   );
 }

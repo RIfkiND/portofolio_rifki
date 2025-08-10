@@ -1,28 +1,24 @@
 "use client";
-import Sidebar from "@/components/SideBar/Sidebar";
 import { SkillBody } from "@/components/Body/SkillBody";
-import TabSection from "@/components/Header/TabSection";
+import ResponsiveLayout from "@/components/Layout/ResponsiveLayout";
+import { useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function Skill() {
+  const searchParams = useSearchParams();
+  const search = searchParams.get('search');
+
+  useEffect(() => {
+    if (search) {
+      // Scroll to or highlight the searched skill
+      console.log('Searching for skill:', search);
+      // You can implement highlighting logic here
+    }
+  }, [search]);
+
   return (
-    <div className="flex flex-col h-screen" style={{ overflow: 'hidden' }}>
-
-      {/* Main Layout */}
-      <div className="flex flex-1" style={{ overflow: 'hidden' }}>
-        {/* Sidebar */}
-        <Sidebar />
-
-        {/* Main Content Area */}
-        <div className="flex flex-col flex-1" style={{ overflow: 'hidden' }}>
-          {/* Tab Section Below Header */}
-          <TabSection />
-
-          {/* Main Content - Only the body component handles scrolling */}
-          <div className="flex-1 bg-neutral-900" style={{ height: '100%' }}>
-            <SkillBody />
-          </div>
-        </div>
-      </div>
-    </div>
+    <ResponsiveLayout>
+      <SkillBody searchTerm={search} />
+    </ResponsiveLayout>
   );
 }

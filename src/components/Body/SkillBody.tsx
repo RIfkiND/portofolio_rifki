@@ -3,10 +3,17 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { SiGo } from "react-icons/si";
 import { useRouteSync } from "@/hooks/useRouteSync";
+import { useDevice } from "@/hooks/useDevice";
+import { MobileSkillBody } from "./MobileSkillBody";
 import Line from "../ui/line";
 
-export function SkillBody() {
+interface SkillBodyProps {
+  searchTerm?: string | null;
+}
+
+export function SkillBody({ searchTerm }: SkillBodyProps) {
   useRouteSync(); // This will sync the current route with the tab store
+  const { isMobile } = useDevice();
   const skillCode = `package main
 
 import (
@@ -78,7 +85,12 @@ func main() {
     fmt.Println("📧 Let's collaborate: rifkinauvaldzaki08@gmail.com")
 }`;
 
+  // Return mobile version for mobile devices
+  if (isMobile) {
+    return <MobileSkillBody searchTerm={searchTerm} />;
+  }
 
+  // Desktop version
   return (
     <div className="h-full flex flex-col relative bg-neutral-900 text-gray-300 font-mono overflow-hidden">
       {/* Enhanced Header */}

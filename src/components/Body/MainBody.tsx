@@ -14,11 +14,24 @@ import { useRouter } from "next/navigation";
 import TechStack from "@/components/Table/TechStack";
 import ShinyText from "@/components/Bits/ShinyText";
 import { useRouteSync } from "@/hooks/useRouteSync";
+import { useDevice } from "@/hooks/useDevice";
+import { MobileMainBody } from "./MobileMainBody";
 
-export function MainBody() {
+interface MainBodyProps {
+  searchTerm?: string | null;
+}
+
+export function MainBody({ searchTerm }: MainBodyProps) {
   useRouteSync(); // This will sync the current route with the tab store
   const router = useRouter();
+  const { isMobile } = useDevice();
 
+  // Return mobile version for mobile devices
+  if (isMobile) {
+    return <MobileMainBody searchTerm={searchTerm} />;
+  }
+
+  // Desktop version
   return (
     <div className="h-full flex flex-col relative bg-neutral-900 overflow-hidden">
       {/* Sticky Header */}
@@ -137,6 +150,81 @@ export function MainBody() {
                     <div className="text-xs text-gray-300">Learning Mode</div>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            {/* Why Work With Me Section - HR Impact */}
+            <div className="w-full mb-12">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold text-white mb-2">Why Work With Me?</h2>
+                <p className="text-gray-400">What makes me different from other developers</p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {/* Problem Solver */}
+                <div className="bg-gradient-to-br from-green-900/40 to-green-800/40 border border-green-600/30 rounded-xl p-6 hover:border-green-500/50 transition-all duration-300 group">
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-500/30 transition-all">
+                      <span className="text-2xl">🚀</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-green-400 mb-3">Fast Problem Solver</h3>
+                    <p className="text-gray-300 text-sm leading-relaxed">
+                      I don&apos;t just write code—I solve business problems. From API bottlenecks to database optimization, 
+                      I deliver solutions that directly impact your bottom line.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Clear Communication */}
+                <div className="bg-gradient-to-br from-blue-900/40 to-blue-800/40 border border-blue-600/30 rounded-xl p-6 hover:border-blue-500/50 transition-all duration-300 group">
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-500/30 transition-all">
+                      <span className="text-2xl">💬</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-blue-400 mb-3">Clear Communicator</h3>
+                    <p className="text-gray-300 text-sm leading-relaxed">
+                      No technical jargon, no surprises. I explain complex systems in simple terms and 
+                      keep stakeholders updated throughout the development process.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Reliable Delivery */}
+                <div className="bg-gradient-to-br from-purple-900/40 to-purple-800/40 border border-purple-600/30 rounded-xl p-6 hover:border-purple-500/50 transition-all duration-300 group">
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-500/30 transition-all">
+                      <span className="text-2xl">⚡</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-purple-400 mb-3">Deadline Crusher</h3>
+                    <p className="text-gray-300 text-sm leading-relaxed">
+                      I deliver on time, every time. My code is clean, well-documented, and ready for production 
+                      without the usual &quot;it works on my machine&quot; drama.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Value Proposition Banner */}
+              <div className="bg-gradient-to-r from-orange-900/30 to-red-900/30 border border-orange-600/30 rounded-xl p-8 text-center">
+                <h3 className="text-2xl font-bold text-orange-400 mb-4">🎯 Bottom Line Impact</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                  <div>
+                    <div className="text-3xl font-bold text-green-400">30%</div>
+                    <div className="text-sm text-gray-300">Faster API Response Times</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold text-blue-400">100%</div>
+                    <div className="text-sm text-gray-300">Flexible & Adaptable</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold text-purple-400">100%</div>
+                    <div className="text-sm text-gray-300">On-Time Project Delivery</div>
+                  </div>
+                </div>
+                <p className="text-gray-300 mt-4 text-lg">
+                  <span className="text-yellow-400 font-semibold">Translation:</span> I save you time, money, and headaches while delivering 
+                  robust solutions that scale with your business.
+                </p>
               </div>
             </div>
 

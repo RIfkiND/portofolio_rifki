@@ -4,10 +4,17 @@ import Image from "next/image";
 import { VscGithub, VscLinkExternal, VscTerminal } from "react-icons/vsc";
 import { SiLaravel, SiVuedotjs, SiStripe, SiReact, SiExpress, SiNodedotjs, SiGo, SiTypescript } from "react-icons/si";
 import { useRouteSync } from "@/hooks/useRouteSync";
+import { useDevice } from "@/hooks/useDevice";
+import { MobileProjectBody } from "./MobileProjectBody";
 import Line from "../ui/line";
 
-export function ProjectBody() {
+interface ProjectBodyProps {
+  searchTerm?: string | null;
+}
+
+export function ProjectBody({ searchTerm }: ProjectBodyProps) {
   useRouteSync(); // This will sync the current route with the tab store
+  const { isMobile } = useDevice();
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
 
   const projects = [
@@ -125,6 +132,12 @@ export function ProjectBody() {
 
   const lineCount = projects.length * 8 + 10; // Approximate line count for the "code"
 
+  // Return mobile version for mobile devices
+  if (isMobile) {
+    return <MobileProjectBody searchTerm={searchTerm} />;
+  }
+
+  // Desktop version
   return (
     <div className="h-full flex flex-col relative bg-neutral-900 text-gray-300 font-mono overflow-hidden">
       {/* Sticky Header */}

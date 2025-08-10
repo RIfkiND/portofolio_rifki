@@ -4,11 +4,18 @@ import { VscCalendar, VscWatch, VscTag, VscLinkExternal } from "react-icons/vsc"
 import { SiMarkdown } from "react-icons/si";
 import { useRouteSync } from "@/hooks/useRouteSync";
 import { useRouter } from "next/navigation";
+import { useDevice } from "@/hooks/useDevice";
+import { MobileBlogBody } from "./MobileBlogBody";
 import Line from "../ui/line";
 
-export function BlogBody() {
+interface BlogBodyProps {
+  searchTerm?: string | null;
+}
+
+export function BlogBody({ searchTerm }: BlogBodyProps) {
   useRouteSync(); // This will sync the current route with the tab store
   const router = useRouter();
+  const { isMobile } = useDevice();
   const [selectedPost, setSelectedPost] = useState<number | null>(null);
 
   const blogPosts = [
@@ -70,6 +77,12 @@ export function BlogBody() {
 
   const lineCount = blogPosts.length * 6 + 15; // Approximate line count for the "code"
 
+  // Return mobile version for mobile devices
+  if (isMobile) {
+    return <MobileBlogBody posts={blogPosts} searchTerm={searchTerm} />;
+  }
+
+  // Desktop version
   return (
     <div className="h-full flex flex-col relative bg-neutral-900 text-gray-300 font-mono overflow-hidden">
       {/* Sticky Header */}

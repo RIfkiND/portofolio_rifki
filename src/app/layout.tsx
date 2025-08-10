@@ -24,7 +24,7 @@ export default function RootLayout({
       <body
         className={cn(
           jetBrainsMono.className,
-          "antialiased h-full bg-neutral-900 overflow-hidden"
+          "antialiased h-full bg-neutral-900"
         )}
       >
         {/* Desktop View */}
@@ -38,12 +38,9 @@ export default function RootLayout({
           </div>
         </div>
 
-        {/* Mobile View */}
-        <div className="flex items-center justify-center h-full md:hidden">
-          <p className="text-xl font-semibold text-center">
-            📱 Sorry! The mobile version is coming soon... 🚀 &apos; Stay Tune
-            &apos;
-          </p>
+        {/* Mobile View - Now uses our responsive components */}
+        <div className="md:hidden h-full">
+          {children}
         </div>
       </body>
     </html>

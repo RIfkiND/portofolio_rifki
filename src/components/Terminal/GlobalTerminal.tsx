@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { VscTerminal, VscClose, VscClearAll } from "react-icons/vsc";
 import { useTerminalStore } from "@/components/store/useTerminalStore";
 import { useTabStore } from "@/components/store/useTabStore";
+import { useDevice } from "@/hooks/useDevice";
 
 interface TerminalOutput {
   id: string;
@@ -14,6 +15,7 @@ interface TerminalOutput {
 export default function GlobalTerminal() {
   const { isOpen, close } = useTerminalStore();
   const { selectedFile } = useTabStore();
+  const { isMobile } = useDevice();
   const [mounted, setMounted] = useState(false);
   const [command, setCommand] = useState("");
   const [history, setHistory] = useState<TerminalOutput[]>([]);
@@ -56,19 +58,29 @@ export default function GlobalTerminal() {
       return;
     } else if (trimmedCmd === "help") {
       output.push("Available commands:");
-      output.push("  help           - Show this help message");
-      output.push("  clear          - Clear terminal");
-      output.push("  ls             - List files");
-      output.push("  pwd            - Print working directory");
-      output.push("  run            - Run current file");
-      output.push("  python <file>  - Run Python file");
-      output.push("  node <file>    - Run Node.js file");
-      output.push("  go run <file>  - Run Go file");
+      output.push("  help              - Show this help message");
+      output.push("  clear             - Clear terminal");
+      output.push("  ls                - List files");
+      output.push("  pwd               - Print working directory");
+      output.push("  run               - Run current file");
+      output.push("  search <term>     - Search across all sections");
+      output.push("  find <term>       - Same as search");
+      output.push("  python <file>     - Run Python file");
+      output.push("  node <file>       - Run Node.js file");
+      output.push("  go run <file>     - Run Go file");
+      output.push("");
+      output.push("Available files:");
+      output.push("  rifki.md         - Personal info");
+      output.push("  skill.go         - Technical skills");
+      output.push("  experience.py    - Work experience");
+      output.push("  projects.tsx     - Portfolio projects");
+      output.push("  blog.md          - Blog posts");
     } else if (trimmedCmd === "ls") {
       output.push("rifki.md");
       output.push("skill.go");
       output.push("experience.py");
       output.push("projects.tsx");
+      output.push("blog.md");
     } else if (trimmedCmd === "pwd") {
       output.push("/home/rifki/portfolio/src");
     } else if (trimmedCmd === "run") {
@@ -77,6 +89,11 @@ export default function GlobalTerminal() {
       } else {
         output.push("No file selected");
       }
+    } else if (trimmedCmd.startsWith("search ") || trimmedCmd.startsWith("find ")) {
+      const searchTerm = trimmedCmd.startsWith("search ") 
+        ? trimmedCmd.substring(7).toLowerCase()
+        : trimmedCmd.substring(5).toLowerCase();
+      executeSearchCommand(searchTerm, output);
     } else if (trimmedCmd.startsWith("python ")) {
       const fileName = trimmedCmd.substring(7);
       executeFileCommand(fileName, output);
@@ -99,6 +116,109 @@ export default function GlobalTerminal() {
     };
 
     setHistory(prev => [...prev, newOutput]);
+  };
+
+  const executeSearchCommand = (searchTerm: string, output: string[]) => {
+    if (!searchTerm) {
+      output.push("Please provide a search term. Usage: search <term>");
+      return;
+    }
+
+    output.push(`🔍 Searching for "${searchTerm}"...`);
+    output.push("");
+
+    const results: { section: string; matches: string[] }[] = [];
+
+    // Search in Skills
+    const skillMatches: string[] = [];
+    const skills = ["Laravel", "NestJS", "Node.js", "Express", "Go", "PHP", "JavaScript", "TypeScript", "Python", "FastAPI", "React", "Next.js", "Vue.js", "HTML5", "CSS3", "Tailwind CSS", "MySQL", "PostgreSQL", "MongoDB", "Redis", "Docker", "Kubernetes", "GitHub Actions", "Jenkins", "ArgoCD", "Linux", "Bash", "AI Integration", "GitHub Copilot"];
+    skills.forEach(skill => {
+      if (skill.toLowerCase().includes(searchTerm)) {
+        skillMatches.push(`  ✓ ${skill} - Technology/Framework`);
+      }
+    });
+    if (skillMatches.length > 0) {
+      results.push({ section: "💻 Skills & Technologies", matches: skillMatches });
+    }
+
+    // Search in Experience
+    const experienceMatches: string[] = [];
+    const experiences = [
+      "Backend Developer - PT Minilemon Nusantara (Feb 2025 - Now)",
+      "Backend Developer Intern - PT Minilemon Nusantara (Nov 2024 - Jan 2025)", 
+      "Backend Developer Intern - BBPPMVP BMTI Bandung (Nov 2024 - Jan 2025)",
+      "Freelance Backend Developer (June 2024 - Now)",
+      "Student - SMKN 1 Ciamis (2022 - 2025)"
+    ];
+    experiences.forEach(exp => {
+      if (exp.toLowerCase().includes(searchTerm)) {
+        experienceMatches.push(`  📅 ${exp}`);
+      }
+    });
+    if (experienceMatches.length > 0) {
+      results.push({ section: "💼 Experience", matches: experienceMatches });
+    }
+
+    // Search in Projects
+    const projectMatches: string[] = [];
+    const projects = [
+      "SINDARA - Government Education Platform for Indonesia",
+      "Diklat - Laravel + React.js Training Platform", 
+      "NickTopup - Laravel + Payment APIs Digital Platform",
+      "Portfolio - Next.js + TypeScript + Tailwind CSS",
+      "Express API - Node.js + Express Backend",
+      "Web Scraping - Golang Data Collection",
+      "HasilBumi - Laravel + Vue.js + Stripe (Offline)"
+    ];
+    projects.forEach(project => {
+      if (project.toLowerCase().includes(searchTerm)) {
+        projectMatches.push(`  🚀 ${project}`);
+      }
+    });
+    if (projectMatches.length > 0) {
+      results.push({ section: "🎯 Projects", matches: projectMatches });
+    }
+
+    // Search in Blog Topics
+    const blogMatches: string[] = [];
+    const blogTopics = [
+      "Working on Government Projects: SINDARA Experience",
+      "Integrating Payment Gateways in PHP Applications", 
+      "From Student to Professional Developer",
+      "Modern API Development with Go [DRAFT]",
+      "Building Scalable Backend Systems",
+      "DevOps and CI/CD Best Practices"
+    ];
+    blogTopics.forEach(topic => {
+      if (topic.toLowerCase().includes(searchTerm)) {
+        blogMatches.push(`  📝 ${topic}`);
+      }
+    });
+    if (blogMatches.length > 0) {
+      results.push({ section: "📚 Blog Posts", matches: blogMatches });
+    }
+
+    // Display results
+    if (results.length === 0) {
+      output.push("❌ No results found.");
+      output.push("");
+      output.push("💡 Try searching for:");
+      output.push("  • Technologies: laravel, react, docker, python");
+      output.push("  • Projects: sindara, portfolio, api");
+      output.push("  • Experience: backend, intern, developer");
+      output.push("  • Topics: government, payment, api, go");
+    } else {
+      output.push(`✅ Found ${results.reduce((total, r) => total + r.matches.length, 0)} results:`);
+      output.push("");
+      
+      results.forEach(result => {
+        output.push(result.section);
+        result.matches.forEach(match => output.push(match));
+        output.push("");
+      });
+      
+      output.push("💡 Use 'python experience.py', 'go run skill.go', 'node projects.tsx', or 'blog.md' for detailed info");
+    }
   };
 
   const executeFileCommand = (fileName: string, output: string[]) => {
@@ -243,13 +363,33 @@ export default function GlobalTerminal() {
 
   console.log("✅ Terminal IS RENDERING NOW!");
 
-  // Calculate left position - always start from file explorer area (64px from left)
-  const leftPosition = '64px'; // Start from after icon sidebar, cover file explorer when open
+  // Calculate positioning based on device type
+  const getTerminalStyles = () => {
+    if (isMobile) {
+      return {
+        position: 'fixed' as const,
+        bottom: '80px', // Above mobile navigation
+        left: '8px',
+        right: '8px',
+        maxHeight: '50vh',
+        zIndex: 50,
+      };
+    } else {
+      return {
+        position: 'absolute' as const,
+        bottom: '8px',
+        right: '0px',
+        left: '64px', // Start from after icon sidebar
+        maxHeight: '320px',
+        zIndex: 40,
+      };
+    }
+  };
 
   return (
     <div 
-      className="absolute bottom-8 right-0 bg-black border-t border-l border-neutral-600 z-40 transition-all duration-300" 
-      style={{left: leftPosition}}
+      className="bg-black border-t border-l border-neutral-600 transition-all duration-300 rounded-t-lg" 
+      style={getTerminalStyles()}
     >
       {/* Terminal Header */}
       <div className="bg-neutral-800 px-4 py-2 flex items-center justify-between border-b border-neutral-600">
@@ -273,7 +413,7 @@ export default function GlobalTerminal() {
       </div>
 
       {/* Terminal Content */}
-      <div className="h-64 flex flex-col">
+      <div className={`flex flex-col ${isMobile ? 'h-64' : 'h-64'}`}>
         {/* Output Area */}
         <div 
           ref={terminalRef}
@@ -302,7 +442,7 @@ export default function GlobalTerminal() {
             value={command}
             onChange={(e) => setCommand(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="flex-1 bg-transparent text-white font-mono text-sm outline-none"
+            className={`flex-1 bg-transparent text-white font-mono outline-none ${isMobile ? 'text-sm' : 'text-sm'}`}
             placeholder="Type a command... (try 'help')"
           />
         </div>
