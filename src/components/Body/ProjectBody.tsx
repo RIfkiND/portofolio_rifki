@@ -1,68 +1,126 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import { VscGithub, VscLinkExternal, VscCode, VscTerminal } from "react-icons/vsc";
-import { SiLaravel, SiVuedotjs, SiStripe, SiReact, SiGithubactions, SiExpress, SiNodedotjs, SiGo } from "react-icons/si";
+import { VscGithub, VscLinkExternal, VscTerminal } from "react-icons/vsc";
+import { SiLaravel, SiVuedotjs, SiStripe, SiReact, SiExpress, SiNodedotjs, SiGo, SiTypescript } from "react-icons/si";
+import { useRouteSync } from "@/hooks/useRouteSync";
 import Line from "../ui/line";
 
 export function ProjectBody() {
+  useRouteSync(); // This will sync the current route with the tab store
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
 
   const projects = [
     {
       name: "HasilBumi",
       techStack: ["Laravel", "Vue.js", "Stripe"],
-      description: "A marketplace for farmers to sell raw materials, integrated with Stripe for payments.",
-      image: "https://images.unsplash.com/photo-1574169208507-84376144848b?w=800&h=400&fit=crop&crop=center",
+      description:
+        "A marketplace for farmers to sell raw materials, integrated with Stripe for payments.",
+      image:
+        "https://images.unsplash.com/photo-1574169208507-84376144848b?w=800&h=400&fit=crop&crop=center",
       github: "https://github.com",
       demo: "https://demo.com",
-      icons: [<SiLaravel key="laravel" className="text-red-500" />, <SiVuedotjs key="vue" className="text-green-500" />, <SiStripe key="stripe" className="text-purple-500" />]
+      icons: [
+        <SiLaravel key="laravel" className="text-red-500" />,
+        <SiVuedotjs key="vue" className="text-green-500" />,
+        <SiStripe key="stripe" className="text-purple-500" />,
+      ],
+      status: "Offline",
+    },
+    {
+      name: "Portfolio",
+      techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
+      description:
+        "My personal portfolio website built with Next.js, featuring a VSCode-inspired design with interactive terminal and project showcase.",
+      image:
+        "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&h=400&fit=crop&crop=center",
+      github: "https://github.com/RIfkiND/Porto-BE",
+      demo: "https://portfolio.rifki.dev",
+      icons: [
+        <SiReact
+          key="nextjs"
+          className="text-black"
+          style={{ color: "#000" }}
+        />,
+        <SiTypescript key="typescript" className="text-blue-500" />,
+        <VscTerminal key="tailwind" className="text-blue-400" />,
+      ],
+      status: "Live",
+    },
+    {
+      name: "SINDARA",
+      techStack: ["Confidential"],
+      description:
+        "SINDARA (Sistem Informasi dan Integrasi Data Guru Pendidikan Dasar) is a centralized platform for elementary and junior high school teachers across Indonesia. As a Backend Developer, I contributed to streamlining teacher data access, visit planning, and consultation scheduling nationwide.",
+      image:
+        "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&h=400&fit=crop&crop=center",
+      github: "https://github.com",
+      demo: "https://gurudikdas.dikdasmen.go.id/sindara",
+      icons: [
+        <VscTerminal key="gov" className="text-red-600" />,
+        <VscTerminal key="id" className="text-white" />,
+        <VscTerminal key="secure" className="text-red-600" />,
+      ],
+      status: "Live",
     },
     {
       name: "Diklat",
       techStack: ["Laravel", "React.js"],
-      description: "An Web Application CMS for BMTI Bandung to manage teacher and student training from all over Indonesia",
-      image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=400&fit=crop&crop=center",
+      description:
+        "An Web Application CMS for BMTI Bandung to manage teacher and student training from all over Indonesia",
+      image:
+        "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=400&fit=crop&crop=center",
       github: "https://github.com",
-      demo: "https://demo.com",
-      icons: [<SiLaravel key="laravel" className="text-red-500" />, <SiReact key="react" className="text-blue-500" />]
-    },
-    {
-      name: "CI/CD Pipeline",
-      techStack: ["GitHub Actions"],
-      description: "Automated deployment pipeline using GitHub Actions for seamless application updates.",
-      image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=800&h=400&fit=crop&crop=center",
-      github: "https://github.com",
-      demo: "https://demo.com",
-      icons: [<SiGithubactions key="actions" className="text-blue-600" />]
+      demo: "https://edp.kejuruan.id/",
+      icons: [
+        <SiLaravel key="laravel" className="text-red-500" />,
+        <SiReact key="react" className="text-blue-500" />,
+      ],
+      status: "Live",
     },
     {
       name: "NickTopup",
       techStack: ["Laravel", "DigiFlazz", "Tripay"],
-      description: "A digital top-up platform that integrates DigiFlazz and Tripay for payment handling.",
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=400&fit=crop&crop=center",
+      description:
+        "A digital top-up platform that integrates DigiFlazz and Tripay for payment handling.",
+      image:
+        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=400&fit=crop&crop=center",
       github: "https://github.com",
       demo: "https://demo.com",
-      icons: [<SiLaravel key="laravel" className="text-red-500" />, <VscTerminal key="api1" className="text-yellow-500" />, <VscTerminal key="api2" className="text-green-500" />]
+      icons: [
+        <SiLaravel key="laravel" className="text-red-500" />,
+        <VscTerminal key="api1" className="text-yellow-500" />,
+        <VscTerminal key="api2" className="text-green-500" />,
+      ],
+      status: "Live",
     },
     {
       name: "Express API",
       techStack: ["Express.js", "Node.js"],
-      description: "A RESTful API built with Express.js for handling user authentication and data processing.",
-      image: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=800&h=400&fit=crop&crop=center",
+      description:
+        "A RESTful API built with Express.js for handling user authentication and data processing.",
+      image:
+        "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=800&h=400&fit=crop&crop=center",
       github: "https://github.com",
       demo: "https://demo.com",
-      icons: [<SiExpress key="express" className="text-gray-400" />, <SiNodedotjs key="node" className="text-green-600" />]
+      icons: [
+        <SiExpress key="express" className="text-gray-400" />,
+        <SiNodedotjs key="node" className="text-green-600" />,
+      ],
+      status: "Live",
     },
     {
       name: "Web Scraping",
       techStack: ["Golang"],
-      description: "A web scraper written in Go to extract and process data from various sources.",
-      image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&h=400&fit=crop&crop=center",
+      description:
+        "A web scraper written in Go to extract and process data from various sources.",
+      image:
+        "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&h=400&fit=crop&crop=center",
       github: "https://github.com",
       demo: "https://demo.com",
-      icons: [<SiGo key="go" className="text-blue-400" />]
-    }
+      icons: [<SiGo key="go" className="text-blue-400" />],
+      status: "Live",
+    },
   ];
 
   const lineCount = projects.length * 8 + 10; // Approximate line count for the "code"
@@ -70,9 +128,9 @@ export function ProjectBody() {
   return (
     <div className="h-full flex flex-col relative bg-neutral-900 text-gray-300 font-mono overflow-hidden">
       {/* Sticky Header */}
-      <div className="sticky top-0 left-0 w-full bg-neutral-900 px-4 py-2 flex items-center border-b border-neutral-700 z-50">
-        <VscCode className="mr-2 text-blue-400" />
-        <span className="text-sm">src &gt; projects.tsx</span>
+      <div className="sticky top-0 left-0 w-full bg-neutral-900 px-4 py-2 flex items-center  z-50">
+        <SiTypescript className="mr-2 text-blue-400" />
+        <span className="text-sm">src &gt; project.tsx</span>
         <span className="ml-auto text-xs text-gray-500">{projects.length} projects loaded</span>
       </div>
 
@@ -168,7 +226,10 @@ export function ProjectBody() {
                   <div className="mt-3 p-2 bg-neutral-900 rounded border border-neutral-600 text-xs font-mono">
                     <span className="text-gray-500">{`// ${project.name.toLowerCase()}.deploy()`}</span>
                     <br />
-                    <span className="text-blue-400">Status:</span> <span className="text-green-400">✓ Live</span>
+                    <span className="text-blue-400">Status:</span> 
+                    <span className={`ml-1 ${project.status === 'Live' ? 'text-green-400' : project.status === 'In Development' ? 'text-yellow-400' : 'text-red-400'}`}>
+                      {project.status === 'Live' ? '✓' : project.status === 'In Development' ? '⚠' : '✗'} {project.status}
+                    </span>
                   </div>
                 </div>
               </div>

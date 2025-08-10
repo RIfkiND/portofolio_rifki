@@ -65,10 +65,10 @@ export default function GlobalTerminal() {
       output.push("  node <file>    - Run Node.js file");
       output.push("  go run <file>  - Run Go file");
     } else if (trimmedCmd === "ls") {
-      output.push("Rifki.md");
+      output.push("rifki.md");
       output.push("skill.go");
-      output.push("Experience.py");
-      output.push("Project.ts");
+      output.push("experience.py");
+      output.push("projects.tsx");
     } else if (trimmedCmd === "pwd") {
       output.push("/home/rifki/portfolio/src");
     } else if (trimmedCmd === "run") {
@@ -103,7 +103,7 @@ export default function GlobalTerminal() {
 
   const executeFileCommand = (fileName: string, output: string[]) => {
     switch (fileName) {
-      case "Experience.py":
+      case "experience.py":
         output.push("Education:");
         output.push("  - SMKN 1 Ciamis (2022 - 2025)");
         output.push("");
@@ -114,26 +114,95 @@ export default function GlobalTerminal() {
         output.push("  - Backend Developer Lead (partnership) at PT Minilemon Nusantara (Feb 2025 - Now)");
         break;
       case "skill.go":
-        output.push("=== Tech Skills ===");
-        output.push("Backend: Laravel, Node.js, Express.js");
-        output.push("Databases: MySQL, PostgreSQL, MongoDB");
-        output.push("Languages: PHP, JavaScript, Python, Go");
-        output.push("Tools: Docker, Git, VS Code");
+        output.push("🚀 Initializing Developer Profile...");
+        output.push("");
+        output.push("👋 Hi, I'm Rifki Nauval Dzaki");
+        output.push("💼 Experience: 2+ years in Backend Development");
+        output.push("🎯 Current Focus: API Development & System Architecture");
+        output.push("❤️ Passion: Building scalable backend solutions");
+        output.push("");
+        output.push("📚 My Technical Skills:");
+        output.push("========================");
+        output.push("");
+        output.push("Backend Development");
+        output.push("-------------------");
+        output.push("  ✓ Laravel");
+        output.push("  ✓ Node.js");
+        output.push("  ✓ Express.js");
+        output.push("  ✓ Go");
+        output.push("");
+        output.push("Databases");
+        output.push("---------");
+        output.push("  ✓ MySQL");
+        output.push("  ✓ PostgreSQL");
+        output.push("  ✓ MongoDB");
+        output.push("");
+        output.push("Programming Languages");
+        output.push("--------------------");
+        output.push("  ✓ PHP");
+        output.push("  ✓ JavaScript");
+        output.push("  ✓ Python");
+        output.push("  ✓ Go");
+        output.push("");
+        output.push("Tools & Technologies");
+        output.push("-------------------");
+        output.push("  ✓ Docker");
+        output.push("  ✓ Git");
+        output.push("  ✓ VS Code");
+        output.push("  ✓ Postman");
+        output.push("");
+        output.push("🔥 Status: Ready to build amazing things!");
+        output.push("📧 Let's collaborate: rifkinauvaldzaki08@gmail.com");
         break;
-      case "Project.ts":
+      case "projects.tsx":
         output.push("Loading projects...");
-        output.push("✓ HasilBumi - Laravel + Vue.js + Stripe");
-        output.push("✓ Diklat - Laravel + React.js");
-        output.push("✓ NickTopup - Laravel + Payment APIs");
-        output.push("✓ Express API - Node.js + Express");
-        output.push("✓ Web Scraping - Golang");
+        output.push("✗ HasilBumi - Laravel + Vue.js + Stripe (Offline)");
+        output.push("✓ Portfolio - Next.js + TypeScript + Tailwind CSS (Live)");
+        output.push("✓ SINDARA - Government Education Platform for Indonesia (Live)");
+        output.push("✓ Diklat - Laravel + React.js (Live)");
+        output.push("✓ NickTopup - Laravel + Payment APIs (Live)");
+        output.push("✓ Express API - Node.js + Express (Live)");
+        output.push("✓ Web Scraping - Golang (Live)");
         break;
-      case "Rifki.md":
+      case "rifki.md":
         output.push("# Rifki Nauval Dzaki");
         output.push("Backend Developer | Student at SMKN 1 Ciamis");
         output.push("");
         output.push("Welcome to my portfolio!");
         output.push("I'm passionate about backend development and API integration.");
+        break;
+      case "blog.md":
+        output.push("📝 Loading Blog Posts...");
+        output.push("");
+        output.push("🚀 Latest Articles & Insights:");
+        output.push("===============================");
+        output.push("");
+        output.push("✓ Building a VSCode-Inspired Portfolio with Next.js");
+        output.push("  📅 Jan 15, 2025 | ⏱️ 5 min read");
+        output.push("  🏷️ [Next.js, TypeScript, Portfolio, VSCode]");
+        output.push("");
+        output.push("✓ Backend Development Best Practices with Laravel");
+        output.push("  📅 Dec 20, 2024 | ⏱️ 8 min read");
+        output.push("  🏷️ [Laravel, PHP, Backend, API]");
+        output.push("");
+        output.push("✓ Working on Government Projects: SINDARA Experience");
+        output.push("  📅 Nov 30, 2024 | ⏱️ 6 min read");
+        output.push("  🏷️ [Government, Education, Indonesia, Backend]");
+        output.push("");
+        output.push("✓ Integrating Payment Gateways in PHP Applications");
+        output.push("  📅 Oct 15, 2024 | ⏱️ 10 min read");
+        output.push("  🏷️ [PHP, Laravel, Payments, Integration]");
+        output.push("");
+        output.push("✓ From Student to Professional Developer");
+        output.push("  📅 Sep 10, 2024 | ⏱️ 7 min read");
+        output.push("  🏷️ [Career, Student, Journey, Indonesia]");
+        output.push("");
+        output.push("⚠ Modern API Development with Go [DRAFT]");
+        output.push("  📅 Feb 01, 2025 | ⏱️ 12 min read");
+        output.push("  🏷️ [Go, API, Performance, Web Scraping]");
+        output.push("");
+        output.push("📊 Stats: 5 published, 1 draft | 48 min total read time");
+        output.push("📝 Sharing knowledge and experiences in web development");
         break;
       default:
         output.push(`File not found: ${fileName}`);

@@ -1,5 +1,5 @@
 "use client";
-import { JSX, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
   VscFiles,
@@ -18,20 +18,15 @@ import {
   FaDatabase,
   FaChevronRight,
   FaChevronDown,
-  FaExclamationCircle,
+  FaMarkdown,
 } from "react-icons/fa";
-import { SiKubernetes, SiGo, SiTypescript, SiPython } from "react-icons/si";
+import { SiKubernetes, SiGo, SiReact } from "react-icons/si";
 import { usePathname } from "next/navigation";
 import { useTabStore } from "@/components/store/useTabStore";
 import { useTerminalStore } from "@/components/store/useTerminalStore";
+import PythonLogo from "@/components/icons/PythonLogo";
 
 export default function Sidebar() {
-  interface FileTab {
-    name: string;
-    icon?: JSX.Element;
-    route: string;
-  }
-
   const {
     openTabs,
     setOpenTabs,
@@ -76,7 +71,7 @@ export default function Sidebar() {
       [folder]: !prev[folder],
     }));
   };
-  const handleOpenFile = (file: FileTab) => {
+  const handleOpenFile = (file: { name: string; icon: React.ReactElement; route: string }) => {
     if (!openTabs.some((tab) => tab.name === file.name)) {
       setOpenTabs([...openTabs, file]);
     }
@@ -87,22 +82,27 @@ export default function Sidebar() {
   const files = [
     {
       name: "skill.go",
-      icon: <SiGo className="text-blue-400" />,
+      icon: <SiGo className="text-cyan-400" />,
       route: "/skill",
     },
     {
-      name: "Experience.py",
-      icon: <SiPython className="text-yellow-400" />,
+      name: "experience.py",
+      icon: <PythonLogo size={16} />,
       route: "/experience",
     },
     {
-      name: "Project.ts",
-      icon: <SiTypescript className="text-blue-500" />,
+      name: "projects.tsx",
+      icon: <SiReact className="text-blue-500" />,
       route: "/project",
     },
     {
-      name: "Rifki.md",
-      icon: <FaExclamationCircle className="text-blue-400" />,
+      name: "blog.md",
+      icon: <FaMarkdown className="text-purple-400" />,
+      route: "/blog",
+    },
+    {
+      name: "rifki.md",
+      icon: <FaMarkdown className="text-blue-400" />,
       route: "/",
     },
   ];

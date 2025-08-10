@@ -5,34 +5,26 @@ import {
   FaLinkedin,
   FaGithub,
   FaDownload,
-  FaCode,
   FaRocket,
+  FaCode,
 } from "react-icons/fa";
 import Image from "next/image";
 import GradientText from "@/components/Bits/GradientText";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import TechStack from "@/components/Table/TechStack";
 import ShinyText from "@/components/Bits/ShinyText";
+import { useRouteSync } from "@/hooks/useRouteSync";
 
 export function MainBody() {
+  useRouteSync(); // This will sync the current route with the tab store
   const router = useRouter();
-  const pathname = usePathname();
-
-  const fileMap: Record<string, string> = {
-    "/": "rifki.md",
-    "/experience": "experience.go",
-    "/projects": "projects.ts",
-    "/contact": "contact.json",
-  };
-
-  const fileName = fileMap[pathname] || "unknown.file";
 
   return (
     <div className="h-full flex flex-col relative bg-neutral-900 overflow-hidden">
       {/* Sticky Header */}
-      <div className="sticky top-0 left-0 w-full bg-neutral-900 text-gray-300 text-sm px-4 py-1 flex items-center z-50">
+      <div className="sticky top-0 left-0 w-full bg-neutral-900 text-gray-300 text-sm px-4 py-1 flex items-center  z-50">
         <FaCode className="mr-2 text-blue-400" />
-        <span className="font-mono">src &gt; {fileName}</span>
+        <span className="font-mono">src &gt; rifki.md</span>
         <span className="ml-auto text-xs text-gray-500">Portfolio • Markdown</span>
       </div>
 

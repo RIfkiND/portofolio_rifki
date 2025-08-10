@@ -1,11 +1,14 @@
 import { JSX } from "react";
 import { create } from "zustand";
-import { FaExclamationCircle } from "react-icons/fa";
+import { FaCode, FaMarkdown } from "react-icons/fa";
+import { SiGo, SiReact } from "react-icons/si";
+import { VscJson } from "react-icons/vsc";
 import React from "react";
+import PythonLogo from "@/components/icons/PythonLogo";
 
 interface FileTab {
   name: string;
-  icon?: JSX.Element;
+  icon: JSX.Element;
   route?: string;
 }
 
@@ -20,6 +23,19 @@ interface TabStore {
   toggleSidebar: () => void;
 }
 
+// Helper to get icon for a specific file name
+const getIconForFile = (fileName: string): JSX.Element => {
+  const iconMap: Record<string, JSX.Element> = {
+    "rifki.md": React.createElement(FaMarkdown, { className: "text-blue-400" }),
+    "blog.md": React.createElement(FaMarkdown, { className: "text-purple-400" }),
+    "experience.py": React.createElement(PythonLogo, { size: 16 }),
+    "skill.go": React.createElement(SiGo, { className: "text-cyan-400" }),
+    "projects.tsx": React.createElement(SiReact, { className: "text-blue-500" }),
+    "contact.json": React.createElement(VscJson, { className: "text-yellow-500" }),
+  };
+  return iconMap[fileName] || React.createElement(FaCode, { className: "text-gray-400" });
+};
+
 // Helper to serialize/deserialize tabs (icons can't be serialized, so restore manually)
 const serializeTabs = (tabs: FileTab[]) =>
   JSON.stringify(
@@ -30,28 +46,51 @@ const serializeTabs = (tabs: FileTab[]) =>
   );
 
 const deserializeTabs = (tabs: FileTab[]) =>
-  tabs.map((tab) =>
-    tab.name === "Rifki.md"
-      ? {
-          ...tab,
-          icon: React.createElement(FaExclamationCircle, {
-            className: "text-blue-400",
-          }),
-        }
-      : tab
-  );
+  tabs.map((tab) => ({
+    ...tab,
+    icon: getIconForFile(tab.name),
+  }));
 
 const defaultTab: FileTab = {
-  name: "Rifki.md",
-  icon: React.createElement(FaExclamationCircle, {
+  name: "rifki.md",
+  icon: React.createElement(FaMarkdown, {
     className: "text-blue-400",
   }),
   route: "/",
 };
 
-const getInitialTabs = () => [defaultTab]; // SSR-safe: static value
+const getInitialTabs = () => {
+  if (typeof window === 'undefined') return [defaultTab]; // SSR-safe
+  
+  const stored = localStorage.getItem("openTabs");
+  if (stored) {
+    try {
+      const parsed = JSON.parse(stored);
+      return deserializeTabs(parsed);
+    } catch {
+      return [defaultTab];
+    }
+  }
+  return [defaultTab];
+};
 
-const getInitialSelectedFile = () => defaultTab; // SSR-safe: static value
+const getInitialSelectedFile = () => {
+  if (typeof window === 'undefined') return defaultTab; // SSR-safe
+  
+  const stored = localStorage.getItem("selectedFile");
+  if (stored) {
+    try {
+      const parsed = JSON.parse(stored);
+      return {
+        ...parsed,
+        icon: getIconForFile(parsed.name),
+      };
+    } catch {
+      return defaultTab;
+    }
+  }
+  return defaultTab;
+};
 
 const getInitialSidebarOpen = () => false; // SSR-safe: static value
 
@@ -70,15 +109,10 @@ export const useTabStore = create<TabStore>((set, get) => ({
       JSON.stringify({ ...file, icon: undefined })
     );
     set({
-      selectedFile:
-        file.name === "Rifki.md"
-          ? {
-              ...file,
-              icon: React.createElement(FaExclamationCircle, {
-                className: "text-blue-400",
-              }),
-            }
-          : file,
+      selectedFile: {
+        ...file,
+        icon: getIconForFile(file.name),
+      },
     });
   },
   closeTab: (name) => {
@@ -99,7 +133,10 @@ export const useTabStore = create<TabStore>((set, get) => ({
     }
     set({
       openTabs: deserializeTabs(newTabs),
-      selectedFile: newSelected,
+      selectedFile: newSelected ? {
+        ...newSelected,
+        icon: getIconForFile(newSelected.name),
+      } : null,
     });
   },
   setSidebarOpen: (open) => {

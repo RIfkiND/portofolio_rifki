@@ -2,9 +2,11 @@
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { SiGo } from "react-icons/si";
+import { useRouteSync } from "@/hooks/useRouteSync";
 import Line from "../ui/line";
 
 export function SkillBody() {
+  useRouteSync(); // This will sync the current route with the tab store
   const skillCode = `package main
 
 import (
@@ -79,8 +81,8 @@ func main() {
 
   return (
     <div className="h-full flex flex-col relative bg-neutral-900 text-gray-300 font-mono overflow-hidden">
-      {/* Enhanced Header with Compile Button */}
-      <div className="sticky top-0 left-0 w-full bg-neutral-900 px-4 py-2 flex items-center  z-50">
+      {/* Enhanced Header */}
+      <div className="sticky top-0 left-0 w-full bg-neutral-900 px-4 py-2 flex items-center border-b border-neutral-700 z-50">
         <SiGo className="mr-2 text-blue-400 text-lg" />
         <span className="text-sm ml-1">src &gt; skills.go</span>
         <span className="ml-auto text-xs text-gray-500">Go • {skillCode.split("\n").length} lines</span>
