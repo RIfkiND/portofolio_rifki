@@ -2,7 +2,6 @@
 import { VscCalendar, VscWatch, VscTag } from "react-icons/vsc";
 import { useRouteSync } from "@/hooks/useRouteSync";
 import { useRouter } from "next/navigation";
-import { useDevice } from "@/hooks/useDevice";
 
 interface BlogPost {
   title: string;
@@ -22,9 +21,6 @@ interface MobileBlogBodyProps {
 export function MobileBlogBody({ posts, searchTerm }: MobileBlogBodyProps) {
   useRouteSync();
   const router = useRouter();
-  const { isMobile } = useDevice();
-
-  if (!isMobile) return null;
 
   // Filter posts based on search term
   const filteredPosts = searchTerm 

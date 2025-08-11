@@ -44,7 +44,7 @@ const Terminal: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 w-full md:w-2/3 mx-auto md:left-1/6 bg-neutral-900 text-green-400 rounded-t-lg shadow-lg z-50 border-t border-neutral-800">
+    <div className="fixed bottom-30 left-0 w-full md:w-2/3 mx-auto md:left-1/6 bg-neutral-900 text-green-400 rounded-t-lg shadow-lg z-50 border-t border-neutral-800">
       <div className="flex items-center justify-between px-4 py-2 bg-neutral-950 border-b border-neutral-800 rounded-t-lg">
         <span className="font-mono text-sm text-white">Terminal</span>
         <span className="text-xs text-neutral-400">VSCode Style</span>

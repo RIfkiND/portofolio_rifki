@@ -14,7 +14,6 @@ import { useRouter } from "next/navigation";
 import TechStack from "@/components/Table/TechStack";
 import ShinyText from "@/components/Bits/ShinyText";
 import { useRouteSync } from "@/hooks/useRouteSync";
-import { useDevice } from "@/hooks/useDevice";
 import { MobileMainBody } from "./MobileMainBody";
 
 interface MainBodyProps {
@@ -24,16 +23,16 @@ interface MainBodyProps {
 export function MainBody({ searchTerm }: MainBodyProps) {
   useRouteSync(); // This will sync the current route with the tab store
   const router = useRouter();
-  const { isMobile } = useDevice();
 
-  // Return mobile version for mobile devices
-  if (isMobile) {
-    return <MobileMainBody searchTerm={searchTerm} />;
-  }
-
-  // Desktop version
   return (
-    <div className="h-full flex flex-col relative bg-neutral-900 overflow-hidden">
+    <>
+      {/* Mobile Main Body - Show on mobile screens only via CSS */}
+      <div className="mobile-only">
+        <MobileMainBody searchTerm={searchTerm} />
+      </div>
+
+      {/* Desktop Main Body - Show on desktop screens only via CSS */}
+      <div className="desktop-only h-full flex flex-col relative bg-neutral-900 overflow-hidden">
       {/* Sticky Header */}
       <div className="sticky top-0 left-0 w-full bg-neutral-900 text-gray-300 text-sm px-4 py-1 flex items-center  z-50">
         <FaCode className="mr-2 text-blue-400" />
@@ -319,6 +318,7 @@ export function MainBody({ searchTerm }: MainBodyProps) {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

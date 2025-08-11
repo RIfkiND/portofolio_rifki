@@ -16,11 +16,13 @@ interface TabStore {
   openTabs: FileTab[];
   selectedFile: FileTab | null;
   isSidebarOpen: boolean;
+  isHydrated: boolean;
   setOpenTabs: (tabs: FileTab[]) => void;
   setSelectedFile: (file: FileTab) => void;
   closeTab: (name: string) => void;
   setSidebarOpen: (open: boolean) => void;
   toggleSidebar: () => void;
+  hydrate: () => void;
 }
 
 // Helper to get icon for a specific file name
@@ -59,55 +61,62 @@ const defaultTab: FileTab = {
   route: "/",
 };
 
-const getInitialTabs = () => {
-  if (typeof window === 'undefined') return [defaultTab]; // SSR-safe
-  
-  const stored = localStorage.getItem("openTabs");
-  if (stored) {
-    try {
-      const parsed = JSON.parse(stored);
-      return deserializeTabs(parsed);
-    } catch {
-      return [defaultTab];
-    }
-  }
-  return [defaultTab];
-};
-
-const getInitialSelectedFile = () => {
-  if (typeof window === 'undefined') return defaultTab; // SSR-safe
-  
-  const stored = localStorage.getItem("selectedFile");
-  if (stored) {
-    try {
-      const parsed = JSON.parse(stored);
-      return {
-        ...parsed,
-        icon: getIconForFile(parsed.name),
-      };
-    } catch {
-      return defaultTab;
-    }
-  }
-  return defaultTab;
-};
-
-const getInitialSidebarOpen = () => false; // SSR-safe: static value
-
 export const useTabStore = create<TabStore>((set, get) => ({
-  openTabs: getInitialTabs(),
-  selectedFile: getInitialSelectedFile(),
-  isSidebarOpen: getInitialSidebarOpen(),
+  openTabs: [defaultTab],
+  selectedFile: defaultTab,
+  isSidebarOpen: false,
+  isHydrated: false,
+
+  hydrate: () => {
+    if (typeof window === 'undefined') return;
+    
+    const storedTabs = localStorage.getItem("openTabs");
+    const storedSelectedFile = localStorage.getItem("selectedFile");
+    
+    let tabs = [defaultTab];
+    let selectedFile = defaultTab;
+    
+    if (storedTabs) {
+      try {
+        const parsed = JSON.parse(storedTabs);
+        tabs = deserializeTabs(parsed);
+      } catch {
+        tabs = [defaultTab];
+      }
+    }
+    
+    if (storedSelectedFile) {
+      try {
+        const parsed = JSON.parse(storedSelectedFile);
+        selectedFile = {
+          ...parsed,
+          icon: getIconForFile(parsed.name),
+        };
+      } catch {
+        selectedFile = defaultTab;
+      }
+    }
+    
+    set({
+      openTabs: tabs,
+      selectedFile: selectedFile,
+      isHydrated: true
+    });
+  },
 
   setOpenTabs: (tabs) => {
-    localStorage.setItem("openTabs", serializeTabs(tabs));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("openTabs", serializeTabs(tabs));
+    }
     set({ openTabs: deserializeTabs(tabs) });
   },
   setSelectedFile: (file) => {
-    localStorage.setItem(
-      "selectedFile",
-      JSON.stringify({ ...file, icon: undefined })
-    );
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(
+        "selectedFile",
+        JSON.stringify({ ...file, icon: undefined })
+      );
+    }
     set({
       selectedFile: {
         ...file,
@@ -118,19 +127,27 @@ export const useTabStore = create<TabStore>((set, get) => ({
   closeTab: (name) => {
     const state = get();
     const newTabs = state.openTabs.filter((tab) => tab.name !== name);
-    localStorage.setItem("openTabs", serializeTabs(newTabs));
+    
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("openTabs", serializeTabs(newTabs));
+    }
+    
     const newSelected =
       state.selectedFile?.name === name
         ? newTabs[0] || null
         : state.selectedFile;
-    if (newSelected) {
-      localStorage.setItem(
-        "selectedFile",
-        JSON.stringify({ ...newSelected, icon: undefined })
-      );
-    } else {
-      localStorage.removeItem("selectedFile");
+    
+    if (typeof window !== 'undefined') {
+      if (newSelected) {
+        localStorage.setItem(
+          "selectedFile",
+          JSON.stringify({ ...newSelected, icon: undefined })
+        );
+      } else {
+        localStorage.removeItem("selectedFile");
+      }
     }
+    
     set({
       openTabs: deserializeTabs(newTabs),
       selectedFile: newSelected ? {
@@ -140,12 +157,16 @@ export const useTabStore = create<TabStore>((set, get) => ({
     });
   },
   setSidebarOpen: (open) => {
-    localStorage.setItem("isSidebarOpen", String(open));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("isSidebarOpen", String(open));
+    }
     set({ isSidebarOpen: open });
   },
   toggleSidebar: () => {
     const current = get().isSidebarOpen;
-    localStorage.setItem("isSidebarOpen", String(!current));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("isSidebarOpen", String(!current));
+    }
     set({ isSidebarOpen: !current });
   },
 }));

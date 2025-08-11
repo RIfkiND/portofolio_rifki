@@ -2,7 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prevent mobile/desktop layout flash during hydration */
+@media (max-width: 767px) {
+  .desktop-only {
+    display: none !important;
+  }
+  .mobile-only {
+    display: flex !important;
+  }
+}
 
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none !important;
+  }
+  .desktop-only {
+    display: flex !important;
+  }
+}
 
 @layer base {
   :root {

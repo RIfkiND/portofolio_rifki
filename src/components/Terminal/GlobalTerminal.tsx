@@ -368,7 +368,7 @@ export default function GlobalTerminal() {
     if (isMobile) {
       return {
         position: 'fixed' as const,
-        bottom: '80px', // Above mobile navigation
+        bottom: '75px', // Above mobile navigation
         left: '8px',
         right: '8px',
         maxHeight: '50vh',
@@ -377,7 +377,7 @@ export default function GlobalTerminal() {
     } else {
       return {
         position: 'absolute' as const,
-        bottom: '8px',
+        bottom: '31px',
         right: '0px',
         left: '64px', // Start from after icon sidebar
         maxHeight: '320px',
@@ -388,7 +388,7 @@ export default function GlobalTerminal() {
 
   return (
     <div 
-      className="bg-black border-t border-l border-neutral-600 transition-all duration-300 rounded-t-lg" 
+      className="bg-black border-t border-l bottom-11 border-neutral-600 transition-all duration-300 " 
       style={getTerminalStyles()}
     >
       {/* Terminal Header */}

@@ -42,9 +42,15 @@ const getFileInfoForRoute = (pathname: string) => {
 
 export function useRouteSync() {
   const pathname = usePathname();
-  const { setSelectedFile, openTabs, setOpenTabs } = useTabStore();
+  const { setSelectedFile, openTabs, setOpenTabs, isHydrated, hydrate } = useTabStore();
 
   useEffect(() => {
+    // Hydrate the store first
+    if (!isHydrated) {
+      hydrate();
+      return;
+    }
+
     const currentFileInfo = getFileInfoForRoute(pathname);
     
     // Update selected file to match current route
@@ -56,5 +62,5 @@ export function useRouteSync() {
       const newTabs = [...openTabs, currentFileInfo];
       setOpenTabs(newTabs);
     }
-  }, [pathname, setSelectedFile, openTabs, setOpenTabs]);
+  }, [pathname, setSelectedFile, openTabs, setOpenTabs, isHydrated, hydrate]);
 }

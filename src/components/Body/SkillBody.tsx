@@ -3,7 +3,6 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { SiGo } from "react-icons/si";
 import { useRouteSync } from "@/hooks/useRouteSync";
-import { useDevice } from "@/hooks/useDevice";
 import { MobileSkillBody } from "./MobileSkillBody";
 import Line from "../ui/line";
 
@@ -13,7 +12,6 @@ interface SkillBodyProps {
 
 export function SkillBody({ searchTerm }: SkillBodyProps) {
   useRouteSync(); // This will sync the current route with the tab store
-  const { isMobile } = useDevice();
   const skillCode = `package main
 
 import (
@@ -85,14 +83,15 @@ func main() {
     fmt.Println("📧 Let's collaborate: rifkinauvaldzaki08@gmail.com")
 }`;
 
-  // Return mobile version for mobile devices
-  if (isMobile) {
-    return <MobileSkillBody searchTerm={searchTerm} />;
-  }
-
-  // Desktop version
   return (
-    <div className="h-full flex flex-col relative bg-neutral-900 text-gray-300 font-mono overflow-hidden">
+    <>
+      {/* Mobile Skill Body - Show on mobile screens only via CSS */}
+      <div className="mobile-only">
+        <MobileSkillBody searchTerm={searchTerm} />
+      </div>
+
+      {/* Desktop Skill Body - Show on desktop screens only via CSS */}
+      <div className="desktop-only h-full flex flex-col relative bg-neutral-900 text-gray-300 font-mono overflow-hidden">
       {/* Enhanced Header */}
       <div className="sticky top-0 left-0 w-full bg-neutral-900 px-4 py-2 flex items-center border-b border-neutral-700 z-50">
         <SiGo className="mr-2 text-blue-400 text-lg" />
@@ -129,6 +128,7 @@ func main() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

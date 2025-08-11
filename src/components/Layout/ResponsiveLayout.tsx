@@ -1,6 +1,5 @@
 "use client";
 import { ReactNode } from 'react';
-import { useDevice } from '@/hooks/useDevice';
 import Sidebar from '@/components/SideBar/Sidebar';
 import TabSection from '@/components/Header/TabSection';
 import MobileHeader from '@/components/Layout/MobileHeader';
@@ -12,65 +11,30 @@ interface ResponsiveLayoutProps {
 }
 
 export default function ResponsiveLayout({ children }: ResponsiveLayoutProps) {
-  const { isMobile, isTablet } = useDevice();
-
-  if (isMobile) {
-    return (
-      <div className="flex flex-col h-screen bg-neutral-900 relative">
-        {/* Mobile Header */}
+  return (
+    <>
+      {/* Mobile Layout - Show on mobile screens only via CSS */}
+      <div className="mobile-only flex-col h-screen bg-neutral-900 relative">
         <MobileHeader />
-        
-        {/* Mobile Content */}
-        <div className="flex-1 overflow-hidden">
+        <div className="flex-1 overflow-y-auto">
           {children}
         </div>
-        
-        {/* Mobile Bottom Navigation */}
         <MobileNavigation />
-        
-        {/* Mobile Terminal */}
         <GlobalTerminal />
       </div>
-    );
-  }
 
-  if (isTablet) {
-    return (
-      <div className="flex flex-col h-screen relative" style={{ overflow: 'hidden' }}>
-        {/* Tablet Layout - Simplified desktop */}
+      {/* Desktop Layout - Show on desktop screens only via CSS */}
+      <div className="desktop-only flex-col h-screen" style={{ overflow: 'hidden' }}>
         <div className="flex flex-1" style={{ overflow: 'hidden' }}>
-          {/* Collapsible Sidebar */}
           <Sidebar />
-          
           <div className="flex flex-col flex-1" style={{ overflow: 'hidden' }}>
-            {/* Horizontal Scrollable Tabs */}
             <TabSection />
-            
-            {/* Content */}
             <div className="flex-1 bg-neutral-900" style={{ height: '100%' }}>
               {children}
             </div>
           </div>
         </div>
-        
-        {/* Tablet Terminal */}
-        <GlobalTerminal />
       </div>
-    );
-  }
-
-  // Desktop Layout (Original)
-  return (
-    <div className="flex flex-col h-screen" style={{ overflow: 'hidden' }}>
-      <div className="flex flex-1" style={{ overflow: 'hidden' }}>
-        <Sidebar />
-        <div className="flex flex-col flex-1" style={{ overflow: 'hidden' }}>
-          <TabSection />
-          <div className="flex-1 bg-neutral-900" style={{ height: '100%' }}>
-            {children}
-          </div>
-        </div>
-      </div>
-    </div>
+    </>
   );
 }

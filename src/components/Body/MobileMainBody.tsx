@@ -1,5 +1,4 @@
 "use client";
-import { useDevice } from "@/hooks/useDevice";
 import { useRouteSync } from "@/hooks/useRouteSync";
 import { VscTerminal, VscAccount } from "react-icons/vsc";
 import { FaCode, FaGraduationCap } from "react-icons/fa";
@@ -33,9 +32,6 @@ interface MobileMainBodyProps {
 
 export function MobileMainBody({ searchTerm }: MobileMainBodyProps) {
   useRouteSync();
-  const { isMobile } = useDevice();
-
-  if (!isMobile) return null;
 
   // Highlight search term in text
   const highlightText = (text: string, searchTerm: string) => {

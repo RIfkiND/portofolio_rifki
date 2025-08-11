@@ -3,7 +3,6 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { SiPython } from "react-icons/si";
 import { useRouteSync } from "@/hooks/useRouteSync";
-import { useDevice } from "@/hooks/useDevice";
 import { MobileExperienceBody } from "./MobileExperienceBody";
 import Line from "../ui/line";
 
@@ -13,7 +12,6 @@ interface ExperienceBodyProps {
 
 export function ExperienceBody({ searchTerm }: ExperienceBodyProps) {
   useRouteSync(); // This will sync the current route with the tab store
-  const { isMobile } = useDevice();
   const experienceCode = `class Experience:
     def __init__(self, education, jobs):
         self.education = education
@@ -42,14 +40,15 @@ me = Experience(
 
 me.display_experience()`;
 
-  // Return mobile version for mobile devices
-  if (isMobile) {
-    return <MobileExperienceBody searchTerm={searchTerm} />;
-  }
-
-  // Desktop version
   return (
-    <div className="h-full flex flex-col relative bg-neutral-900 text-gray-300 font-mono overflow-hidden">
+    <>
+      {/* Mobile Experience Body - Show on mobile screens only via CSS */}
+      <div className="mobile-only">
+        <MobileExperienceBody searchTerm={searchTerm} />
+      </div>
+
+      {/* Desktop Experience Body - Show on desktop screens only via CSS */}
+      <div className="desktop-only h-full flex flex-col relative bg-neutral-900 text-gray-300 font-mono overflow-hidden">
       {/* Sticky Header */}
       <div className="sticky top-0 left-0 w-full bg-neutral-900 px-4 py-2 flex items-center  z-50">
         <SiPython className="mr-2 text-yellow-400" />
@@ -84,6 +83,7 @@ me.display_experience()`;
           </SyntaxHighlighter>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

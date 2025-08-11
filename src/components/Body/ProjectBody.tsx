@@ -4,7 +4,6 @@ import Image from "next/image";
 import { VscGithub, VscLinkExternal, VscTerminal } from "react-icons/vsc";
 import { SiLaravel, SiVuedotjs, SiStripe, SiReact, SiExpress, SiNodedotjs, SiGo, SiTypescript } from "react-icons/si";
 import { useRouteSync } from "@/hooks/useRouteSync";
-import { useDevice } from "@/hooks/useDevice";
 import { MobileProjectBody } from "./MobileProjectBody";
 import Line from "../ui/line";
 
@@ -14,7 +13,6 @@ interface ProjectBodyProps {
 
 export function ProjectBody({ searchTerm }: ProjectBodyProps) {
   useRouteSync(); // This will sync the current route with the tab store
-  const { isMobile } = useDevice();
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
 
   const projects = [
@@ -132,14 +130,15 @@ export function ProjectBody({ searchTerm }: ProjectBodyProps) {
 
   const lineCount = projects.length * 8 + 10; // Approximate line count for the "code"
 
-  // Return mobile version for mobile devices
-  if (isMobile) {
-    return <MobileProjectBody searchTerm={searchTerm} />;
-  }
-
-  // Desktop version
   return (
-    <div className="h-full flex flex-col relative bg-neutral-900 text-gray-300 font-mono overflow-hidden">
+    <>
+      {/* Mobile Project Body - Show on mobile screens only via CSS */}
+      <div className="mobile-only">
+        <MobileProjectBody searchTerm={searchTerm} />
+      </div>
+
+      {/* Desktop Project Body - Show on desktop screens only via CSS */}
+      <div className="desktop-only h-full flex flex-col relative bg-neutral-900 text-gray-300 font-mono overflow-hidden">
       {/* Sticky Header */}
       <div className="sticky top-0 left-0 w-full bg-neutral-900 px-4 py-2 flex items-center  z-50">
         <SiTypescript className="mr-2 text-blue-400" />
@@ -261,6 +260,7 @@ export function ProjectBody({ searchTerm }: ProjectBodyProps) {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

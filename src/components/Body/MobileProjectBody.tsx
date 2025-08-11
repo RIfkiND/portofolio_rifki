@@ -1,5 +1,4 @@
 "use client";
-import { useDevice } from "@/hooks/useDevice";
 import { useRouteSync } from "@/hooks/useRouteSync";
 import { VscGithub, VscLinkExternal, VscCode } from "react-icons/vsc";
 import { SiLaravel, SiVuedotjs, SiReact, SiNextdotjs, SiNodedotjs, SiGo } from "react-icons/si";
@@ -10,9 +9,6 @@ interface MobileProjectBodyProps {
 
 export function MobileProjectBody({ searchTerm }: MobileProjectBodyProps) {
   useRouteSync();
-  const { isMobile } = useDevice();
-
-  if (!isMobile) return null;
 
   const projects = [
     {

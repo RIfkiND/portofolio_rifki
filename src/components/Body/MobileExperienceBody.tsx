@@ -1,5 +1,4 @@
 "use client";
-import { useDevice } from "@/hooks/useDevice";
 import { useRouteSync } from "@/hooks/useRouteSync";
 import { VscCalendar, VscBriefcase, VscMortarBoard } from "react-icons/vsc";
 import { FaMapMarkerAlt, FaBuilding } from "react-icons/fa";
@@ -10,9 +9,6 @@ interface MobileExperienceBodyProps {
 
 export function MobileExperienceBody({ searchTerm }: MobileExperienceBodyProps) {
   useRouteSync();
-  const { isMobile } = useDevice();
-
-  if (!isMobile) return null;
 
   const experiences = [
     {
