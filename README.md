@@ -1,24 +1,17 @@
 # 👋 Hi, I'm Rifki Nauval Dzaki
 
-Selamat datang di portofolio saya!  
-Saya seorang **Frontend Developer** yang berfokus pada pengembangan aplikasi modern dengan **Next.js, Tailwind CSS, dan shadcn/ui**.  
-Passionate membangun aplikasi yang **clean, responsive, dan user-friendly**.  
-
----
-
-## 🛠️ Tech Stack
-- ⚡ **Frontend**: Next.js, React, Tailwind CSS, shadcn/ui  
-- 🎨 **UI/UX**: Figma, Framer Motion, Responsive Design  
-- 🔧 **Tools**: Git, Vercel, VS Code  
+Welcome to my portfolio!  
+I'm a **Software Engineer** currently studying at Telkom University Purwokerto Majoring In Software Engineering, passionate about building robust, scalable, and modern applications.  
+While my main expertise is backend engineering And Devops, I also have experience in fullstack development and enjoy collaborating across the stack to deliver complete solutions.
 
 ---
 
 ## 📫 Contact
-- 📧 Email: [youremail@example.com]  
+- 📧 Gmail: [rifkinauvaldzaki08@gmail.com](mailto:rifkinauvaldzaki08@gmail.com)  
 - 💼 LinkedIn: [linkedin.com/in/rifkinauvaldzaki](https://linkedin.com/in/rifkinauvaldzaki)  
 - 🐙 GitHub: [github.com/rifkinauvaldzaki](https://github.com/rifkinauvaldzaki)  
 - 🌐 Website/Portfolio: [yourwebsite.com](https://yourwebsite.com)  
 
 ---
 
-✨ *“Designing and coding interfaces that people love to use.”*
+✨ *“Building backend systems that empower seamless digital experiences.”*
