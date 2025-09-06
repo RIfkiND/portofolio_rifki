@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import LayoutWithTerminal from "@/components/Layout/LayoutWithTerminal";
+import ResponsiveLayoutWrapper from "@/components/Layout/ResponsiveLayoutWrapper";
 
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -27,22 +27,11 @@ export default function RootLayout({
           "antialiased h-full bg-neutral-900"
         )}
       >
-        {/* Desktop View */}
-        <div className="hidden md:flex min-h-screen w-full items-center justify-center">
-          <div className="relative flex flex-col w-[90vw] max-w-[1600px] h-[90vh] max-h-screen bg-neutral-950 rounded-2xl shadow-2xl border border-neutral-800 overflow-hidden">
-            <LayoutWithTerminal>
-              <div className="flex-1" style={{ overflow: 'hidden' }}>
-                {children}
-              </div>
-            </LayoutWithTerminal>
-          </div>
-        </div>
-
-        {/* Mobile View - Now uses our responsive components */}
-        <div className="md:hidden h-full">
+        <ResponsiveLayoutWrapper>
           {children}
-        </div>
+        </ResponsiveLayoutWrapper>
       </body>
     </html>
   );
 }
+

@@ -72,7 +72,8 @@ export default function Sidebar() {
     }));
   };
   const handleOpenFile = (file: { name: string; icon: React.ReactElement; route: string }) => {
-    if (!openTabs.some((tab) => tab.name === file.name)) {
+    // Check for duplicates by both name and route
+    if (!openTabs.some((tab) => tab.name === file.name && tab.route === file.route)) {
       setOpenTabs([...openTabs, file]);
     }
     setSelectedFile(file);

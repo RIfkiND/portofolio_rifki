@@ -15,10 +15,10 @@ export default function LayoutWithTerminal({
   console.log("🏗️ LayoutWithTerminal rendering - GlobalTerminal should be included");
   
   return (
-    <div className="flex flex-col h-full relative">
+    <div className="flex flex-col h-full relative bg-transparent">
       <Header />
       <div 
-        className="flex-1 flex"
+        className="flex-1 flex bg-transparent"
         style={{
           height: isTerminalOpen ? 'calc(100% - 280px)' : 'calc(100% - 0px)',
           overflow: 'hidden'

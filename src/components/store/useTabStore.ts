@@ -80,6 +80,10 @@ export const useTabStore = create<TabStore>((set, get) => ({
       try {
         const parsed = JSON.parse(storedTabs);
         tabs = deserializeTabs(parsed);
+        // Remove duplicates during hydration
+        tabs = tabs.filter((tab, index, self) => 
+          index === self.findIndex(t => t.name === tab.name && t.route === tab.route)
+        );
       } catch {
         tabs = [defaultTab];
       }
@@ -105,10 +109,15 @@ export const useTabStore = create<TabStore>((set, get) => ({
   },
 
   setOpenTabs: (tabs) => {
+    // Remove duplicates based on name and route
+    const uniqueTabs = tabs.filter((tab, index, self) => 
+      index === self.findIndex(t => t.name === tab.name && t.route === tab.route)
+    );
+    
     if (typeof window !== 'undefined') {
-      localStorage.setItem("openTabs", serializeTabs(tabs));
+      localStorage.setItem("openTabs", serializeTabs(uniqueTabs));
     }
-    set({ openTabs: deserializeTabs(tabs) });
+    set({ openTabs: deserializeTabs(uniqueTabs) });
   },
   setSelectedFile: (file) => {
     if (typeof window !== 'undefined') {

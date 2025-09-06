@@ -74,11 +74,13 @@ export default function TabSection() {
     <div className="flex items-center justify-between bg-neutral-900 text-white border-neutral-800">
       {/* Tabs */}
       <div className="flex">
-        {openTabs.map(({ icon, name, route }) => {
+        {openTabs.map(({ icon, name, route }, index) => {
           const isActive = route === pathname;
+          // Use a combination of name, route, and index for unique keys
+          const uniqueKey = `${name}-${route || 'noroute'}-${index}`;
           return (
             <div
-              key={name}
+              key={uniqueKey}
               onClick={() => handleTabClick({ name, icon, route })}
               className={`group flex items-center px-3 py-2 cursor-pointer transition duration-200 ${
                 isActive

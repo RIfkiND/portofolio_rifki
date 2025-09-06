@@ -56,8 +56,8 @@ export function useRouteSync() {
     // Update selected file to match current route
     setSelectedFile(currentFileInfo);
     
-    // Add to open tabs if not already open
-    const isTabOpen = openTabs.some(tab => tab.route === pathname);
+    // Add to open tabs if not already open (check both name and route)
+    const isTabOpen = openTabs.some(tab => tab.route === pathname && tab.name === currentFileInfo.name);
     if (!isTabOpen) {
       const newTabs = [...openTabs, currentFileInfo];
       setOpenTabs(newTabs);

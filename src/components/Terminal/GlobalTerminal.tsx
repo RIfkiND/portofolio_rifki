@@ -29,7 +29,7 @@ export default function GlobalTerminal() {
   }, []);
 
   // Debug log
-  console.log("🔍 GlobalTerminal render - mounted:", mounted, "isOpen:", isOpen, "selectedFile:", selectedFile?.name);
+  // console.log("🔍 GlobalTerminal render - mounted:", mounted, "isOpen:", isOpen, "selectedFile:", selectedFile?.name);
 
   // Auto-focus input when terminal opens
   useEffect(() => {
@@ -357,11 +357,11 @@ export default function GlobalTerminal() {
   };
 
   if (!mounted || !isOpen) {
-    console.log("❌ Terminal not rendering - mounted:", mounted, "isOpen:", isOpen);
+    // console.log("❌ Terminal not rendering - mounted:", mounted, "isOpen:", isOpen);
     return null;
   }
 
-  console.log("✅ Terminal IS RENDERING NOW!");
+  // console.log("✅ Terminal IS RENDERING NOW!");
 
   // Calculate positioning based on device type
   const getTerminalStyles = () => {
