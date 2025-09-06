@@ -17,7 +17,7 @@ export const useWindowStore = create<WindowState>((set, get) => ({
   isMaximized: false,
   isMinimized: false,
   isFullscreen: false,
-  isClosed: false,
+  isClosed: true, // Start with window closed to show ClosedWindow component first
   
   maximize: () => {
     console.log("Window maximized");

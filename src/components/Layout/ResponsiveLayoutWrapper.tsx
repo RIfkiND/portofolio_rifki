@@ -4,7 +4,7 @@ import { useWindowStore } from "@/components/store/useWindowStore";
 import { cn } from "@/lib/utils";
 import LayoutWithTerminal from "./LayoutWithTerminal";
 import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
-import ClosedWindow from "./ClosedWindow";
+import ClosedWindow from "@/components/window/ClosedWindow";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function ResponsiveLayoutWrapper({
@@ -43,7 +43,24 @@ export default function ResponsiveLayoutWrapper({
       >
       {/* Background gradient - covers entire viewport */}
       <div className="fixed inset-0 z-0">
-        <BackgroundGradientAnimation />
+        <BackgroundGradientAnimation 
+          gradientBackgroundStart="rgb(0, 0, 0)"
+          gradientBackgroundEnd="rgb(15, 15, 35)"
+          firstColor="30, 30, 100"
+          secondColor="50, 20, 80"
+          thirdColor="20, 40, 120"
+          fourthColor="40, 10, 60"
+          fifthColor="25, 25, 90"
+          pointerColor="60, 30, 140"
+          size="90%"
+          blendingValue="multiply"
+          interactive={true}
+        />
+        {/* Additional dark overlay */}
+        <div className="absolute inset-0 bg-black/30"></div>
+        {/* Subtle accent gradients */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-purple-600/15 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-blue-600/15 to-transparent rounded-full blur-3xl"></div>
       </div>
       
       {/* Desktop View */}

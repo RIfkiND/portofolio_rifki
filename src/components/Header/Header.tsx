@@ -70,17 +70,17 @@ export default function Header() {
         {/* Middle Navigation & Search */}
         <div className="flex items-center flex-1 justify-center space-x-2 lg:space-x-4 mx-4">
           <VscArrowLeft
-            className="text-gray-400 text-5xl cursor-pointer hover:bg-neutral-800 rounded p-2"
+            className="text-gray-400 text-4xl 2xl:text-4xl cursor-pointer hover:bg-neutral-800 rounded p-2"
             title="Back"
           />
           <VscArrowRight
-            className="text-gray-400 text-5xl cursor-pointer hover:bg-neutral-800 rounded p-2"
+            className="text-gray-400 text-4xl 2xl:text-4xl cursor-pointer hover:bg-neutral-800 rounded p-2"
             title="Forward"
           />
 
           {/* Search Bar */}
           <div className="relative flex items-center bg-neutral-800 hover:bg-neutral-700 px-3 py-1 rounded-lg w-full max-w-sm lg:max-w-md xl:max-w-lg">
-            <BiSearch className="text-gray-400 text-2xl flex-shrink-0" />
+            <BiSearch className="text-gray-400 text-xl 2xl:text-2xl flex-shrink-0" />
             <input
               type="text"
               placeholder="Search..."
@@ -89,11 +89,11 @@ export default function Header() {
           </div>
 
           <TbBrandGithubCopilot
-            className="text-gray-400 text-4xl cursor-pointer hover:bg-neutral-800 rounded p-2 flex-shrink-0"
+            className="text-gray-400 text-3xl 2xl:text-4xl cursor-pointer hover:bg-neutral-800 rounded p-2 flex-shrink-0"
             title="Copilot"
           />
           <FaChevronUp
-            className="text-gray-400 text-2xl rotate-180 cursor-pointer hover:bg-neutral-800 rounded p-2 flex-shrink-0"
+            className="text-gray-400 text-3xl 2xl:text-4xl rotate-180 cursor-pointer hover:bg-neutral-800 rounded p-2 flex-shrink-0"
             title="Toggle"
           />
         </div>
@@ -101,7 +101,7 @@ export default function Header() {
         {/* Right Icons */}
         <div className="flex items-center space-x-2 lg:space-x-6 flex-shrink-0">
           <VscChromeMinimize
-            className={`text-gray-400 text-3xl cursor-pointer hover:text-gray-500 p-2 transition-colors ${
+            className={`text-gray-400 text-3xl 2xl:text-4xl cursor-pointer hover:text-gray-500 p-2 transition-colors ${
               isMinimized ? 'text-blue-400' : ''
             }`}
             title="Minimize"
@@ -109,21 +109,21 @@ export default function Header() {
           />
           {isMaximized ? (
             <VscChromeRestore
-              className="text-gray-400 text-3xl cursor-pointer hover:text-gray-500 p-2 transition-colors"
+              className="text-gray-400 text-3xl 2xl:text-4xl cursor-pointer hover:text-gray-500 p-2 transition-colors"
               title="Restore (Double-click for fullscreen)"
               onClick={handleMaximize}
               onDoubleClick={toggleFullscreen}
             />
           ) : (
             <VscChromeMaximize
-              className="text-gray-400 text-3xl cursor-pointer hover:text-gray-500 p-2 transition-colors"
+              className="text-gray-400 text-3xl 2xl:text-4xl cursor-pointer hover:text-gray-500 p-2 transition-colors"
               title="Maximize (Double-click for fullscreen)"
               onClick={handleMaximize}
               onDoubleClick={toggleFullscreen}
             />
           )}
           <VscClose
-            className="text-red-400 text-3xl cursor-pointer hover:text-red-500 p-2 transition-colors"
+            className="text-red-400 text-3xl 2xl:text-4xl cursor-pointer hover:text-red-500 p-2 transition-colors"
             title="Close Window"
             onClick={handleClose}
           />
