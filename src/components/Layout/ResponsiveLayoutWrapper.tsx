@@ -11,7 +11,7 @@ export default function ResponsiveLayoutWrapper({
 }: {
   children: React.ReactNode;
 }) {
-  const { isMaximized, isMinimized, isFullscreen, isClosed, hasBeenOpened } = useWindowStore();
+  const { isMaximized, isMinimized, isFullscreen, isClosed, } = useWindowStore();
 
   // Show closed window if window is closed
   // This covers both first-time visitors and users who explicitly closed it
