@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import TechStack from "@/components/Table/TechStack";
 import ShinyText from "@/components/Bits/ShinyText";
 import { useRouteSync } from "@/hooks/useRouteSync";
-import { MobileMainBody } from "./MobileMainBody";
+import { MobileMainBody } from "@/components/Mobile/MobileMainBody";
 import { motion } from "framer-motion";
 
 interface MainBodyProps {

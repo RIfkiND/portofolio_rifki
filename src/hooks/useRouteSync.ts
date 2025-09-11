@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { useTabStore } from "@/components/store/useTabStore";
 import { FaMarkdown } from "react-icons/fa";
@@ -42,25 +42,34 @@ const getFileInfoForRoute = (pathname: string) => {
 
 export function useRouteSync() {
   const pathname = usePathname();
-  const { setSelectedFile, openTabs, setOpenTabs, isHydrated, hydrate } = useTabStore();
+  const { setSelectedFile, setOpenTabs, isHydrated, hydrate } = useTabStore();
+  const previousPathname = useRef<string | undefined>(undefined);
 
+  // Hydration effect
   useEffect(() => {
-    // Hydrate the store first
     if (!isHydrated) {
       hydrate();
-      return;
     }
+  }, [isHydrated, hydrate]);
+
+  // Route sync effect - only run when pathname actually changes
+  useEffect(() => {
+    if (!isHydrated || previousPathname.current === pathname) return;
 
     const currentFileInfo = getFileInfoForRoute(pathname);
     
     // Update selected file to match current route
     setSelectedFile(currentFileInfo);
-    
-    // Add to open tabs if not already open (check both name and route)
-    const isTabOpen = openTabs.some(tab => tab.route === pathname && tab.name === currentFileInfo.name);
+
+    // Get current tabs from store and check if tab is already open
+    const currentTabs = useTabStore.getState().openTabs;
+    const isTabOpen = currentTabs.some(tab => tab.route === currentFileInfo.route);
     if (!isTabOpen) {
-      const newTabs = [...openTabs, currentFileInfo];
+      const newTabs = [...currentTabs, currentFileInfo];
       setOpenTabs(newTabs);
     }
-  }, [pathname, setSelectedFile, openTabs, setOpenTabs, isHydrated, hydrate]);
+
+    // Update the previous pathname
+    previousPathname.current = pathname;
+  }, [pathname, isHydrated, setSelectedFile, setOpenTabs]); // Removed openTabs from dependencies
 }

@@ -1,14 +1,13 @@
 "use client";
-import { useState, useRef, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { VscMenu, VscTerminal, VscSearch, VscClose } from 'react-icons/vsc';
-import { useTabStore } from '@/components/store/useTabStore';
-import { useTerminalStore } from '@/components/store/useTerminalStore';
+import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { VscTerminal, VscSearch, VscClose } from "react-icons/vsc";
+import { useTabStore } from "@/components/store/useTabStore";
+import { useTerminalStore } from "@/components/store/useTerminalStore";
 
 export default function MobileHeader() {
-  const [showMenu, setShowMenu] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const { selectedFile } = useTabStore();
   const { open: openTerminal } = useTerminalStore();
@@ -27,93 +26,137 @@ export default function MobileHeader() {
 
     // Search in skills
     const skills = [
-      { name: 'Laravel', category: 'Backend Framework', level: 'Expert' },
-      { name: 'React', category: 'Frontend Framework', level: 'Advanced' },
-      { name: 'Next.js', category: 'React Framework', level: 'Advanced' },
-      { name: 'Vue.js', category: 'Frontend Framework', level: 'Intermediate' },
-      { name: 'Docker', category: 'DevOps Tool', level: 'Advanced' },
-      { name: 'Kubernetes', category: 'Container Orchestration', level: 'Advanced' },
-      { name: 'PostgreSQL', category: 'Database', level: 'Advanced' },
-      { name: 'MongoDB', category: 'Database', level: 'Intermediate' },
-      { name: 'Python', category: 'Programming Language', level: 'Intermediate' },
-      { name: 'TypeScript', category: 'Programming Language', level: 'Advanced' },
-      { name: 'JavaScript', category: 'Programming Language', level: 'Expert' },
-      { name: 'PHP', category: 'Programming Language', level: 'Expert' },
-      { name: 'CI/CD', category: 'DevOps', level: 'Advanced' },
-      { name: 'GitHub Actions', category: 'CI/CD Tool', level: 'Advanced' },
-      { name: 'HTML', category: 'Markup Language', level: 'Expert' },
-      { name: 'CSS', category: 'Styling', level: 'Expert' },
-      { name: 'Tailwind CSS', category: 'CSS Framework', level: 'Expert' },
-      { name: 'AI Tools', category: 'Artificial Intelligence', level: 'Intermediate' }
+      { name: "Laravel", category: "Backend Framework", level: "Expert" },
+      { name: "React", category: "Frontend Framework", level: "Advanced" },
+      { name: "Next.js", category: "React Framework", level: "Advanced" },
+      { name: "Vue.js", category: "Frontend Framework", level: "Intermediate" },
+      { name: "Docker", category: "DevOps Tool", level: "Advanced" },
+      {
+        name: "Kubernetes",
+        category: "Container Orchestration",
+        level: "Advanced",
+      },
+      { name: "PostgreSQL", category: "Database", level: "Advanced" },
+      { name: "MongoDB", category: "Database", level: "Intermediate" },
+      {
+        name: "Python",
+        category: "Programming Language",
+        level: "Intermediate",
+      },
+      {
+        name: "TypeScript",
+        category: "Programming Language",
+        level: "Advanced",
+      },
+      { name: "JavaScript", category: "Programming Language", level: "Expert" },
+      { name: "PHP", category: "Programming Language", level: "Expert" },
+      { name: "CI/CD", category: "DevOps", level: "Advanced" },
+      { name: "GitHub Actions", category: "CI/CD Tool", level: "Advanced" },
+      { name: "HTML", category: "Markup Language", level: "Expert" },
+      { name: "CSS", category: "Styling", level: "Expert" },
+      { name: "Tailwind CSS", category: "CSS Framework", level: "Expert" },
+      {
+        name: "AI Tools",
+        category: "Artificial Intelligence",
+        level: "Intermediate",
+      },
     ];
 
-    skills.forEach(skill => {
-      if (skill.name.toLowerCase().includes(searchTerm) || 
-          skill.category.toLowerCase().includes(searchTerm)) {
+    skills.forEach((skill) => {
+      if (
+        skill.name.toLowerCase().includes(searchTerm) ||
+        skill.category.toLowerCase().includes(searchTerm)
+      ) {
         results.push({
-          type: 'skill',
+          type: "skill",
           title: skill.name,
           subtitle: `${skill.category} • ${skill.level}`,
-          icon: '⚡'
+          icon: "⚡",
         });
       }
     });
 
     // Search in experience
     const experiences = [
-      { title: 'Full Stack Developer Intern', company: 'Tech Company', period: '2023-2024' },
-      { title: 'Backend Developer', company: 'Startup', period: '2024' },
-      { title: 'Freelance Developer', company: 'Various Clients', period: '2022-Present' }
+      {
+        title: "Full Stack Developer Intern",
+        company: "Tech Company",
+        period: "2023-2024",
+      },
+      { title: "Backend Developer", company: "Startup", period: "2024" },
+      {
+        title: "Freelance Developer",
+        company: "Various Clients",
+        period: "2022-Present",
+      },
     ];
 
-    experiences.forEach(exp => {
-      if (exp.title.toLowerCase().includes(searchTerm) || 
-          exp.company.toLowerCase().includes(searchTerm)) {
+    experiences.forEach((exp) => {
+      if (
+        exp.title.toLowerCase().includes(searchTerm) ||
+        exp.company.toLowerCase().includes(searchTerm)
+      ) {
         results.push({
-          type: 'experience',
+          type: "experience",
           title: exp.title,
           subtitle: `${exp.company} • ${exp.period}`,
-          icon: '💼'
+          icon: "💼",
         });
       }
     });
 
     // Search in projects
     const projects = [
-      { name: 'SINDARA', description: 'Government System for Population Data', tech: 'Laravel, React' },
-      { name: 'Portfolio Website', description: 'Personal portfolio with VSCode theme', tech: 'Next.js, TypeScript' },
-      { name: 'E-commerce Platform', description: 'Full-stack e-commerce solution', tech: 'Laravel, Vue.js' }
+      {
+        name: "SINDARA",
+        description: "Government System for Population Data",
+        tech: "Laravel, React",
+      },
+      {
+        name: "Portfolio Website",
+        description: "Personal portfolio with VSCode theme",
+        tech: "Next.js, TypeScript",
+      },
+      {
+        name: "E-commerce Platform",
+        description: "Full-stack e-commerce solution",
+        tech: "Laravel, Vue.js",
+      },
     ];
 
-    projects.forEach(project => {
-      if (project.name.toLowerCase().includes(searchTerm) || 
-          project.description.toLowerCase().includes(searchTerm) ||
-          project.tech.toLowerCase().includes(searchTerm)) {
+    projects.forEach((project) => {
+      if (
+        project.name.toLowerCase().includes(searchTerm) ||
+        project.description.toLowerCase().includes(searchTerm) ||
+        project.tech.toLowerCase().includes(searchTerm)
+      ) {
         results.push({
-          type: 'project',
+          type: "project",
           title: project.name,
           subtitle: project.description,
-          icon: '🚀'
+          icon: "🚀",
         });
       }
     });
 
     // Search in blog topics
     const blogTopics = [
-      { title: 'Building Scalable APIs', category: 'Backend Development' },
-      { title: 'React Best Practices', category: 'Frontend Development' },
-      { title: 'Docker in Development', category: 'DevOps' },
-      { title: 'Government System Architecture', category: 'System Design' }
+      { title: "Building Scalable APIs", category: "Backend Development" },
+      { title: "React Best Practices", category: "Frontend Development" },
+      { title: "Docker in Development", category: "DevOps" },
+      { title: "Government System Architecture", category: "System Design" },
     ];
 
-    blogTopics.forEach(blog => {
-      if (blog.title.toLowerCase().includes(searchTerm) || 
-          blog.category.toLowerCase().includes(searchTerm)) {
+    blogTopics.forEach((blog) => {
+      if (
+        blog.title.toLowerCase().includes(searchTerm) ||
+        blog.category.toLowerCase().includes(searchTerm)
+      ) {
         results.push({
-          type: 'blog',
+          type: "blog",
           title: blog.title,
           subtitle: blog.category,
-          icon: '📝'
+          icon: "📝",
         });
       }
     });
@@ -124,7 +167,7 @@ export default function MobileHeader() {
   const handleSearch = () => {
     setShowSearch(!showSearch);
     if (!showSearch) {
-      setSearchQuery('');
+      setSearchQuery("");
       setSearchResults([]);
     }
   };
@@ -145,29 +188,29 @@ export default function MobileHeader() {
 
   const handleResultClick = (result: any) => {
     // Route based on result type
-    let route = '/';
+    let route = "/";
     const searchParam = encodeURIComponent(result.title);
-    
+
     switch (result.type) {
-      case 'skill':
+      case "skill":
         route = `/skill?search=${searchParam}`;
         break;
-      case 'experience':
+      case "experience":
         route = `/experience?search=${searchParam}`;
         break;
-      case 'project':
+      case "project":
         route = `/project?search=${searchParam}`;
         break;
-      case 'blog':
+      case "blog":
         route = `/blog?search=${searchParam}`;
         break;
       default:
         route = `/?search=${searchParam}`;
     }
-    
+
     router.push(route);
     setShowSearch(false);
-    setSearchQuery('');
+    setSearchQuery("");
     setSearchResults([]);
   };
 
@@ -178,14 +221,14 @@ export default function MobileHeader() {
       const searchParam = encodeURIComponent(searchQuery.trim());
       router.push(`/?search=${searchParam}`);
       setShowSearch(false);
-      setSearchQuery('');
+      setSearchQuery("");
       setSearchResults([]);
     }
   };
 
   const handleSearchClose = () => {
     setShowSearch(false);
-    setSearchQuery('');
+    setSearchQuery("");
     setSearchResults([]);
   };
 
@@ -199,27 +242,33 @@ export default function MobileHeader() {
   // Close search dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (showSearch && searchInputRef.current && !searchInputRef.current.closest('.search-container')?.contains(event.target as Node)) {
+      if (
+        showSearch &&
+        searchInputRef.current &&
+        !searchInputRef.current
+          .closest(".search-container")
+          ?.contains(event.target as Node)
+      ) {
         setShowSearch(false);
-        setSearchQuery('');
+        setSearchQuery("");
         setSearchResults([]);
       }
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && showSearch) {
+      if (event.key === "Escape" && showSearch) {
         setShowSearch(false);
-        setSearchQuery('');
+        setSearchQuery("");
         setSearchResults([]);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('keydown', handleKeyDown);
-    
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [showSearch]);
 
@@ -228,13 +277,6 @@ export default function MobileHeader() {
       {/* Mobile Header */}
       <div className="bg-neutral-800 border-b border-neutral-700 p-4 flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <button
-            onClick={() => setShowMenu(!showMenu)}
-            className="text-gray-400 hover:text-white"
-          >
-            <VscMenu className="w-5 h-5" />
-          </button>
-          
           {selectedFile && (
             <div className="flex items-center space-x-2">
               {selectedFile.icon}
@@ -252,7 +294,7 @@ export default function MobileHeader() {
           >
             <VscSearch className="w-5 h-5" />
           </button>
-          
+
           <button
             onClick={openTerminal}
             className="text-gray-400 hover:text-white"
@@ -286,9 +328,9 @@ export default function MobileHeader() {
                 </button>
               )}
             </div>
-            
+
             {/* Search suggestions/hints */}
-            {searchQuery === '' && (
+            {searchQuery === "" && (
               <div className="mt-2 text-xs text-gray-400">
                 Try: React, Laravel, Docker, Experience, Projects
               </div>
@@ -321,46 +363,12 @@ export default function MobileHeader() {
             )}
 
             {/* No results found */}
-            {searchQuery !== '' && searchResults.length === 0 && (
+            {searchQuery !== "" && searchResults.length === 0 && (
               <div className="mt-3 p-3 text-center text-gray-400 text-sm">
                 No results found for &quot;{searchQuery}&quot;
               </div>
             )}
           </form>
-        </div>
-      )}
-
-      {/* Mobile Slide-out Menu */}
-      {showMenu && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          {/* Backdrop */}
-          <div 
-            className="fixed inset-0 bg-black bg-opacity-50"
-            onClick={() => setShowMenu(false)}
-          />
-          
-          {/* Menu Panel */}
-          <div className="fixed top-0 left-0 h-full w-80 bg-neutral-900 border-r border-neutral-700 transform transition-transform duration-300">
-            <div className="p-4 border-b border-neutral-700">
-              <div className="flex items-center justify-between">
-                <h2 className="text-white font-bold">Rifki_ND Portfolio</h2>
-                <button
-                  onClick={() => setShowMenu(false)}
-                  className="text-gray-400 hover:text-white"
-                >
-                  ✕
-                </button>
-              </div>
-            </div>
-            
-            {/* Menu Content - Reuse sidebar content */}
-            <div className="p-4">
-              <div className="space-y-4">
-                <div className="text-sm text-gray-400 uppercase tracking-wide">Files</div>
-                {/* File list will be populated here */}
-              </div>
-            </div>
-          </div>
         </div>
       )}
     </>

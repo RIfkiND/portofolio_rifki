@@ -3,7 +3,6 @@ import React from "react";
 import { useWindowStore } from "@/components/store/useWindowStore";
 import { cn } from "@/lib/utils";
 import LayoutWithTerminal from "./LayoutWithTerminal";
-import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 import ClosedWindow from "@/components/window/ClosedWindow";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -12,9 +11,10 @@ export default function ResponsiveLayoutWrapper({
 }: {
   children: React.ReactNode;
 }) {
-  const { isMaximized, isMinimized, isFullscreen, isClosed } = useWindowStore();
+  const { isMaximized, isMinimized, isFullscreen, isClosed, hasBeenOpened } = useWindowStore();
 
-  // If window is closed, show the closed window interface
+  // Show closed window if window is closed
+  // This covers both first-time visitors and users who explicitly closed it
   if (isClosed) {
     return (
       <AnimatePresence mode="wait">
@@ -41,26 +41,18 @@ export default function ResponsiveLayoutWrapper({
         exit={{ scale: 1.1, opacity: 0 }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
       >
-      {/* Background gradient - covers entire viewport */}
-      <div className="fixed inset-0 z-0">
-        <BackgroundGradientAnimation 
-          gradientBackgroundStart="rgb(0, 0, 0)"
-          gradientBackgroundEnd="rgb(15, 15, 35)"
-          firstColor="30, 30, 100"
-          secondColor="50, 20, 80"
-          thirdColor="20, 40, 120"
-          fourthColor="40, 10, 60"
-          fifthColor="25, 25, 90"
-          pointerColor="60, 30, 140"
-          size="90%"
-          blendingValue="multiply"
-          interactive={true}
+      {/* Grid Background - covers entire viewport */}
+      <div className="fixed inset-0 z-0 bg-black">
+        <div
+          className={cn(
+            "absolute inset-0",
+            "[background-size:40px_40px]",
+            "[background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)]",
+            "opacity-10"
+          )}
         />
-        {/* Additional dark overlay */}
-        <div className="absolute inset-0 bg-black/30"></div>
-        {/* Subtle accent gradients */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-purple-600/15 to-transparent rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-blue-600/15 to-transparent rounded-full blur-3xl"></div>
+        {/* Radial gradient for the container to give a faded look */}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
       </div>
       
       {/* Desktop View */}
@@ -91,7 +83,6 @@ export default function ResponsiveLayoutWrapper({
           )}
         </div>
       </div>
-
       {/* Mobile View */}
       <div className="md:hidden h-full relative z-10">{children}</div>
     </motion.div>
