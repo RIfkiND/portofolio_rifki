@@ -14,7 +14,7 @@ export default function ResponsiveLayout({ children }: ResponsiveLayoutProps) {
   return (
     <>
       {/* Mobile Layout - Show on mobile screens only via CSS */}
-      <div className="mobile-only flex-col h-screen bg-neutral-900 relative">
+      <div className="mobile-only flex flex-col min-h-screen bg-neutral-900 relative">
         <MobileHeader />
         <div className="flex-1 overflow-y-auto">
           {children}
@@ -24,12 +24,12 @@ export default function ResponsiveLayout({ children }: ResponsiveLayoutProps) {
       </div>
 
       {/* Desktop Layout - Show on desktop screens only via CSS */}
-      <div className="desktop-only flex-col h-screen" style={{ overflow: 'hidden' }}>
-        <div className="flex flex-1" style={{ overflow: 'hidden' }}>
+      <div className="desktop-only flex-col h-screen overflow-hidden">
+        <div className="flex flex-1 overflow-hidden">
           <Sidebar />
-          <div className="flex flex-col flex-1" style={{ overflow: 'hidden' }}>
+          <div className="flex flex-col flex-1 overflow-hidden">
             <TabSection />
-            <div className="flex-1 bg-neutral-900" style={{ height: '100%' }}>
+            <div className="flex-1 bg-neutral-900 overflow-hidden">
               {children}
             </div>
           </div>

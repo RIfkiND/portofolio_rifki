@@ -5,7 +5,6 @@ import Link from "next/link";
 import { notFound } from 'next/navigation';
 import { motion } from "framer-motion";
 import { VscGithub, VscLinkExternal, VscTerminal, VscArrowLeft, VscCode, VscCalendar, VscTag, VscEye } from "react-icons/vsc";
-import { FaStar } from "react-icons/fa";
 import { SiLaravel, SiVuedotjs, SiStripe, SiReact, SiExpress, SiNodedotjs, SiGo, SiTypescript } from "react-icons/si";
 import { useRouteSync } from "@/hooks/useRouteSync";
 import { MobileProjectDetailBody } from "../Mobile/MobileProjectDetailBody";
@@ -396,19 +395,19 @@ export function ProjectDetailBody({ slug }: ProjectDetailBodyProps) {
         </div>
 
         {/* Main Content */}
-        <div className="flex items-start flex-1 overflow-hidden">
+        <div className="flex items-start flex-1 min-h-0">
           {/* Line Numbers */}
-          <div className="w-16 bg-neutral-900/50 border-r border-neutral-700">
+          <div className="w-16 bg-neutral-900/50 border-r border-neutral-700 flex-shrink-0">
             <Line line={lineCount} />
           </div>
 
           {/* Project Detail Content */}
-          <div className="flex-1 p-8 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto p-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="max-w-6xl mx-auto"
+              className="max-w-6xl mx-auto pb-32"
             >
               {/* Project Hero */}
               <div className="mb-12">
@@ -530,85 +529,11 @@ export function ProjectDetailBody({ slug }: ProjectDetailBodyProps) {
                 </div>
               </motion.div>
 
-              {/* Features */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.6 }}
-                className="mb-12"
-              >
-                <h2 className="text-2xl font-bold text-white mb-6">Key Features</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {project.features.map((feature: string, index: number) => (
-                    <div key={index} className="flex items-center space-x-3">
-                      <FaStar className="text-yellow-400 flex-shrink-0" />
-                      <span className="text-gray-300">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-
-              {/* Challenges & Learnings */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7, duration: 0.6 }}
-                className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12"
-              >
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-4">Challenges</h3>
-                  <div className="space-y-3">
-                    {project.challenges.map((challenge: string, index: number) => (
-                      <div key={index} className="flex items-start space-x-3">
-                        <div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0"></div>
-                        <span className="text-gray-300">{challenge}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-4">Key Learnings</h3>
-                  <div className="space-y-3">
-                    {project.learnings.map((learning: string, index: number) => (
-                      <div key={index} className="flex items-start space-x-3">
-                        <div className="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0"></div>
-                        <span className="text-gray-300">{learning}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Gallery */}
-              {project.gallery && project.gallery.length > 1 && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.8, duration: 0.6 }}
-                  className="mb-12"
-                >
-                  <h2 className="text-2xl font-bold text-white mb-6">Project Gallery</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {project.gallery.map((image: string, index: number) => (
-                      <div key={index} className="relative rounded-lg overflow-hidden bg-neutral-800 border border-neutral-700 hover:border-blue-500/50 transition-colors">
-                        <Image
-                          src={image}
-                          alt={`${project.name} screenshot ${index + 1}`}
-                          width={400}
-                          height={300}
-                          className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-
               {/* Back to Projects */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9, duration: 0.6 }}
+                transition={{ delay: 0.6, duration: 0.6 }}
                 className="text-center"
               >
                 <Link

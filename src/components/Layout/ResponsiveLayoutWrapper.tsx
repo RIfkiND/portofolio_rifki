@@ -35,39 +35,39 @@ export default function ResponsiveLayoutWrapper({
     <AnimatePresence mode="wait">
       <motion.div 
         key="main-window"
-        className="relative min-h-screen w-full"
+        className="relative min-h-[120vh] w-full"
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 1.1, opacity: 0 }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
       >
-      {/* Grid Background - covers entire viewport */}
-      <div className="fixed inset-0 z-0 bg-black">
+      {/* Grid Background - covers entire viewport with extra height */}
+      <div className="fixed inset-0 z-0 bg-black min-h-[120vh]">
         <div
           className={cn(
-            "absolute inset-0",
+            "absolute inset-0 min-h-[120vh]",
             "[background-size:40px_40px]",
             "[background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)]",
             "opacity-10"
           )}
         />
         {/* Radial gradient for the container to give a faded look */}
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black min-h-[120vh] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
       </div>
       
       {/* Desktop View */}
-      <div className="hidden md:block min-h-screen w-full relative z-10">
+      <div className="hidden md:flex min-h-[120vh] w-full relative z-10 items-center">
         <div 
           className={cn(
-            "relative flex flex-col overflow-hidden transition-all duration-300",
+            "relative flex flex-col transition-all duration-300 mx-auto",
             // Conditional styling based on window state
             isMinimized 
-              ? "w-96 h-12 rounded-lg shadow-lg border border-neutral-800 mx-auto mt-[50vh] overflow-hidden bg-neutral-950/90 backdrop-blur-sm"
+              ? "w-96 h-12 rounded-lg shadow-lg border border-neutral-800 overflow-hidden bg-neutral-950/90 backdrop-blur-sm"
               : isFullscreen 
-                ? "h-screen w-full bg-transparent"
+                ? "min-h-screen w-full bg-transparent"
                 : isMaximized
-                  ? "h-screen w-full bg-neutral-950/20 backdrop-blur-sm"
-                  : "w-[90vw] max-w-[1600px] h-[90vh] max-h-screen rounded-2xl shadow-2xl border border-neutral-800 mx-auto mt-[5vh] bg-neutral-950/20 backdrop-blur-sm"
+                  ? "min-h-screen w-full bg-neutral-950/20 backdrop-blur-sm"
+                  : "w-[90vw] max-w-[1600px] min-h-[85vh] rounded-2xl shadow-2xl border border-neutral-800 bg-neutral-950/20 backdrop-blur-sm"
           )}
         >
           {isMinimized ? (
@@ -76,7 +76,7 @@ export default function ResponsiveLayoutWrapper({
             </div>
           ) : (
             <LayoutWithTerminal>
-              <div className="flex-1 overflow-hidden">
+              <div className="flex-1">
                 {children}
               </div>
             </LayoutWithTerminal>
@@ -84,7 +84,7 @@ export default function ResponsiveLayoutWrapper({
         </div>
       </div>
       {/* Mobile View */}
-      <div className="md:hidden h-full relative z-10">{children}</div>
+      <div className="md:hidden min-h-[120vh] w-full relative z-10">{children}</div>
     </motion.div>
     </AnimatePresence>
   );

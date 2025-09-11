@@ -50,21 +50,21 @@ me.display_experience()`;
       {/* Desktop Experience Body - Show on desktop screens only via CSS */}
       <div className="desktop-only h-full flex flex-col relative bg-neutral-900 text-gray-300 font-mono overflow-hidden">
       {/* Sticky Header */}
-      <div className="sticky top-0 left-0 w-full bg-neutral-900 px-4 py-2 flex items-center  z-50">
+      <div className="sticky top-0 left-0 w-full bg-neutral-900 px-4 md:px-6 py-2 flex items-center border-b border-neutral-700 z-50">
         <SiPython className="mr-2 text-yellow-400" />
-        <span className="text-sm">src &gt; experience.py</span>
+        <span className="text-xs md:text-sm">src &gt; experience.py</span>
         <span className="ml-auto text-xs text-gray-500">Python • {experienceCode.split("\n").length} lines</span>
       </div>
 
       {/* Layout - This section scrolls */}
-      <div className="flex items-start flex-1 overflow-y-auto">
+      <div className="flex items-start flex-1 overflow-y-auto min-h-0">
         {/* VS Code-like Line Numbers */}
-        <div className="w-12">
+        <div className="w-10 md:w-12 bg-neutral-900/50 border-r border-neutral-800">
           <Line line={experienceCode.split("\n").length} />
         </div>
 
         {/* Code Block */}
-        <div className="flex-1 pb-20">
+        <div className="flex-1 pb-32 md:pb-96">
           <SyntaxHighlighter
             language="python"
             style={atomDark}
@@ -73,11 +73,12 @@ me.display_experience()`;
             customStyle={{
               background: "transparent",
               padding: "0px",
-              paddingLeft: "30px",
+              paddingLeft: "16px",
               margin: "0px",
-              fontSize: "1rem",
-              lineHeight: "1.5rem",
+              fontSize: "0.7rem",
+              lineHeight: "1.2rem",
             }}
+            className="text-xs md:text-base"
           >
             {experienceCode}
           </SyntaxHighlighter>

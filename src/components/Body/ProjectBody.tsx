@@ -169,25 +169,25 @@ export function ProjectBody({ searchTerm }: ProjectBodyProps) {
       </div>
 
       {/* Desktop Project Body - Enhanced for Window and Desktop */}
-      <div className="desktop-only h-full flex flex-col relative bg-neutral-900 text-gray-300 font-mono  ">
+      <div className="desktop-only h-full flex flex-col relative bg-neutral-900 text-gray-300 font-mono overflow-hidden">
         {/* Enhanced Sticky Header */}
-        <div className="sticky top-0 left-0 w-full bg-neutral-900/95 backdrop-blur-sm px-6 py-3 flex items-center justify-between border-b border-neutral-700 z-50">
+        <div className="sticky top-0 left-0 w-full bg-neutral-900/95 backdrop-blur-sm px-4 md:px-6 py-3 flex items-center justify-between border-b border-neutral-700 z-50">
           <div className="flex items-center">
             <SiTypescript className="mr-3 text-blue-400 text-lg" />
             <div>
-              <span className="text-base font-semibold text-white">projects.tsx</span>
-              <span className="ml-2 text-sm text-gray-500">
+              <span className="text-sm md:text-base font-semibold text-white">projects.tsx</span>
+              <span className="ml-2 text-xs md:text-sm text-gray-500">
                 {searchTerm ? `${filteredProjects.length} of ${projects.length} projects` : `${projects.length} projects`}
               </span>
             </div>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 md:space-x-4">
             {searchTerm && (
-              <div className="bg-yellow-900/30 border border-yellow-600/50 px-3 py-1 rounded-lg">
-                <span className="text-yellow-400 text-sm">🔍 &quot;{searchTerm}&quot;</span>
+              <div className="bg-yellow-900/30 border border-yellow-600/50 px-2 md:px-3 py-1 rounded-lg">
+                <span className="text-yellow-400 text-xs md:text-sm">🔍 &quot;{searchTerm}&quot;</span>
               </div>
             )}
-            <div className="text-sm text-gray-400">
+            <div className="text-xs md:text-sm text-gray-400">
               {filteredProjects.filter(p => p.status === 'Live').length} Live • {filteredProjects.filter(p => p.status === 'Offline').length} Offline
             </div>
           </div>
@@ -196,24 +196,24 @@ export function ProjectBody({ searchTerm }: ProjectBodyProps) {
         {/* Main Content Layout */}
         <div className="flex flex-1 min-h-0">
           {/* VS Code-like Line Numbers */}
-          <div className="w-16 bg-neutral-900/50 border-r border-neutral-700 flex-shrink-0">
+          <div className="w-12 md:w-16 bg-neutral-900/50 border-r border-neutral-700 flex-shrink-0">
             <Line line={lineCount} />
           </div>
 
           {/* Enhanced Projects Grid */}
           <div className="flex-1 overflow-y-auto overflow-x-hidden">
-            <div className="p-8 min-h-full">
+            <div className="p-4 md:p-6 lg:p-8 min-h-full">
             {filteredProjects.length > 0 ? (
               <>
                 {/* Projects Grid */}
-                <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-8 mb-12">
+                <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-8 md:mb-12">
                   {filteredProjects.map((project, index) => (
                     <motion.div
                       key={project.name}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1, duration: 0.5 }}
-                      className={`group relative bg-neutral-800/80 backdrop-blur-sm border border-neutral-700 rounded-2xl overflow-hidden transition-all duration-500 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 cursor-pointer ${
+                      className={`group relative bg-neutral-800/80 backdrop-blur-sm border border-neutral-700 rounded-xl md:rounded-2xl overflow-hidden transition-all duration-500 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 cursor-pointer ${
                         selectedProject === index ? 'border-blue-500 shadow-xl shadow-blue-500/20 scale-105' : ''
                       }`}
                       onMouseEnter={() => setSelectedProject(index)}
@@ -230,7 +230,7 @@ export function ProjectBody({ searchTerm }: ProjectBodyProps) {
                       )}
 
                       {/* Enhanced Project Image */}
-                      <div className="relative h-48 overflow-hidden">
+                      <div className="relative h-40 md:h-48 overflow-hidden">
                         <Image
                           src={project.image}
                           alt={project.name}
@@ -242,21 +242,21 @@ export function ProjectBody({ searchTerm }: ProjectBodyProps) {
                         {/* Enhanced Code Editor Overlay */}
                         <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/90 to-transparent">
                           {/* Window Controls */}
-                          <div className="absolute top-3 left-3 flex space-x-2">
-                            <div className="w-3 h-3 bg-red-500 rounded-full group-hover:animate-pulse"></div>
-                            <div className="w-3 h-3 bg-yellow-500 rounded-full group-hover:animate-pulse" style={{animationDelay: '0.1s'}}></div>
-                            <div className="w-3 h-3 bg-green-500 rounded-full group-hover:animate-pulse" style={{animationDelay: '0.2s'}}></div>
+                          <div className="absolute top-2 md:top-3 left-2 md:left-3 flex space-x-1 md:space-x-2">
+                            <div className="w-2 md:w-3 h-2 md:h-3 bg-red-500 rounded-full group-hover:animate-pulse"></div>
+                            <div className="w-2 md:w-3 h-2 md:h-3 bg-yellow-500 rounded-full group-hover:animate-pulse" style={{animationDelay: '0.1s'}}></div>
+                            <div className="w-2 md:w-3 h-2 md:h-3 bg-green-500 rounded-full group-hover:animate-pulse" style={{animationDelay: '0.2s'}}></div>
                           </div>
                           
                           {/* Category and Year */}
-                          <div className="absolute top-3 right-3 text-xs">
+                          <div className="absolute top-2 md:top-3 right-2 md:right-3 text-xs">
                             <span className="bg-neutral-800/80 px-2 py-1 rounded-md text-gray-300">
                               {project.category} • {project.year}
                             </span>
                           </div>
                           
                           {/* Code Preview */}
-                          <div className="absolute bottom-4 left-4 right-4">
+                          <div className="absolute bottom-2 md:bottom-4 left-2 md:left-4 right-2 md:right-4">
                             <div className="text-xs text-green-400 font-mono opacity-80 group-hover:opacity-100 transition-opacity">
                               <div className="mb-1">
                                 <span className="text-purple-400">const</span>{" "}
@@ -273,13 +273,13 @@ export function ProjectBody({ searchTerm }: ProjectBodyProps) {
                       </div>
 
                       {/* Enhanced Project Details */}
-                      <div className="p-6">
+                      <div className="p-4 md:p-6">
                         <div className="flex items-center justify-between mb-3">
-                          <h3 className="text-xl font-bold text-white group-hover:text-blue-300 transition-colors">
+                          <h3 className="text-lg md:text-xl font-bold text-white group-hover:text-blue-300 transition-colors">
                             {project.name}
                           </h3>
                           <div className="flex items-center space-x-2">
-                            <span className={`px-3 py-1 text-xs rounded-full font-medium ${
+                            <span className={`px-2 md:px-3 py-1 text-xs rounded-full font-medium ${
                               project.status === 'Live' 
                                 ? 'bg-green-900/50 text-green-400 border border-green-600' 
                                 : 'bg-red-900/50 text-red-400 border border-red-600'

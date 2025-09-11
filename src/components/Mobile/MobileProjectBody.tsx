@@ -112,7 +112,7 @@ export function MobileProjectBody({ searchTerm }: MobileProjectBodyProps) {
   };
 
   return (
-    <div className="bg-neutral-900 text-gray-300 h-full overflow-y-auto">
+    <div className="bg-neutral-900 text-gray-300">
       {/* Mobile Header */}
       <div className="sticky top-0 bg-neutral-900 border-b border-neutral-700 p-4 z-10">
         <h1 className="text-xl font-bold text-white">🚀 Projects & Portfolio</h1>
@@ -129,8 +129,8 @@ export function MobileProjectBody({ searchTerm }: MobileProjectBodyProps) {
         )}
       </div>
 
-      {/* Mobile Projects */}
-      <div className="p-4 space-y-4">
+      {/* Scrollable Content */}
+      <div className="p-4 space-y-4 pb-32">
         {filteredProjects.length > 0 ? (
           filteredProjects.map((project, index) => (
             <div key={index} className="bg-neutral-800 border border-neutral-700 rounded-lg p-4">
@@ -220,35 +220,34 @@ export function MobileProjectBody({ searchTerm }: MobileProjectBodyProps) {
             </p>
           </div>
         )}
-      </div>
-
-      {/* Mobile Summary */}
-      <div className="p-4 border-t border-neutral-700">
-        <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-4">
-          <h3 className="text-lg font-bold text-white mb-3">📊 Project Stats</h3>
-          <div className="grid grid-cols-3 gap-4 text-sm">
-            <div className="text-center">
-              <div className="text-xl font-bold text-green-400">
-                {projects.filter(p => p.status === 'Live').length}
+        {/* Mobile Summary */}
+        <div className="p-4 border-t border-neutral-700">
+          <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-4">
+            <h3 className="text-lg font-bold text-white mb-3">📊 Project Stats</h3>
+            <div className="grid grid-cols-3 gap-4 text-sm">
+              <div className="text-center">
+                <div className="text-xl font-bold text-green-400">
+                  {projects.filter(p => p.status === 'Live').length}
+                </div>
+                <div className="text-gray-400">Live</div>
               </div>
-              <div className="text-gray-400">Live</div>
-            </div>
-            <div className="text-center">
-              <div className="text-xl font-bold text-blue-400">{projects.length}</div>
-              <div className="text-gray-400">Total</div>
-            </div>
-            <div className="text-center">
-              <div className="text-xl font-bold text-purple-400">5+</div>
-              <div className="text-gray-400">Technologies</div>
+              <div className="text-center">
+                <div className="text-xl font-bold text-blue-400">{projects.length}</div>
+                <div className="text-gray-400">Total</div>
+              </div>
+              <div className="text-center">
+                <div className="text-xl font-bold text-purple-400">5+</div>
+                <div className="text-gray-400">Technologies</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Mobile Footer */}
-      <div className="p-4 text-center text-gray-500 text-sm border-t border-neutral-700">
-        <p>💡 Always working on something new</p>
-        <p className="mt-1">Open to collaboration opportunities</p>
+        {/* Mobile Footer */}
+        <div className="p-4 text-center text-gray-500 text-sm border-t border-neutral-700">
+          <p>💡 Always working on something new</p>
+          <p className="mt-1">Open to collaboration opportunities</p>
+        </div>
       </div>
     </div>
   );
