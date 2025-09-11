@@ -4,8 +4,8 @@ import { VscCalendar, VscWatch, VscTag, VscLinkExternal } from "react-icons/vsc"
 import { SiMarkdown } from "react-icons/si";
 import { useRouteSync } from "@/hooks/useRouteSync";
 import { useRouter } from "next/navigation";
-import { MobileBlogBody } from "./MobileBlogBody";
-import Line from "../ui/line";
+import { MobileBlogBody } from "@/components/Mobile/MobileBlogBody";
+import Line from "@/components/ui/line";
 
 interface BlogBodyProps {
   searchTerm?: string | null;
