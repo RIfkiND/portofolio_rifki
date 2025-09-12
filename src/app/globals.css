@@ -162,4 +162,13 @@
   body {
     @apply bg-background text-foreground;
   }
+  html, body {
+    height: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+  #__next {
+    height: 100%;
+  }
 }

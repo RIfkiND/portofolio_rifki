@@ -17,6 +17,7 @@ export default function Header() {
   const { 
     isMaximized, 
     isMinimized, 
+  
     maximize, 
     minimize, 
     restore, 
@@ -41,7 +42,7 @@ export default function Header() {
   };
 
   return (
-    <div className="w-full flex flex-col bg-neutral-950 text-white shadow-md">
+    <div className="w-full flex flex-col bg-neutral-950 text-white shadow-md flex-shrink-0">
       {/* Menu Bar */}
       <div className="flex items-center justify-between px-2 py-1 text-sm bg-neutral-950 min-w-0">
         {/* Left Menu Items - Hide on mobile, show limited on tablet */}
