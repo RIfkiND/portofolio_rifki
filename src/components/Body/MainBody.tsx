@@ -114,13 +114,13 @@ export function MainBody({ searchTerm }: MainBodyProps) {
                     colors={["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"]}
                     animationSpeed={20}
                     showBorder={false}
-                    className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-extrabold mb-3 md:mb-4"
+                    className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-extrabold mb-6 md:mb-8"
                   >
                     Rifki Nauval Dzaki
                   </GradientText>
 
                   {/* Role with animated background */}
-                  <div className="relative inline-block mb-4 md:mb-6">
+                  <div className="relative inline-block mb-4 md:mb-6 mt-5">
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg blur opacity-30"></div>
                     <p className="relative text-sm md:text-base lg:text-lg xl:text-xl font-semibold text-white px-3 md:px-4 lg:px-6 py-2 md:py-3 bg-neutral-800 rounded-lg border border-neutral-700">
                       Backend Developer | Fullstack | DevOps Enthusiast | AI Enthusiast

@@ -5,14 +5,10 @@ interface WindowState {
   isMaximized: boolean;
   isMinimized: boolean;
   isFullscreen: boolean;
-  isClosed: boolean;
-  hasBeenOpened: boolean; // Track if portfolio has been opened before
   maximize: () => void;
   minimize: () => void;
   restore: () => void;
   toggleFullscreen: () => void;
-  close: () => void;
-  reopen: () => void;
 }
 
 export const useWindowStore = create<WindowState>()(
@@ -21,8 +17,6 @@ export const useWindowStore = create<WindowState>()(
       isMaximized: false,
       isMinimized: false,
       isFullscreen: false,
-      isClosed: true, // Default to closed
-      hasBeenOpened: false, // Track if portfolio has been opened before
       
       maximize: () => {
         console.log("Window maximized");
@@ -48,25 +42,9 @@ export const useWindowStore = create<WindowState>()(
           isMinimized: false 
         });
       },
-      
-      close: () => {
-        console.log("Window closed");
-        set({ isClosed: true, isMaximized: false, isMinimized: false, isFullscreen: false });
-      },
-      
-      reopen: () => {
-        console.log("Window reopened");
-        set({ isClosed: false, hasBeenOpened: true });
-      },
     }),
     {
-      name: 'window-storage',
-      // Custom logic for persistence
-      partialize: (state) => ({ 
-        // If user has opened before, keep it open on refresh (unless explicitly closed)
-        isClosed: state.hasBeenOpened ? state.isClosed : true,
-        hasBeenOpened: state.hasBeenOpened 
-      }),
+      name: 'vscode-window-storage',
     }
   )
 );

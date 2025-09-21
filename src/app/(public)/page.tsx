@@ -1,6 +1,9 @@
 "use client";
-import { MainBody } from "@/components/Body/MainBody";
-import ResponsiveLayout from "@/components/Layout/ResponsiveLayout";
+import HeaderMain from "@/components/Header/HeaderMain";
+import HeroSection from "@/components/Hero/HeroSection";
+import AboutSection from "@/components/sections/AboutSection";
+import VSCodeSection from "@/components/sections/VSCodeSection";
+import ContactSection from "@/components/sections/ContactSection";
 import { useSearchParams } from 'next/navigation';
 import { useEffect, Suspense } from 'react';
 
@@ -15,9 +18,24 @@ function HomeContent() {
   }, [search]);
 
   return (
-    <ResponsiveLayout>
-      <MainBody searchTerm={search} />
-    </ResponsiveLayout>
+    <div className="min-h-screen bg-neutral-950">
+      {/* Main Header */}
+      <HeaderMain />
+      
+      {/* Hero Section */}
+      <HeroSection />
+      
+      {/* About Section */}
+      <AboutSection />
+      
+      {/* Interactive VSCode Section */}
+      <VSCodeSection />
+      
+      {/* Projects Section - will be integrated with VSCode content */}
+      
+      {/* Contact Section */}
+      <ContactSection />
+    </div>
   );
 }
 

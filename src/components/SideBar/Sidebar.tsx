@@ -11,7 +11,6 @@ import {
   VscEllipsis,
   VscGithub,
   VscBookmark,
-  VscFile,
 } from "react-icons/vsc";
 import {
   FaDocker,
@@ -23,7 +22,6 @@ import {
 import { SiKubernetes, SiGo, SiReact } from "react-icons/si";
 import { usePathname } from "next/navigation";
 import { useTabStore } from "@/components/store/useTabStore";
-import { useTerminalStore } from "@/components/store/useTerminalStore";
 import PythonLogo from "@/components/icons/PythonLogo";
 
 export default function Sidebar() {
@@ -35,7 +33,6 @@ export default function Sidebar() {
     setSidebarOpen,
     toggleSidebar,
   } = useTabStore();
-  const { isOpen: isTerminalOpen } = useTerminalStore();
   const [openFolders, setOpenFolders] = useState<{ [key: string]: boolean }>(
     {}
   );
@@ -134,12 +131,7 @@ export default function Sidebar() {
 
       {/* File Explorer */}
       {isSidebarOpen && (
-        <div 
-          className="w-64 bg-neutral-950 text-white flex flex-col justify-between transition-all duration-300"
-          style={{
-            height: isTerminalOpen ? 'calc(100% - 280px)' : '100%'
-          }}
-        >
+        <div className="w-64 bg-neutral-950 text-white flex flex-col h-full">
           <div className="flex-1 overflow-y-auto">
             <div className="flex items-center justify-between px-3 pt-3 mb-1">
               <h2 className="text-sm">Explorer</h2>
@@ -176,35 +168,6 @@ export default function Sidebar() {
                   >
                     {file.icon}
                     <span className="ml-2">{file.name}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Timeline Folder (Moved to the Bottom) */}
-          <div>
-            <div
-              className="flex items-center bg-neutral-900 w-full py-1 px-3 cursor-pointer"
-              onClick={() => toggleFolder("timeline")}
-            >
-              {openFolders["timeline"] ? (
-                <FaChevronDown className="text-gray-400 text-sm" />
-              ) : (
-                <FaChevronRight className="text-gray-400 text-sm" />
-              )}
-              <h2 className="text-sm ml-2">timeline</h2>
-            </div>
-
-            {openFolders["timeline"] && (
-              <div className="space-y-2 px-3 pb-3 ml-4">
-                {["events.json", "history.md"].map((file) => (
-                  <div
-                    key={file}
-                    className="flex items-center cursor-pointer hover:bg-neutral-800 px-2 py-1 rounded"
-                  >
-                    <VscFile className="text-gray-400" />
-                    <span className="ml-2">{file}</span>
                   </div>
                 ))}
               </div>

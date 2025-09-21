@@ -22,7 +22,7 @@ export default function Header() {
     minimize, 
     restore, 
     toggleFullscreen, 
-    close 
+    
   } = useWindowStore();
 
   const handleMinimize = () => {
