@@ -11,7 +11,7 @@ import { FaCode, FaMarkdown } from "react-icons/fa";
 import { SiGo, SiReact } from "react-icons/si";
 import { useTabStore } from "@/components/store/useTabStore";
 import { useTerminalStore } from "@/components/store/useTerminalStore";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import React from "react";
 import PythonLogo from "@/components/icons/PythonLogo";
@@ -32,7 +32,6 @@ const getIconForFile = (fileName: string) => {
 export default function TabSection() {
   const { openTabs, setSelectedFile, closeTab, setOpenTabs } = useTabStore();
   const { open: openTerminal } = useTerminalStore();
-  const router = useRouter();
   const pathname = usePathname();
   const [hydrated, setHydrated] = useState(false);
 
@@ -58,9 +57,10 @@ export default function TabSection() {
 
   const handleTabClick = (file: { name: string; icon: React.ReactElement; route?: string }) => {
     setSelectedFile(file);
-    if (file.route) {
-      router.push(file.route);
-    }
+    // Don't navigate when used within VSCode interface - let LayoutWithTerminal handle content switching
+    // if (file.route) {
+    //   router.push(file.route);
+    // }
   };
 
   const handleRunCode = () => {

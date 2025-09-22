@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import {
   VscFiles,
   VscSearch,
@@ -37,30 +36,24 @@ export default function Sidebar() {
     {}
   );
   const route = usePathname();
-  const router = useRouter();
 
-  // Sync sidebar, openTabs, and selectedFile state from localStorage after mount (avoids hydration error)
+  // Sync sidebar and openTabs state from localStorage after mount (avoids hydration error)
   useEffect(() => {
     // Sidebar open state
     const storedSidebar = localStorage.getItem("isSidebarOpen");
     if (storedSidebar !== null) setSidebarOpen(storedSidebar === "true");
 
-    // Open tabs
+    // Open tabs - but don't override if already set by store hydration
     const storedTabs = localStorage.getItem("openTabs");
-    if (storedTabs) {
+    if (storedTabs && openTabs.length <= 1) { // Only load if we have default tabs
       try {
         setOpenTabs(JSON.parse(storedTabs));
       } catch {}
     }
 
-    // Selected file
-    const storedSelected = localStorage.getItem("selectedFile");
-    if (storedSelected) {
-      try {
-        setSelectedFile(JSON.parse(storedSelected));
-      } catch {}
-    }
-  }, [setOpenTabs, setSelectedFile, setSidebarOpen]);
+    // DON'T sync selectedFile here - let the store handle it through hydration
+    // The LayoutWithTerminal's hydrate() will handle selectedFile restoration
+  }, [setSidebarOpen, setOpenTabs, openTabs.length]); // Fixed dependencies
 
   const toggleFolder = (folder: string) => {
     setOpenFolders((prev) => ({
@@ -69,12 +62,15 @@ export default function Sidebar() {
     }));
   };
   const handleOpenFile = (file: { name: string; icon: React.ReactElement; route: string }) => {
+    console.log("🖱️ Sidebar: File clicked:", file.name, "->", file.route);
+    
     // Check for duplicates by both name and route
     if (!openTabs.some((tab) => tab.name === file.name && tab.route === file.route)) {
       setOpenTabs([...openTabs, file]);
     }
+    
+    console.log("🖱️ Sidebar: Calling setSelectedFile...");
     setSelectedFile(file);
-    router.push(file.route);
   };
 
   const files = [

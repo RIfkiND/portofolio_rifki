@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { VscGithub, VscLinkExternal, VscTerminal } from "react-icons/vsc";
 import { SiLaravel, SiVuedotjs, SiStripe, SiReact, SiExpress, SiNodedotjs, SiGo, SiTypescript } from "react-icons/si";
 import { useRouteSync } from "@/hooks/useRouteSync";
+import { useVSCodeContext } from "@/contexts/VSCodeContext";
 import { MobileProjectBody } from "@/components/Mobile/MobileProjectBody";
 import Line from "@/components/ui/line";
 import { motion } from "framer-motion";
@@ -15,7 +16,8 @@ interface ProjectBodyProps {
 
 export function ProjectBody({ searchTerm }: ProjectBodyProps) {
   const router = useRouter();
-  useRouteSync(); // This will sync the current route with the tab store
+  const { isInVSCodeMode } = useVSCodeContext();
+  useRouteSync(isInVSCodeMode); // Skip route sync when in VSCode mode
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
 
   // Function to create URL-friendly slug from project name

@@ -3,6 +3,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { SiGo } from "react-icons/si";
 import { useRouteSync } from "@/hooks/useRouteSync";
+import { useVSCodeContext } from "@/contexts/VSCodeContext";
 import { MobileSkillBody } from "./MobileSkillBody";
 import Line from "../ui/line";
 
@@ -11,7 +12,8 @@ interface SkillBodyProps {
 }
 
 export function SkillBody({ searchTerm }: SkillBodyProps) {
-  useRouteSync(); // This will sync the current route with the tab store
+  const { isInVSCodeMode } = useVSCodeContext();
+  useRouteSync(isInVSCodeMode); // Skip route sync when in VSCode mode
   const skillCode = `package main
 
 import (

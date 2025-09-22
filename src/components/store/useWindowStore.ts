@@ -5,10 +5,13 @@ interface WindowState {
   isMaximized: boolean;
   isMinimized: boolean;
   isFullscreen: boolean;
+  isClosed: boolean;
   maximize: () => void;
   minimize: () => void;
   restore: () => void;
   toggleFullscreen: () => void;
+  close: () => void;
+  reopen: () => void;
 }
 
 export const useWindowStore = create<WindowState>()(
@@ -17,15 +20,17 @@ export const useWindowStore = create<WindowState>()(
       isMaximized: false,
       isMinimized: false,
       isFullscreen: false,
+      isClosed: false,
       
       maximize: () => {
         console.log("Window maximized");
-        set({ isMaximized: true, isMinimized: false });
+        set({ isMaximized: true, isMinimized: false, isClosed: false });
       },
       
       minimize: () => {
         console.log("Window minimized");
-        set({ isMinimized: !get().isMinimized, isMaximized: false });
+        const currentMinimized = get().isMinimized;
+        set({ isMinimized: !currentMinimized, isMaximized: false });
       },
       
       restore: () => {
@@ -41,6 +46,16 @@ export const useWindowStore = create<WindowState>()(
           isMaximized: false,
           isMinimized: false 
         });
+      },
+      
+      close: () => {
+        console.log("Window closed");
+        set({ isClosed: true, isMaximized: false, isMinimized: false, isFullscreen: false });
+      },
+      
+      reopen: () => {
+        console.log("Window reopened");
+        set({ isClosed: false });
       },
     }),
     {

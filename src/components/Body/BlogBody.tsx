@@ -3,6 +3,7 @@ import { useState } from "react";
 import { VscCalendar, VscWatch, VscTag, VscLinkExternal } from "react-icons/vsc";
 import { SiMarkdown } from "react-icons/si";
 import { useRouteSync } from "@/hooks/useRouteSync";
+import { useVSCodeContext } from "@/contexts/VSCodeContext";
 import { useRouter } from "next/navigation";
 import { MobileBlogBody } from "@/components/Mobile/MobileBlogBody";
 import Line from "@/components/ui/line";
@@ -12,7 +13,8 @@ interface BlogBodyProps {
 }
 
 export function BlogBody({ searchTerm }: BlogBodyProps) {
-  useRouteSync(); // This will sync the current route with the tab store
+  const { isInVSCodeMode } = useVSCodeContext();
+  useRouteSync(isInVSCodeMode); // Skip route sync when in VSCode mode
   const router = useRouter();
   const [selectedPost, setSelectedPost] = useState<number | null>(null);
 
