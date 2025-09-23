@@ -19,7 +19,6 @@ import {
   FaMarkdown,
 } from "react-icons/fa";
 import { SiKubernetes, SiGo, SiReact } from "react-icons/si";
-import { usePathname } from "next/navigation";
 import { useTabStore } from "@/components/store/useTabStore";
 import PythonLogo from "@/components/icons/PythonLogo";
 
@@ -32,10 +31,9 @@ export default function Sidebar() {
     setSidebarOpen,
     toggleSidebar,
   } = useTabStore();
-  const [openFolders, setOpenFolders] = useState<{ [key: string]: boolean }>(
-    {}
-  );
-  const route = usePathname();
+  const [openFolders, setOpenFolders] = useState<{ [key: string]: boolean }>({
+    root: true // Default the folder to open so files are visible
+  });
 
   // Sync sidebar and openTabs state from localStorage after mount (avoids hydration error)
   useEffect(() => {
@@ -152,20 +150,25 @@ export default function Sidebar() {
 
             {openFolders["root"] && (
               <div className="space-y-2 py-2">
-                {files.map((file) => (
-                  <div
-                    key={file.name}
-                    className={`flex items-center cursor-pointer px-2 py-1 rounded ${
-                      route === file.route
-                        ? "bg-neutral-700"
-                        : "hover:bg-neutral-800"
-                    }`}
-                    onClick={() => handleOpenFile(file)}
-                  >
-                    {file.icon}
-                    <span className="ml-2">{file.name}</span>
-                  </div>
-                ))}
+                {files.map((file) => {
+                  const selectedFile = useTabStore.getState().selectedFile;
+                  const isSelected = selectedFile?.name === file.name;
+                  
+                  return (
+                    <div
+                      key={file.name}
+                      className={`flex items-center cursor-pointer px-2 py-1 rounded ${
+                        isSelected
+                          ? "bg-neutral-700"
+                          : "hover:bg-neutral-800"
+                      }`}
+                      onClick={() => handleOpenFile(file)}
+                    >
+                      {file.icon}
+                      <span className="ml-2">{file.name}</span>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>

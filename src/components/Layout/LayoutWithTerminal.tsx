@@ -8,12 +8,12 @@ import { useWindowStore } from "@/components/store/useWindowStore";
 import { useTabStore } from "@/components/store/useTabStore";
 import { cn } from "@/lib/utils";
 
-// Import different body components with correct export names
-import { MainBody } from "@/components/Body/MainBody";
-import { ExperienceBody } from "@/components/Body/ExperienceBody";
-import { SkillBody } from "@/components/Body/SkillBody";
-import { ProjectBody } from "@/components/Body/ProjectBody";
-import { BlogBody } from "@/components/Body/BlogBody";
+// Import VSCode UI components
+import ExperienceFile from "@/components/vscode_ui/ExperienceFile";
+import SkillsFile from "@/components/vscode_ui/SkillsFile";
+import ProjectsFile from "@/components/vscode_ui/ProjectsFile";
+import BlogFile from "@/components/vscode_ui/BlogFile";
+import MainFile from "@/components/vscode_ui/MainFile";
 
 export default function LayoutWithTerminal() {
   const { isFullscreen } = useWindowStore();
@@ -23,22 +23,12 @@ export default function LayoutWithTerminal() {
   const isHydrated = useTabStore((state) => state.isHydrated);
   const hydrate = useTabStore((state) => state.hydrate);
   
-  // Debug: Log whenever selectedFile changes
-  useEffect(() => {
-    console.log("🔄 LayoutWithTerminal: selectedFile changed to:", selectedFile?.name, "route:", selectedFile?.route);
-  }, [selectedFile]);
-  
   // Hydrate the store on mount
   useEffect(() => {
     if (!isHydrated) {
-      console.log("💧 Hydrating store...");
       hydrate();
     }
   }, [isHydrated, hydrate]);
-  
-  console.log("🏗️ LayoutWithTerminal rendering - VSCode layout with sidebar");
-  console.log("📁 Selected file:", selectedFile);
-  console.log("💧 Is hydrated:", isHydrated);
   
   // Function to render the appropriate body component based on selected file
   const renderBodyContent = () => {
@@ -57,16 +47,16 @@ export default function LayoutWithTerminal() {
     // Render appropriate body component based on route
     switch (currentRoute) {
       case '/experience':
-        return <ExperienceBody />;
+        return <ExperienceFile />;
       case '/skill':
-        return <SkillBody />;
+        return <SkillsFile />;
       case '/project':
-        return <ProjectBody />;
+        return <ProjectsFile />;
       case '/blog':
-        return <BlogBody />;
+        return <BlogFile />;
       case '/':
       default:
-        return <MainBody />;
+        return <MainFile />;
     }
   };
   
