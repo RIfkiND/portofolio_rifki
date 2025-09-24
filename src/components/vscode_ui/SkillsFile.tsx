@@ -17,8 +17,8 @@ export default function SkillsFile() {
         {/* Code Content */}
         <div className="flex-1 p-4">
           <div className="leading-6 space-y-2">
-            <div className="text-[#6a9955]">// Skills & Technologies - Rifki Noviandra</div>
-            <div className="text-[#6a9955]">// Go Developer & Tech Enthusiast</div>
+            <div className="text-[#6a9955]">{"// Skills & Technologies - Rifki Noviandra"}</div>
+            <div className="text-[#6a9955]">{"// Go Developer & Tech Enthusiast"}</div>
             <div className="h-4"></div>
             
             <div className="text-[#569cd6]">package main</div>
@@ -50,7 +50,7 @@ export default function SkillsFile() {
             
             <div className="h-4"></div>
             
-            <div className="text-[#6a9955]">// Backend Technologies</div>
+            <div className="text-[#6a9955]">{"// Backend Technologies"}</div>
             <div className="bg-[#0d1117] border border-[#21262d] p-3 rounded space-y-2">
               <div className="text-[#f85149] font-bold">🚀 Backend Skills</div>
               <div className="grid grid-cols-2 gap-2 text-sm">
@@ -73,7 +73,7 @@ export default function SkillsFile() {
               </div>
             </div>
             
-            <div className="text-[#6a9955]">// Frontend Technologies</div>
+            <div className="text-[#6a9955]">{"// Frontend Technologies"}</div>
             <div className="bg-[#0d1117] border border-[#21262d] p-3 rounded space-y-2">
               <div className="text-[#58a6ff] font-bold">⚡ Frontend Skills</div>
               <div className="grid grid-cols-2 gap-2 text-sm">
@@ -96,7 +96,7 @@ export default function SkillsFile() {
               </div>
             </div>
             
-            <div className="text-[#6a9955]">// Database & DevOps</div>
+            <div className="text-[#6a9955]">{"// Database & DevOps"}</div>
             <div className="bg-[#0d1117] border border-[#21262d] p-3 rounded space-y-2">
               <div className="text-[#a5f3fc] font-bold">🛠️ Tools & Database</div>
               <div className="grid grid-cols-2 gap-2 text-sm">
@@ -120,7 +120,7 @@ export default function SkillsFile() {
             </div>
             
             <div className="h-4"></div>
-            <div className="text-[#6a9955]">// Current learning path</div>
+            <div className="text-[#6a9955]">{"// Current learning path"}</div>
             <div className="text-[#dcdcaa]">func</div>
             <div className="ml-4">
               <div className="text-[#e6edf3]">Learning: Microservices, GraphQL, AWS</div>

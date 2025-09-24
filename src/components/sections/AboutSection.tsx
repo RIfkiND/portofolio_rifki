@@ -83,48 +83,102 @@ export default function AboutSection() {
             
             {/* Backend Technologies */}
             <div className="space-y-4">
-              <h5 className="text-blue-400 font-medium">Backend Development</h5>
+              <h5 className="text-blue-400 font-medium flex items-center">
+                <span className="mr-2">🚀</span>
+                Backend Development
+              </h5>
               <div className="flex flex-wrap gap-3">
-                {['Laravel', 'NestJS', 'Node.js', 'Express.js'].map((tech) => (
-                  <span key={tech} className="bg-neutral-800 text-gray-300 px-4 py-2 rounded-lg text-sm">
-                    {tech}
-                  </span>
+                {[
+                  { name: 'Laravel', icon: '🔥', color: 'border-red-500/30 hover:border-red-500' },
+                  { name: 'NestJS', icon: '🦅', color: 'border-red-600/30 hover:border-red-600' },
+                  { name: 'Node.js', icon: '🟢', color: 'border-green-500/30 hover:border-green-500' },
+                  { name: 'Express.js', icon: '⚡', color: 'border-yellow-500/30 hover:border-yellow-500' }
+                ].map((tech) => (
+                  <motion.span 
+                    key={tech.name} 
+                    className={`bg-neutral-800 text-gray-300 px-4 py-2 rounded-lg text-sm border transition-all duration-300 hover:scale-105 ${tech.color} flex items-center space-x-2`}
+                    whileHover={{ y: -2 }}
+                  >
+                    <span>{tech.icon}</span>
+                    <span>{tech.name}</span>
+                  </motion.span>
                 ))}
               </div>
             </div>
 
             {/* Database Technologies */}
             <div className="space-y-4">
-              <h5 className="text-purple-400 font-medium">Database & Storage</h5>
+              <h5 className="text-purple-400 font-medium flex items-center">
+                <span className="mr-2">🗄️</span>
+                Database & Storage
+              </h5>
               <div className="flex flex-wrap gap-3">
-                {['PostgreSQL', 'MySQL', 'Redis', 'MongoDB'].map((tech) => (
-                  <span key={tech} className="bg-neutral-800 text-gray-300 px-4 py-2 rounded-lg text-sm">
-                    {tech}
-                  </span>
+                {[
+                  { name: 'PostgreSQL', icon: '🐘', color: 'border-blue-500/30 hover:border-blue-500' },
+                  { name: 'MySQL', icon: '🐬', color: 'border-blue-400/30 hover:border-blue-400' },
+                  { name: 'Redis', icon: '🔴', color: 'border-red-500/30 hover:border-red-500' },
+                  { name: 'MongoDB', icon: '🍃', color: 'border-green-500/30 hover:border-green-500' }
+                ].map((tech) => (
+                  <motion.span 
+                    key={tech.name} 
+                    className={`bg-neutral-800 text-gray-300 px-4 py-2 rounded-lg text-sm border transition-all duration-300 hover:scale-105 ${tech.color} flex items-center space-x-2`}
+                    whileHover={{ y: -2 }}
+                  >
+                    <span>{tech.icon}</span>
+                    <span>{tech.name}</span>
+                  </motion.span>
                 ))}
               </div>
             </div>
 
             {/* Tools & DevOps */}
             <div className="space-y-4">
-              <h5 className="text-cyan-400 font-medium">Tools & DevOps</h5>
+              <h5 className="text-cyan-400 font-medium flex items-center">
+                <span className="mr-2">🛠️</span>
+                Tools & DevOps
+              </h5>
               <div className="flex flex-wrap gap-3">
-                {['Docker', 'Git', 'Linux', 'Postman', 'VS Code'].map((tech) => (
-                  <span key={tech} className="bg-neutral-800 text-gray-300 px-4 py-2 rounded-lg text-sm">
-                    {tech}
-                  </span>
+                {[
+                  { name: 'Docker', icon: '🐳', color: 'border-blue-500/30 hover:border-blue-500' },
+                  { name: 'Git', icon: '📚', color: 'border-orange-500/30 hover:border-orange-500' },
+                  { name: 'Linux', icon: '🐧', color: 'border-gray-500/30 hover:border-gray-400' },
+                  { name: 'Postman', icon: '📮', color: 'border-orange-400/30 hover:border-orange-400' },
+                  { name: 'VS Code', icon: '💙', color: 'border-blue-600/30 hover:border-blue-600' }
+                ].map((tech) => (
+                  <motion.span 
+                    key={tech.name} 
+                    className={`bg-neutral-800 text-gray-300 px-4 py-2 rounded-lg text-sm border transition-all duration-300 hover:scale-105 ${tech.color} flex items-center space-x-2`}
+                    whileHover={{ y: -2 }}
+                  >
+                    <span>{tech.icon}</span>
+                    <span>{tech.name}</span>
+                  </motion.span>
                 ))}
               </div>
             </div>
 
             {/* Programming Languages */}
             <div className="space-y-4">
-              <h5 className="text-green-400 font-medium">Programming Languages</h5>
+              <h5 className="text-green-400 font-medium flex items-center">
+                <span className="mr-2">💻</span>
+                Programming Languages
+              </h5>
               <div className="flex flex-wrap gap-3">
-                {['TypeScript', 'JavaScript', 'PHP', 'Python', 'Go'].map((tech) => (
-                  <span key={tech} className="bg-neutral-800 text-gray-300 px-4 py-2 rounded-lg text-sm">
-                    {tech}
-                  </span>
+                {[
+                  { name: 'TypeScript', icon: '💙', color: 'border-blue-600/30 hover:border-blue-600' },
+                  { name: 'JavaScript', icon: '⚡', color: 'border-yellow-500/30 hover:border-yellow-500' },
+                  { name: 'PHP', icon: '🐘', color: 'border-purple-500/30 hover:border-purple-500' },
+                  { name: 'Python', icon: '🐍', color: 'border-green-600/30 hover:border-green-600' },
+                  { name: 'Go', icon: '🚀', color: 'border-cyan-500/30 hover:border-cyan-500' }
+                ].map((tech) => (
+                  <motion.span 
+                    key={tech.name} 
+                    className={`bg-neutral-800 text-gray-300 px-4 py-2 rounded-lg text-sm border transition-all duration-300 hover:scale-105 ${tech.color} flex items-center space-x-2`}
+                    whileHover={{ y: -2 }}
+                  >
+                    <span>{tech.icon}</span>
+                    <span>{tech.name}</span>
+                  </motion.span>
                 ))}
               </div>
             </div>

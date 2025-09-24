@@ -17,15 +17,15 @@ export default function ProjectsFile() {
         {/* Code Content */}
         <div className="flex-1 p-4">
           <div className="leading-6 space-y-1">
-            <div className="text-[#6a9955]">// Portfolio Projects - Rifki Noviandra</div>
-            <div className="text-[#6a9955]">// React & TypeScript Developer</div>
+            <div className="text-[#6a9955]">{"// Portfolio Projects - Rifki Noviandra"}</div>
+            <div className="text-[#6a9955]">{"// React & TypeScript Developer"}</div>
             <div className="h-4"></div>
             
             <div className="flex items-center">
               <span className="text-[#569cd6]">import</span>
               <span className="text-white ml-1">React</span>
               <span className="text-[#569cd6] ml-1">from</span>
-              <span className="text-[#ce9178] ml-1">'react'</span>
+              <span className="text-[#ce9178] ml-1">&apos;react&apos;</span>
             </div>
             
             <div className="h-4"></div>
@@ -174,7 +174,7 @@ export default function ProjectsFile() {
             <div className="h-4"></div>
             
             <div className="flex items-center">
-              <span className="text-[#6a9955]">// Export for portfolio showcase</span>
+              <span className="text-[#6a9955]">{"// Export for portfolio showcase"}</span>
             </div>
             <div className="flex items-center">
               <span className="text-[#569cd6]">export</span>

@@ -24,6 +24,14 @@ export default function MainHeader() {
       link: "#vscode",
     },
     {
+      name: "Projects",
+      link: "/project",
+    },
+    {
+      name: "Blog",
+      link: "/blog",
+    },
+    {
       name: "Contact",
       link: "#contact",
     },
