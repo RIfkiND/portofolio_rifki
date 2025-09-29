@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { VscGithub, VscMail, VscAccount } from "react-icons/vsc";
-
+import TextType from "@/components/ui/TextType";
 export default function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-neutral-950 to-neutral-900 overflow-hidden">
@@ -67,14 +67,20 @@ export default function HeroSection() {
             </motion.h1>
 
             {/* Subtitle */}
-            <motion.p
+            <motion.div
               className="text-lg md:text-xl lg:text-2xl text-blue-300 mb-6 font-medium"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8 }}
             >
-              Backend Developer & Software Engineer
-            </motion.p>
+              <TextType 
+                text={["Backend Developer", "Software Engineer", "Full-Stack Developer", "Ai Engineer"]}
+                typingSpeed={75}
+                pauseDuration={1500}
+                showCursor={true}
+                cursorCharacter="|"
+              />
+            </motion.div>
 
             {/* Description */}
             <motion.p

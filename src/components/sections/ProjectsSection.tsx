@@ -2,52 +2,57 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+// React Icons imports
+import { 
+  SiLaravel, SiVuedotjs, SiMysql, SiPhp, SiReact, SiNodedotjs, 
+  SiMongodb, SiTypescript, SiNextdotjs
+} from "react-icons/si";
 
 const projects = [
   {
     id: 1,
-    title: "ERP System - PT. Hasil Bumi",
-    description: "Enterprise Resource Planning system for managing business operations, inventory, and financial data with comprehensive reporting features.",
+    title: "Hasil Bumi - E-Commerce Platform",
+    description: "E-commerce platform designed to help farmers sell their agricultural products directly to consumers and businesses, eliminating middlemen.",
     image: "/images/projects/hasilbumi.png",
     technologies: [
-      { name: "Laravel", icon: "🔥", color: "text-red-500" },
-      { name: "Vue.js", icon: "💚", color: "text-green-500" },
-      { name: "MySQL", icon: "🐬", color: "text-blue-500" },
-      { name: "PHP", icon: "🐘", color: "text-purple-500" }
+      { name: "Laravel", icon: <SiLaravel />, color: "text-red-500" },
+      { name: "Vue.js", icon: <SiVuedotjs />, color: "text-green-500" },
+      { name: "MySQL", icon: <SiMysql />, color: "text-blue-500" },
+      { name: "PHP", icon: <SiPhp />, color: "text-purple-500" }
     ],
-    github: "https://github.com/rifki/erp-system",
+    github: "https://github.com/rifki/hasil-bumi-ecommerce",
     demo: null,
-    category: "Enterprise"
+    category: "E-Commerce"
   },
   {
     id: 2,
-    title: "E-Learning Platform - DIKLAT",
-    description: "Comprehensive learning management system with course management, progress tracking, and interactive learning modules.",
+    title: "DIKLAT - Training Management System",
+    description: "Training management application for BMTI to organize and manage professional training programs (pelatihan) with course scheduling and participant registration.",
     image: "/images/projects/diklat.png",
     technologies: [
-      { name: "React", icon: "⚛️", color: "text-cyan-500" },
-      { name: "Node.js", icon: "🟢", color: "text-green-600" },
-      { name: "MongoDB", icon: "🍃", color: "text-green-500" },
-      { name: "TypeScript", icon: "💙", color: "text-blue-600" }
+      { name: "React", icon: <SiReact />, color: "text-cyan-500" },
+      { name: "Node.js", icon: <SiNodedotjs />, color: "text-green-600" },
+      { name: "MongoDB", icon: <SiMongodb />, color: "text-green-500" },
+      { name: "TypeScript", icon: <SiTypescript />, color: "text-blue-600" }
     ],
-    github: "https://github.com/rifki/diklat-platform",
-    demo: "https://diklat-demo.vercel.app",
+    github: "https://github.com/rifki/diklat-bmti",
+    demo: "https://diklat-bmti.vercel.app",
     category: "Education"
   },
   {
     id: 3,
-    title: "Healthcare Management - SINDARA",
-    description: "Patient management system with appointment scheduling, medical records, and billing integration for healthcare facilities.",
+    title: "SINDARA - Government Portal Integration",
+    description: "Unified portal application designed to connect and integrate various applications under Kemendikdasmen, serving as a central hub for educational management systems.",
     image: "/images/projects/sindara.png",
     technologies: [
-      { name: "NestJS", icon: "🦅", color: "text-red-600" },
-      { name: "PostgreSQL", icon: "🐘", color: "text-blue-700" },
-      { name: "Docker", icon: "🐳", color: "text-blue-500" },
-      { name: "Redis", icon: "🔴", color: "text-red-500" }
+      { name: "Next.js", icon: <SiNextdotjs />, color: "text-white" },
+      { name: "Laravel", icon: <SiLaravel />, color: "text-red-500" },
+      { name: "MySQL", icon: <SiMysql />, color: "text-blue-500" },
+      { name: "TypeScript", icon: <SiTypescript />, color: "text-blue-600" }
     ],
-    github: "https://github.com/rifki/sindara-health",
+    github: "https://github.com/rifki/sindara-portal",
     demo: null,
-    category: "Healthcare"
+    category: "Government"
   }
 ];
 

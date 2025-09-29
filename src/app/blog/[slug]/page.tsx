@@ -634,19 +634,23 @@ DevOps practices are essential for modern software delivery. By implementing con
 ];
 
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export default function BlogPostPage({ params }: BlogPostPageProps) {
   const [isLoading, setIsLoading] = useState(true);
+  const [slug, setSlug] = useState<string>('');
   
   useEffect(() => {
-    setIsLoading(false);
-  }, []);
+    params.then((resolvedParams) => {
+      setSlug(resolvedParams.slug);
+      setIsLoading(false);
+    });
+  }, [params]);
 
-  const post = blogPosts.find(p => p.slug === params.slug);
+  const post = blogPosts.find(p => p.slug === slug);
 
   if (isLoading) {
     return (

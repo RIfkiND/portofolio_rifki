@@ -3,90 +3,120 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+// React Icons imports
+import { 
+  SiLaravel, SiVuedotjs, SiMysql, SiPhp, SiBootstrap, SiJquery,
+  SiReact, SiNodedotjs, SiMongodb, SiTypescript, SiExpress, SiSocketdotio,
+  SiPostgresql, SiDocker, SiRedis,
+  SiNextdotjs, SiStripe, SiAwsamplify, SiGo, SiKubernetes, SiTailwindcss,
+  SiGithubactions, SiJenkins, SiGitlab
+} from "react-icons/si";
+import { FaMapMarkedAlt, FaFilePdf, FaCogs, FaShoppingCart, FaHome, FaTasks, FaMoneyBillWave, FaRobot, FaTools } from "react-icons/fa";
+
+// Project type definition
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  longDescription: string;
+  image: string;
+  icon?: React.ReactNode;
+  technologies: Array<{
+    name: string;
+    icon: React.ReactNode;
+    color: string;
+  }>;
+  github: string;
+  demo: string | null;
+  category: string;
+  status: string;
+  duration: string;
+  features: string[];
+}
 
 const projects = [
   {
     id: 1,
-    title: "ERP System - PT. Hasil Bumi",
-    description: "Comprehensive Enterprise Resource Planning system designed for PT. Hasil Bumi to streamline business operations, manage inventory, financial data, and generate detailed reports. The system includes modules for procurement, sales, inventory management, and financial reporting with role-based access control.",
-    longDescription: "This ERP system was built to handle complex business processes including multi-branch inventory management, automated purchase orders, sales tracking, and comprehensive financial reporting. Features include real-time dashboard, automated notifications, document management, and integration with existing accounting systems.",
+    title: "Hasil Bumi - E-Commerce Platform",
+    description: "E-commerce platform designed to help farmers sell their agricultural products directly to consumers and businesses. The platform connects farmers with buyers, eliminating middlemen and ensuring fair prices for quality agricultural goods.",
+    longDescription: "Hasil Bumi is a comprehensive e-commerce solution that empowers farmers to sell their products directly online. The platform features product listings with quality certifications, order management, secure payment processing, logistics coordination, and farmer profile management. It includes tools for inventory tracking, seasonal planning, and market price analysis to help farmers maximize their profits.",
     image: "/images/projects/hasilbumi.png",
     technologies: [
-      { name: "Laravel", icon: "🔥", color: "text-red-500" },
-      { name: "Vue.js", icon: "💚", color: "text-green-500" },
-      { name: "MySQL", icon: "🐬", color: "text-blue-500" },
-      { name: "PHP", icon: "🐘", color: "text-purple-500" },
-      { name: "Bootstrap", icon: "🎨", color: "text-purple-600" },
-      { name: "jQuery", icon: "💛", color: "text-yellow-500" }
+      { name: "Laravel", icon: <SiLaravel />, color: "text-red-500" },
+      { name: "Vue.js", icon: <SiVuedotjs />, color: "text-green-500" },
+      { name: "MySQL", icon: <SiMysql />, color: "text-blue-500" },
+      { name: "PHP", icon: <SiPhp />, color: "text-purple-500" },
+      { name: "Bootstrap", icon: <SiBootstrap />, color: "text-purple-600" },
+      { name: "jQuery", icon: <SiJquery />, color: "text-yellow-500" }
     ],
-    github: "https://github.com/rifki/erp-system",
+    github: "https://github.com/rifki/hasil-bumi-ecommerce",
     demo: null,
-    category: "Enterprise",
+    category: "E-Commerce",
     status: "Completed",
     duration: "6 months",
     features: [
-      "Multi-branch inventory management",
-      "Automated purchase order system",
-      "Real-time financial reporting",
-      "Role-based access control",
-      "Document management system",
-      "API integration capabilities"
+      "Direct farmer-to-consumer sales",
+      "Product quality certification",
+      "Secure payment processing",
+      "Logistics coordination system",
+      "Farmer profile management",
+      "Market price analysis tools"
     ]
   },
   {
     id: 2,
-    title: "E-Learning Platform - DIKLAT",
-    description: "Modern learning management system (LMS) for DIKLAT training programs with comprehensive course management, progress tracking, interactive learning modules, and assessment tools. Built with modern web technologies for optimal performance.",
-    longDescription: "A full-featured LMS that supports multimedia content delivery, interactive quizzes, real-time progress tracking, and certification management. The platform includes features like discussion forums, live streaming integration, assignment submission, and detailed analytics for instructors and administrators.",
+    title: "DIKLAT - Training Management System",
+    description: "Comprehensive training management application for BMTI (Balai Besar Pengembangan Manajemen dan Teknologi Informasi) to organize and manage professional training programs (pelatihan). The system handles course scheduling, participant registration, and training administration.",
+    longDescription: "DIKLAT is a specialized management system built for BMTI to streamline their training operations. It manages the complete training lifecycle from course planning and participant registration to certification delivery. Features include trainer assignment, resource allocation, attendance tracking, evaluation systems, and comprehensive reporting for training effectiveness analysis.",
     image: "/images/projects/diklat.png",
     technologies: [
-      { name: "React", icon: "⚛️", color: "text-cyan-500" },
-      { name: "Node.js", icon: "🟢", color: "text-green-600" },
-      { name: "MongoDB", icon: "🍃", color: "text-green-500" },
-      { name: "TypeScript", icon: "💙", color: "text-blue-600" },
-      { name: "Express.js", icon: "⚡", color: "text-yellow-500" },
-      { name: "Socket.io", icon: "🔌", color: "text-white" }
+      { name: "React", icon: <SiReact />, color: "text-cyan-500" },
+      { name: "Node.js", icon: <SiNodedotjs />, color: "text-green-600" },
+      { name: "MongoDB", icon: <SiMongodb />, color: "text-green-500" },
+      { name: "TypeScript", icon: <SiTypescript />, color: "text-blue-600" },
+      { name: "Express.js", icon: <SiExpress />, color: "text-yellow-500" },
+      { name: "Socket.io", icon: <SiSocketdotio />, color: "text-white" }
     ],
-    github: "https://github.com/rifki/diklat-platform",
-    demo: "https://diklat-demo.vercel.app",
+    github: "https://github.com/rifki/diklat-bmti",
+    demo: "https://diklat-bmti.vercel.app",
     category: "Education",
     status: "In Development",
     duration: "4 months",
     features: [
-      "Interactive course content",
-      "Real-time progress tracking",
-      "Online assessments & quizzes",
-      "Discussion forums",
-      "Certificate generation",
-      "Mobile-responsive design"
+      "Training course scheduling",
+      "Participant registration system",
+      "Trainer assignment management",
+      "Attendance tracking",
+      "Certification delivery",
+      "Training effectiveness analytics"
     ]
   },
   {
     id: 3,
-    title: "Healthcare Management - SINDARA",
-    description: "Comprehensive patient management system for healthcare facilities with appointment scheduling, electronic medical records, billing integration, and staff management. Designed with healthcare compliance and security in mind.",
-    longDescription: "SINDARA is a complete healthcare management solution that digitizes patient records, streamlines appointment scheduling, manages billing processes, and provides analytics for healthcare administrators. The system ensures HIPAA compliance and includes features for telemedicine integration.",
+    title: "SINDARA - Government Portal Integration",
+    description: "Unified portal application designed to connect and integrate various applications under Kemendikdasmen (Kementerian Pendidikan Dasar dan Menengah). SINDARA serves as a central hub for accessing multiple educational management systems and services.",
+    longDescription: "SINDARA functions as a comprehensive integration portal for the Ministry of Primary and Secondary Education. It provides single sign-on access to various educational applications, centralizes user management, and ensures seamless data flow between different systems. The platform includes dashboard analytics, user role management, system monitoring, and API gateway services for connected applications.",
     image: "/images/projects/sindara.png",
     technologies: [
-      { name: "NestJS", icon: "🦅", color: "text-red-600" },
-      { name: "PostgreSQL", icon: "🐘", color: "text-blue-700" },
-      { name: "Docker", icon: "🐳", color: "text-blue-500" },
-      { name: "Redis", icon: "🔴", color: "text-red-500" },
-      { name: "JWT", icon: "🔐", color: "text-gray-400" },
-      { name: "Swagger", icon: "📚", color: "text-green-600" }
+      { name: "Next.js", icon: <SiNextdotjs />, color: "text-white" },
+      { name: "Laravel", icon: <SiLaravel />, color: "text-red-500" },
+      { name: "MySQL", icon: <SiMysql />, color: "text-blue-500" },
+      { name: "TypeScript", icon: <SiTypescript />, color: "text-blue-600" },
+      { name: "PHP", icon: <SiPhp />, color: "text-purple-500" },
+      { name: "Tailwind CSS", icon: <SiTailwindcss />, color: "text-cyan-400" }
     ],
-    github: "https://github.com/rifki/sindara-health",
+    github: "https://github.com/rifki/sindara-portal",
     demo: null,
-    category: "Healthcare",
+    category: "Government",
     status: "Completed",
     duration: "8 months",
     features: [
-      "Electronic medical records",
-      "Appointment scheduling system",
-      "Billing & insurance integration",
-      "Staff management portal",
-      "Patient portal access",
-      "Compliance & security features"
+      "Single sign-on integration",
+      "Multi-application connectivity",
+      "Centralized user management",
+      "Dashboard analytics",
+      "API gateway services",
+      "System monitoring tools"
     ]
   },
   {
@@ -94,14 +124,15 @@ const projects = [
     title: "E-Commerce Platform",
     description: "Modern e-commerce solution with advanced product management, order processing, payment integration, and customer management. Built with microservices architecture for scalability.",
     longDescription: "A scalable e-commerce platform featuring advanced product catalog management, intelligent recommendation system, multiple payment gateways, inventory tracking, and comprehensive analytics. The platform supports multi-vendor marketplace functionality and includes mobile applications.",
-    image: "/images/projects/hasilbumi.png", // Placeholder
+    image: "icon", // Use icon instead
+    icon: <FaShoppingCart />,
     technologies: [
-      { name: "Next.js", icon: "▲", color: "text-white" },
-      { name: "Node.js", icon: "🟢", color: "text-green-600" },
-      { name: "PostgreSQL", icon: "🐘", color: "text-blue-700" },
-      { name: "Stripe", icon: "💳", color: "text-purple-500" },
-      { name: "AWS", icon: "☁️", color: "text-orange-500" },
-      { name: "Redis", icon: "🔴", color: "text-red-500" }
+      { name: "Next.js", icon: <SiNextdotjs />, color: "text-white" },
+      { name: "Node.js", icon: <SiNodedotjs />, color: "text-green-600" },
+      { name: "PostgreSQL", icon: <SiPostgresql />, color: "text-blue-700" },
+      { name: "Stripe", icon: <SiStripe />, color: "text-purple-500" },
+      { name: "AWS", icon: <SiAwsamplify />, color: "text-orange-500" },
+      { name: "Redis", icon: <SiRedis />, color: "text-red-500" }
     ],
     github: "https://github.com/rifki/ecommerce-platform",
     demo: "https://ecommerce-demo.vercel.app",
@@ -122,13 +153,14 @@ const projects = [
     title: "Real Estate Management",
     description: "Property management system for real estate agencies with listing management, client relationship tools, contract generation, and financial tracking capabilities.",
     longDescription: "A comprehensive real estate management platform that handles property listings, client management, appointment scheduling, contract generation, and commission tracking. Includes integration with mapping services and automated marketing tools.",
-    image: "/images/projects/sindara.png", // Placeholder
+    image: "icon", // Use icon instead
+    icon: <FaHome />,
     technologies: [
-      { name: "Laravel", icon: "🔥", color: "text-red-500" },
-      { name: "Vue.js", icon: "💚", color: "text-green-500" },
-      { name: "MySQL", icon: "🐬", color: "text-blue-500" },
-      { name: "Maps API", icon: "🗺️", color: "text-blue-400" },
-      { name: "PDF.js", icon: "📄", color: "text-red-600" }
+      { name: "Laravel", icon: <SiLaravel />, color: "text-red-500" },
+      { name: "Vue.js", icon: <SiVuedotjs />, color: "text-green-500" },
+      { name: "MySQL", icon: <SiMysql />, color: "text-blue-500" },
+      { name: "Maps API", icon: <FaMapMarkedAlt />, color: "text-blue-400" },
+      { name: "PDF.js", icon: <FaFilePdf />, color: "text-red-600" }
     ],
     github: "https://github.com/rifki/real-estate-mgmt",
     demo: null,
@@ -149,14 +181,15 @@ const projects = [
     title: "Task Management API",
     description: "RESTful API for task and project management with team collaboration features, real-time notifications, and comprehensive reporting capabilities.",
     longDescription: "A robust API service built with modern backend technologies providing comprehensive task management capabilities. Features include real-time collaboration, file attachments, time tracking, project analytics, and integration capabilities with third-party services.",
-    image: "/images/projects/diklat.png", // Placeholder
+    image: "icon", // Use icon instead
+    icon: <FaTasks />,
     technologies: [
-      { name: "Go", icon: "🚀", color: "text-cyan-500" },
-      { name: "PostgreSQL", icon: "🐘", color: "text-blue-700" },
-      { name: "Docker", icon: "🐳", color: "text-blue-500" },
-      { name: "Redis", icon: "🔴", color: "text-red-500" },
-      { name: "gRPC", icon: "⚡", color: "text-yellow-500" },
-      { name: "Kubernetes", icon: "☸️", color: "text-blue-600" }
+      { name: "Go", icon: <SiGo />, color: "text-cyan-500" },
+      { name: "PostgreSQL", icon: <SiPostgresql />, color: "text-blue-700" },
+      { name: "Docker", icon: <SiDocker />, color: "text-blue-500" },
+      { name: "Redis", icon: <SiRedis />, color: "text-red-500" },
+      { name: "gRPC", icon: <SiGo />, color: "text-yellow-500" },
+      { name: "Kubernetes", icon: <SiKubernetes />, color: "text-blue-600" }
     ],
     github: "https://github.com/rifki/task-api",
     demo: "https://api-docs.rifki.dev",
@@ -171,16 +204,101 @@ const projects = [
       "Time tracking",
       "Third-party integrations"
     ]
+  },
+  {
+    id: 7,
+    title: "Keuangan Mahasiswa - Student Finance Manager",
+    description: "Comprehensive financial management application designed specifically for students to track expenses, manage budgets, and monitor financial goals. Built with Next.js frontend and high-performance Go backend for optimal user experience.",
+    longDescription: "Keuangan Mahasiswa is a modern financial management platform tailored for student needs. It helps students track daily expenses, categorize spending, set monthly budgets, and achieve savings goals. The application features expense analytics, financial reports, budget alerts, and peer comparison tools to promote healthy financial habits among students.",
+    image: "icon", // Use icon instead
+    icon: <FaMoneyBillWave />,
+    technologies: [
+      { name: "Next.js", icon: <SiNextdotjs />, color: "text-white" },
+      { name: "Go", icon: <SiGo />, color: "text-cyan-500" },
+      { name: "PostgreSQL", icon: <SiPostgresql />, color: "text-blue-700" },
+      { name: "TypeScript", icon: <SiTypescript />, color: "text-blue-600" },
+      { name: "Tailwind CSS", icon: <SiTailwindcss />, color: "text-cyan-400" },
+      { name: "Docker", icon: <SiDocker />, color: "text-blue-500" }
+    ],
+    github: "https://github.com/rifki/keuangan-mahasiswa",
+    demo: "https://keuangan-mahasiswa.vercel.app",
+    category: "Finance",
+    status: "Completed",
+    duration: "3 months",
+    features: [
+      "Expense tracking & categorization",
+      "Budget planning & monitoring",
+      "Financial goal setting",
+      "Analytics & reporting",
+      "Budget alerts & notifications",
+      "Student-friendly interface"
+    ]
+  },
+  {
+    id: 8,
+    title: "Web Scraper - Data Extraction Tool",
+    description: "High-performance web scraping application built with Go for extracting and processing data from various websites. Features concurrent scraping, data validation, and export capabilities for research and analytics purposes.",
+    longDescription: "A robust web scraping solution designed for efficient data extraction from multiple sources. The application supports concurrent scraping operations, intelligent rate limiting, data cleaning and validation, and multiple export formats. Built with Go for maximum performance and reliability, it includes features like proxy rotation, user agent management, and automated scheduling.",
+    image: "icon", // Use icon instead
+    icon: <FaRobot />,
+    technologies: [
+      { name: "Go", icon: <SiGo />, color: "text-cyan-500" },
+      { name: "Redis", icon: <SiRedis />, color: "text-red-500" },
+      { name: "PostgreSQL", icon: <SiPostgresql />, color: "text-blue-700" },
+      { name: "Docker", icon: <SiDocker />, color: "text-blue-500" },
+      { name: "MongoDB", icon: <SiMongodb />, color: "text-green-500" }
+    ],
+    github: "https://github.com/rifki/go-web-scraper",
+    demo: null,
+    category: "Automation",
+    status: "In Development",
+    duration: "2 months",
+    features: [
+      "Concurrent scraping operations",
+      "Intelligent rate limiting",
+      "Data validation & cleaning",
+      "Multiple export formats",
+      "Proxy rotation support",
+      "Automated scheduling"
+    ]
+  },
+  {
+    id: 9,
+    title: "CI/CD Pipeline Automation",
+    description: "Comprehensive CI/CD pipeline automation scripts and configurations for streamlining development workflows. Includes bash scripts for automated testing, building, and deployment across multiple environments and platforms.",
+    longDescription: "A complete CI/CD automation solution featuring custom bash scripts and pipeline configurations for various platforms including GitHub Actions, GitLab CI, and Jenkins. The scripts handle automated testing, security scanning, building, and deployment processes with rollback capabilities and notification systems for development teams.",
+    image: "icon", // Use icon instead
+    icon: <FaTools />,
+    technologies: [
+      { name: "Bash", icon: <FaCogs />, color: "text-gray-400" },
+      { name: "GitHub Actions", icon: <SiGithubactions />, color: "text-gray-300" },
+      { name: "Docker", icon: <SiDocker />, color: "text-blue-500" },
+      { name: "Jenkins", icon: <SiJenkins />, color: "text-blue-600" },
+      { name: "GitLab CI", icon: <SiGitlab />, color: "text-orange-500" }
+    ],
+    github: "https://github.com/rifki/cicd-automation-scripts",
+    demo: null,
+    category: "DevOps",
+    status: "Completed",
+    duration: "1 month",
+    features: [
+      "Automated testing pipelines",
+      "Multi-environment deployment",
+      "Security scanning integration",
+      "Rollback mechanisms",
+      "Notification systems",
+      "Cross-platform compatibility"
+    ]
   }
 ];
 
-const categories = ["All", "Enterprise", "Education", "Healthcare", "E-Commerce", "Business", "API"];
+const categories = ["All", "E-Commerce", "Education", "Government", "Finance", "Automation", "DevOps", "Business", "API"];
 const statuses = ["All", "Completed", "In Development", "Planning"];
 
 export default function ProjectPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedStatus, setSelectedStatus] = useState("All");
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const filteredProjects = projects.filter(project => {
     const matchesCategory = selectedCategory === "All" || project.category === selectedCategory;
@@ -287,14 +405,22 @@ export default function ProjectPage() {
               whileHover={{ y: -5 }}
               layout
             >
-              {/* Project Image */}
-              <div className="relative h-48 overflow-hidden bg-neutral-800">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
+              {/* Project Image or Icon */}
+              <div className="relative h-48 overflow-hidden bg-neutral-800 flex items-center justify-center">
+                {project.image === "icon" && project.icon ? (
+                  <div className="text-6xl text-gray-400 group-hover:text-blue-400 transition-colors duration-300">
+                    {project.icon}
+                  </div>
+                ) : (
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                  />
+                )}
                 <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full">
                   <span className="text-xs text-gray-300">{project.category}</span>
                 </div>
@@ -429,14 +555,22 @@ export default function ProjectPage() {
 
             {/* Modal Content */}
             <div className="p-6">
-              {/* Project Image */}
-              <div className="relative h-64 mb-6 rounded-lg overflow-hidden bg-neutral-800">
-                <Image
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
-                  fill
-                  className="object-cover"
-                />
+              {/* Project Image or Icon */}
+              <div className="relative h-64 mb-6 rounded-lg overflow-hidden bg-neutral-800 flex items-center justify-center">
+                {selectedProject.image === "icon" && selectedProject.icon ? (
+                  <div className="text-8xl text-gray-400">
+                    {selectedProject.icon}
+                  </div>
+                ) : (
+                  <Image
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    fill
+                    className="object-cover"
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                  />
+                )}
               </div>
 
               {/* Project Info */}
