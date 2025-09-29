@@ -68,7 +68,8 @@ export const useTabStore = create<TabStore>((set, get) => ({
   isHydrated: false,
 
   hydrate: () => {
-    if (typeof window === 'undefined') return;
+    const state = get();
+    if (typeof window === 'undefined' || state.isHydrated) return; // Don't hydrate multiple times
     
     const storedTabs = localStorage.getItem("openTabs");
     const storedSelectedFile = localStorage.getItem("selectedFile");
@@ -84,6 +85,7 @@ export const useTabStore = create<TabStore>((set, get) => ({
         tabs = tabs.filter((tab, index, self) => 
           index === self.findIndex(t => t.name === tab.name && t.route === tab.route)
         );
+        if (tabs.length === 0) tabs = [defaultTab]; // Ensure we have at least one tab
       } catch {
         tabs = [defaultTab];
       }
@@ -101,6 +103,7 @@ export const useTabStore = create<TabStore>((set, get) => ({
       }
     }
     
+    // Mark as hydrated BEFORE setting state to prevent loops
     set({
       openTabs: tabs,
       selectedFile: selectedFile,
@@ -120,18 +123,27 @@ export const useTabStore = create<TabStore>((set, get) => ({
     set({ openTabs: deserializeTabs(uniqueTabs) });
   },
   setSelectedFile: (file) => {
+    console.log("🏪 setSelectedFile called with:", file.name, "->", file.route);
+    
     if (typeof window !== 'undefined') {
       localStorage.setItem(
         "selectedFile",
         JSON.stringify({ ...file, icon: undefined })
       );
     }
+    
+    const newSelectedFile = {
+      ...file,
+      icon: getIconForFile(file.name),
+    };
+    
+    console.log("🏪 Setting selectedFile state to:", newSelectedFile);
     set({
-      selectedFile: {
-        ...file,
-        icon: getIconForFile(file.name),
-      },
+      selectedFile: newSelectedFile,
     });
+    
+    // Verify the state was set
+    console.log("🏪 Current state after set:", get().selectedFile);
   },
   closeTab: (name) => {
     const state = get();

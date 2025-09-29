@@ -3,6 +3,8 @@ import HeaderMain from "@/components/Header/HeaderMain";
 import HeroSection from "@/components/Hero/HeroSection";
 import AboutSection from "@/components/sections/AboutSection";
 import VSCodeSection from "@/components/sections/VSCodeSection";
+import ProjectsSection from "@/components/sections/ProjectsSection";
+import CommunitySection from "@/components/sections/CommunitySection";
 import ContactSection from "@/components/sections/ContactSection";
 import { useSearchParams } from 'next/navigation';
 import { useEffect, Suspense } from 'react';
@@ -31,7 +33,11 @@ function HomeContent() {
       {/* Interactive VSCode Section */}
       <VSCodeSection />
       
-      {/* Projects Section - will be integrated with VSCode content */}
+      {/* Projects Section */}
+      <ProjectsSection />
+      
+      {/* Community Contributions Section */}
+      <CommunitySection />
       
       {/* Contact Section */}
       <ContactSection />

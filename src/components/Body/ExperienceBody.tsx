@@ -3,6 +3,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { SiPython } from "react-icons/si";
 import { useRouteSync } from "@/hooks/useRouteSync";
+import { useVSCodeContext } from "@/contexts/VSCodeContext";
 import { MobileExperienceBody } from "@/components/Mobile/MobileExperienceBody";
 import Line from "../ui/line";
 
@@ -11,7 +12,11 @@ interface ExperienceBodyProps {
 }
 
 export function ExperienceBody({ searchTerm }: ExperienceBodyProps) {
-  useRouteSync(); // This will sync the current route with the tab store
+  const { isInVSCodeMode } = useVSCodeContext();
+  
+  // Always call the hook, but make it conditional inside the hook
+  useRouteSync(isInVSCodeMode); // Pass the mode to the hook
+  
   const experienceCode = `class Experience:
     def __init__(self, education, jobs):
         self.education = education

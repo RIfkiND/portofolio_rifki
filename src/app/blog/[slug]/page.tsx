@@ -1,891 +1,866 @@
 "use client";
-import { useParams } from "next/navigation";
-import ResponsiveLayout from "@/components/Layout/ResponsiveLayout";
-import { SiMarkdown } from "react-icons/si";
-import { VscCalendar, VscWatch, VscTag, VscArrowLeft } from "react-icons/vsc";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import Line from "@/components/ui/line";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from 'next/navigation';
+import { useState, useEffect } from "react";
 
-export default function BlogPostPage() {
-  const params = useParams();
-  const router = useRouter();
-  const slug = params.slug as string;
-  const [readingProgress, setReadingProgress] = useState(0);
+const blogPosts = [
+  {
+    id: 1,
+    title: "Building Scalable Backend Systems with NestJS and PostgreSQL",
+    slug: "building-scalable-backend-nestjs-postgresql",
+    excerpt: "Learn how to architect and build robust backend systems using NestJS framework with PostgreSQL database, including best practices for scalability and performance.",
+    content: `
+# Building Scalable Backend Systems with NestJS and PostgreSQL
 
-  // Calculate reading progress
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (scrollTop / docHeight) * 100;
-      setReadingProgress(Math.min(progress, 100));
-    };
+As a backend developer, I've worked with various frameworks and databases, but the combination of NestJS and PostgreSQL has consistently delivered exceptional results for enterprise-level applications.
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+## Why NestJS?
 
-  // Function to render markdown-like content with syntax highlighting
-  const renderContent = (content: string) => {
-    const lines = content.split('\n');
-    return lines.map((line, index) => {
-      // Handle headers
-      if (line.startsWith('# ')) {
-        return (
-          <h1 key={index} className="text-3xl font-bold text-white mb-6 mt-8 border-b border-neutral-700 pb-2">
-            <span className="text-blue-400"># </span>
-            {line.substring(2)}
-          </h1>
-        );
-      }
-      if (line.startsWith('## ')) {
-        return (
-          <h2 key={index} className="text-2xl font-bold text-white mb-4 mt-6">
-            <span className="text-green-400">## </span>
-            {line.substring(3)}
-          </h2>
-        );
-      }
-      if (line.startsWith('### ')) {
-        return (
-          <h3 key={index} className="text-xl font-bold text-white mb-3 mt-4">
-            <span className="text-yellow-400">### </span>
-            {line.substring(4)}
-          </h3>
-        );
-      }
-      
-      // Handle code blocks
-      if (line.startsWith('```')) {
-        const language = line.substring(3).trim();
-        return (
-          <div key={index} className="my-4">
-            <div className="bg-neutral-800 border border-neutral-600 rounded-t-lg px-3 py-2 text-xs text-gray-400">
-              <span className="text-purple-400">💻</span> {language || 'code'}
-            </div>
-          </div>
-        );
-      }
-      if (line === '```') {
-        return <div key={index} className="bg-neutral-900 border-x border-b border-neutral-600 rounded-b-lg h-2"></div>;
-      }
-      
-      // Handle code inside blocks (indented lines after ```)
-      if (line.startsWith('    ') || line.startsWith('\t')) {
-        return (
-          <div key={index} className="bg-neutral-900 border-x border-neutral-600 px-4 py-1">
-            <code className="text-green-400 text-sm">
-              {line.substring(line.startsWith('\t') ? 1 : 4)}
-            </code>
-          </div>
-        );
-      }
+NestJS brings structure and scalability to Node.js applications through its TypeScript-first approach and decorator-based architecture. Here's what makes it special:
 
-      // Handle inline code
-      const codeRegex = /`([^`]+)`/g;
-      if (codeRegex.test(line)) {
-        const parts = line.split(codeRegex);
-        return (
-          <p key={index} className="text-gray-300 leading-relaxed mb-4">
-            {parts.map((part, i) => 
-              i % 2 === 1 ? (
-                <code key={i} className="bg-neutral-800 text-green-400 px-2 py-1 rounded text-sm border border-neutral-600">
-                  {part}
-                </code>
-              ) : (
-                <span key={i}>{part}</span>
-              )
-            )}
-          </p>
-        );
-      }
+### 1. Enterprise-Ready Architecture
+- Built-in dependency injection
+- Modular architecture
+- TypeScript support out of the box
+- Extensive testing capabilities
 
-      // Handle lists
-      if (line.startsWith('- ')) {
-        return (
-          <div key={index} className="flex items-start mb-2 ml-4">
-            <span className="text-blue-400 mr-2">•</span>
-            <span className="text-gray-300">{line.substring(2)}</span>
-          </div>
-        );
-      }
-      if (line.match(/^\d+\. /)) {
-        const number = line.match(/^(\d+)\. /)?.[1];
-        return (
-          <div key={index} className="flex items-start mb-2 ml-4">
-            <span className="text-yellow-400 mr-2 font-mono">{number}.</span>
-            <span className="text-gray-300">{line.substring(line.indexOf('. ') + 2)}</span>
-          </div>
-        );
-      }
+### 2. Developer Experience
+- Familiar Angular-like syntax
+- Excellent CLI tools
+- Built-in validation and serialization
+- Comprehensive documentation
 
-      // Handle checkboxes
-      if (line.includes('- [ ]') || line.includes('- [x]')) {
-        const checked = line.includes('- [x]');
-        const text = line.substring(line.indexOf(']') + 2);
-        return (
-          <div key={index} className="flex items-center mb-2 ml-4">
-            <span className={`mr-2 ${checked ? 'text-green-400' : 'text-gray-500'}`}>
-              {checked ? '✓' : '☐'}
-            </span>
-            <span className={`${checked ? 'text-gray-400 line-through' : 'text-gray-300'}`}>
-              {text}
-            </span>
-          </div>
-        );
-      }
+## PostgreSQL: The Reliable Choice
 
-      // Handle blockquotes
-      if (line.startsWith('> ')) {
-        return (
-          <div key={index} className="border-l-4 border-blue-500 pl-4 py-2 my-4 bg-neutral-800/50">
-            <span className="text-blue-300 italic">{line.substring(2)}</span>
-          </div>
-        );
-      }
+PostgreSQL remains my database of choice for most backend applications:
 
-      // Handle horizontal rules
-      if (line.trim() === '---') {
-        return <hr key={index} className="border-neutral-600 my-8" />;
-      }
+- **ACID Compliance**: Ensures data integrity
+- **Advanced Features**: JSON support, full-text search, custom types
+- **Performance**: Excellent query optimization
+- **Scalability**: Handles large datasets efficiently
 
-      // Handle bold and italic
-      let processedLine = line;
-      // Bold
-      processedLine = processedLine.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white font-bold">$1</strong>');
-      // Italic
-      processedLine = processedLine.replace(/\*(.*?)\*/g, '<em class="text-blue-300 italic">$1</em>');
-      
-      // Regular paragraphs
-      if (line.trim() === '') {
-        return <div key={index} className="h-4"></div>;
-      }
-      
-      return (
-        <p key={index} className="text-gray-300 leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: processedLine }}>
-        </p>
-      );
-    });
-  };
-
-  // Function to generate table of contents
-  const generateTOC = (content: string) => {
-    const lines = content.split('\n');
-    const tocItems: React.ReactElement[] = [];
-    
-    lines.forEach((line, index) => {
-      if (line.startsWith('## ')) {
-        const title = line.substring(3);
-        tocItems.push(
-          <div key={index} className="flex items-center hover:text-blue-400 cursor-pointer transition-colors">
-            <span className="text-blue-400 mr-2">▶</span>
-            <span>{title}</span>
-          </div>
-        );
-      } else if (line.startsWith('### ')) {
-        const title = line.substring(4);
-        tocItems.push(
-          <div key={index} className="flex items-center ml-4 hover:text-green-400 cursor-pointer transition-colors text-gray-400">
-            <span className="text-green-400 mr-2">▷</span>
-            <span>{title}</span>
-          </div>
-        );
-      }
-    });
-    
-    return tocItems.length > 0 ? tocItems : (
-      <div className="text-gray-500 italic">No sections found</div>
-    );
-  };
-
-  // Blog post data (in a real app, this would come from a CMS or API)
-  const blogPosts: Record<string, any> = {
-    "vscode-portfolio-nextjs": {
-      title: "Building a VSCode-Inspired Portfolio with Next.js",
-      content: `# Building a VSCode-Inspired Portfolio with Next.js
-
-## Introduction
-Creating a portfolio that stands out in today's competitive tech landscape requires creativity and technical skill. In this post, I'll walk you through how I built this VSCode-inspired portfolio using Next.js, TypeScript, and Tailwind CSS.
-
-## The Concept
-The idea was simple: create a portfolio that feels like working in Visual Studio Code. This includes:
-- File explorer sidebar
-- Tabbed interface
-- Terminal integration
-- Code editor styling
-- Authentic VSCode color schemes
-
-## Technical Implementation
+## Implementation Best Practices
 
 ### 1. Project Structure
 \`\`\`
 src/
-├── app/
-│   ├── layout.tsx
-│   ├── page.tsx
-│   ├── skill/
-│   ├── experience/
-│   ├── project/
-│   └── blog/
-├── components/
-│   ├── Body/
-│   ├── Header/
-│   ├── SideBar/
-│   └── Terminal/
-└── hooks/
+├── modules/
+│   ├── users/
+│   ├── auth/
+│   └── posts/
+├── common/
+├── config/
+└── database/
 \`\`\`
 
-### 2. State Management with Zustand
-I used Zustand for managing:
-- Tab states
-- Sidebar visibility
-- Terminal state
-- File selection
+### 2. Database Integration
+Using TypeORM for seamless PostgreSQL integration:
 
-### 3. Route Synchronization
-Created a custom hook to sync file tabs with Next.js routes:
 \`\`\`typescript
-export function useRouteSync() {
-  const pathname = usePathname();
-  const { setSelectedFile } = useTabStore();
-  
-  useEffect(() => {
-    // Sync current route with selected file
-  }, [pathname]);
+@Entity()
+export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ unique: true })
+  email: string;
+
+  @OneToMany(() => Post, post => post.author)
+  posts: Post[];
 }
 \`\`\`
 
-## Key Features
+### 3. Performance Optimization
+- Connection pooling
+- Query optimization
+- Caching strategies
+- Database indexing
 
-### Interactive File System
-- Click files in sidebar to open tabs
-- Close tabs with X button
-- Navigate between open files
+## Conclusion
 
-### Terminal Integration
-- Execute "files" as commands
-- View file contents in terminal
-- Command history support
+The NestJS and PostgreSQL combination provides a solid foundation for building scalable backend systems. The framework's enterprise-grade features combined with PostgreSQL's reliability make it an excellent choice for modern applications.
+    `,
+    author: "Rifki Noviandra",
+    publishedAt: "2024-03-15",
+    readTime: "8 min read",
+    category: "Backend Development",
+    tags: ["NestJS", "PostgreSQL", "TypeScript", "Backend", "Scalability"],
+    image: "/images/projects/hasilbumi.png",
+    featured: true
+  },
+  {
+    id: 2,
+    title: "Modern Frontend Development with React and TypeScript",
+    slug: "modern-frontend-react-typescript",
+    excerpt: "Explore the latest patterns and best practices in React development using TypeScript, including hooks, context API, and performance optimization techniques.",
+    content: `
+# Modern Frontend Development with React and TypeScript
 
-### Responsive Design
-- Mobile-friendly layout
-- Adaptive sidebar behavior
-- Touch-friendly interactions
+React with TypeScript has become the standard for building maintainable and scalable frontend applications. In this post, I'll share insights from my experience developing modern web applications.
 
-## Challenges Faced
+## The Power of TypeScript in React
 
-### 1. Hydration Issues
-Next.js hydration with Zustand required careful handling:
+TypeScript transforms React development by providing:
+
+### Type Safety
+- Catch errors at compile time
+- Better IDE support and autocomplete
+- Self-documenting code
+
+### Enhanced Developer Experience
+- Refactoring confidence
+- Better team collaboration
+- Reduced runtime errors
+
+## Essential React Patterns
+
+### 1. Custom Hooks
+Custom hooks help encapsulate logic and promote reusability:
+
 \`\`\`typescript
-useEffect(() => {
-  setHydrated(true);
-}, []);
+const useApi = <T>(url: string): ApiResult<T> => {
+  const [data, setData] = useState<T | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-if (!hydrated) return null;
-\`\`\`
+  useEffect(() => {
+    fetchData();
+  }, [url]);
 
-### 2. Icon Persistence
-Icons couldn't be serialized to localStorage, so I created a mapping system:
-\`\`\`typescript
-const getIconForFile = (fileName: string) => {
-  const iconMap = {
-    "rifki.md": <FaMarkdown className="text-blue-400" />,
-    "skill.go": <SiGo className="text-cyan-400" />,
-    // ...
-  };
-  return iconMap[fileName];
+  return { data, loading, error };
 };
 \`\`\`
 
-### 3. Terminal Simulation
-Creating a realistic terminal experience required:
-- Command parsing
-- Output formatting
-- History management
-- Proper scrolling behavior
+### 2. Context API for State Management
+For complex state management without external dependencies:
 
-## Performance Optimizations
+\`\`\`typescript
+interface AppContextType {
+  user: User | null;
+  theme: Theme;
+  updateUser: (user: User) => void;
+}
 
-### Code Splitting
-Next.js automatic code splitting ensures fast page loads.
+const AppContext = createContext<AppContextType | undefined>(undefined);
+\`\`\`
 
-### Image Optimization
-Using Next.js Image component for optimized loading.
+### 3. Error Boundaries
+Graceful error handling in React components:
 
-### Lazy Loading
-Components load only when needed.
+\`\`\`typescript
+class ErrorBoundary extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = { hasError: false };
+  }
 
-## Future Enhancements
+  static getDerivedStateFromError(): State {
+    return { hasError: true };
+  }
+}
+\`\`\`
 
-- [ ] Add more interactive terminal commands
-- [ ] Implement file editing simulation
-- [ ] Add syntax highlighting to code blocks
-- [ ] Create more file types (JSON, CSS, etc.)
-- [ ] Add dark/light theme toggle
+## Performance Optimization
+
+### 1. Memoization
+- React.memo for component memoization
+- useMemo for expensive calculations
+- useCallback for function memoization
+
+### 2. Code Splitting
+- Dynamic imports
+- Lazy loading components
+- Route-based splitting
+
+### 3. Bundle Optimization
+- Tree shaking
+- Minimize bundle size
+- Optimize images and assets
 
 ## Conclusion
-Building this VSCode-inspired portfolio was an exciting challenge that combined creativity with technical skills. The result is a unique, interactive showcase that demonstrates both my development abilities and attention to detail.
 
-The project showcases my experience with:
-- Next.js and React
-- TypeScript
-- State management
-- UI/UX design
-- Performance optimization
+React with TypeScript provides an excellent foundation for modern frontend development. The combination of React's flexibility and TypeScript's type safety creates a powerful development environment that scales well with team size and project complexity.
+    `,
+    author: "Rifki Noviandra",
+    publishedAt: "2024-03-10",
+    readTime: "6 min read",
+    category: "Frontend Development",
+    tags: ["React", "TypeScript", "Frontend", "JavaScript", "Hooks"],
+    image: "/images/projects/diklat.png",
+    featured: true
+  },
+  {
+    id: 3,
+    title: "Database Design Patterns for Modern Applications",
+    slug: "database-design-patterns-modern-applications",
+    excerpt: "Comprehensive guide to database design patterns, normalization strategies, and optimization techniques for building efficient data models.",
+    content: `
+# Database Design Patterns for Modern Applications
 
-Feel free to explore the code and reach out if you have any questions!
+Effective database design is crucial for application performance and maintainability. Here are key patterns and strategies I've learned through building various database-driven applications.
 
----
+## Fundamental Design Principles
 
-*This portfolio is open source and available on GitHub. Contributions and feedback are welcome!*`,
-      date: "2025-01-15",
-      readTime: "5 min",
-      tags: ["Next.js", "TypeScript", "Portfolio", "VSCode"],
-      status: "Published"
-    },
-    "laravel-backend-best-practices": {
-      title: "Backend Development Best Practices with Laravel",
-      content: `# Backend Development Best Practices with Laravel
+### 1. Normalization vs. Denormalization
+Understanding when to normalize and when to denormalize:
 
-## Introduction
-Laravel is one of the most popular PHP frameworks for backend development. In this comprehensive guide, I'll share essential practices for building scalable and maintainable backend APIs using Laravel.
+**Normalization Benefits:**
+- Eliminates data redundancy
+- Maintains data integrity
+- Reduces storage requirements
 
-## Project Structure
+**Denormalization Benefits:**
+- Improves query performance
+- Simplifies complex queries
+- Reduces join operations
 
-### 1. Follow MVC Architecture
-\`\`\`
-app/
-├── Http/
-│   ├── Controllers/
-│   ├── Middleware/
-│   └── Requests/
-├── Models/
-├── Services/
-└── Repositories/
-\`\`\`
+### 2. Indexing Strategies
+Proper indexing can dramatically improve performance:
 
-### 2. Use Repository Pattern
-\`\`\`php
-interface UserRepositoryInterface
-{
-    public function create(array $data): User;
-    public function findById(int $id): ?User;
-    public function update(int $id, array $data): bool;
-}
-\`\`\`
+\`\`\`sql
+-- Composite index for common query patterns
+CREATE INDEX idx_user_posts_date 
+ON posts(user_id, created_at DESC);
 
-## API Design
-
-### RESTful Routes
-\`\`\`php
-Route::apiResource('users', UserController::class);
-Route::apiResource('posts', PostController::class);
+-- Partial index for specific conditions
+CREATE INDEX idx_active_users 
+ON users(email) 
+WHERE status = 'active';
 \`\`\`
 
-### Response Consistency
-\`\`\`php
-return response()->json([
-    'status' => 'success',
-    'data' => $data,
-    'message' => 'Operation completed successfully'
-], 200);
+## Common Design Patterns
+
+### 1. Entity-Attribute-Value (EAV)
+For flexible, schema-less data:
+
+\`\`\`sql
+CREATE TABLE entities (
+    id SERIAL PRIMARY KEY,
+    entity_type VARCHAR(50)
+);
+
+CREATE TABLE attributes (
+    id SERIAL PRIMARY KEY,
+    entity_id INTEGER REFERENCES entities(id),
+    attribute_name VARCHAR(100),
+    attribute_value TEXT
+);
 \`\`\`
 
-## Security Best Practices
+### 2. Polymorphic Associations
+For flexible relationships:
 
-### 1. Authentication with Sanctum
-\`\`\`php
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', [UserController::class, 'profile']);
-});
+\`\`\`sql
+CREATE TABLE comments (
+    id SERIAL PRIMARY KEY,
+    content TEXT,
+    commentable_id INTEGER,
+    commentable_type VARCHAR(50)
+);
 \`\`\`
 
-### 2. Input Validation
-\`\`\`php
-class CreateUserRequest extends FormRequest
-{
-    public function rules()
-    {
-        return [
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8|confirmed',
-        ];
-    }
-}
+### 3. Audit Trail Pattern
+For tracking data changes:
+
+\`\`\`sql
+CREATE TABLE audit_log (
+    id SERIAL PRIMARY KEY,
+    table_name VARCHAR(50),
+    operation VARCHAR(10),
+    old_values JSONB,
+    new_values JSONB,
+    changed_at TIMESTAMP DEFAULT NOW(),
+    changed_by INTEGER
+);
 \`\`\`
 
-### 3. Rate Limiting
-\`\`\`php
-Route::middleware('throttle:60,1')->group(function () {
-    // API routes
-});
-\`\`\`
+## Performance Optimization
 
-## Database Optimization
+### 1. Query Optimization
+- Use EXPLAIN ANALYZE to understand query execution
+- Avoid N+1 queries
+- Use appropriate JOIN types
 
-### 1. Eloquent Relationships
-\`\`\`php
-class User extends Model
-{
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
-    }
-}
-\`\`\`
+### 2. Connection Pooling
+- Implement connection pooling
+- Configure pool sizes appropriately
+- Monitor connection usage
 
-### 2. Query Optimization
-\`\`\`php
-// Eager loading to prevent N+1 queries
-$users = User::with('posts')->get();
-
-// Use select to limit columns
-$users = User::select('id', 'name', 'email')->get();
-\`\`\`
-
-### 3. Database Indexes
-\`\`\`php
-Schema::table('posts', function (Blueprint $table) {
-    $table->index(['user_id', 'created_at']);
-});
-\`\`\`
-
-## Error Handling
-
-### Global Exception Handler
-\`\`\`php
-public function render($request, Throwable $exception)
-{
-    if ($request->expectsJson()) {
-        return response()->json([
-            'status' => 'error',
-            'message' => $exception->getMessage()
-        ], 500);
-    }
-    
-    return parent::render($request, $exception);
-}
-\`\`\`
-
-## Testing
-
-### Feature Tests
-\`\`\`php
-public function test_user_can_create_post()
-{
-    $user = User::factory()->create();
-    
-    $response = $this->actingAs($user)
-        ->postJson('/api/posts', [
-            'title' => 'Test Post',
-            'content' => 'Test content'
-        ]);
-    
-    $response->assertStatus(201);
-}
-\`\`\`
-
-## Performance Tips
-
-### 1. Caching
-\`\`\`php
-$posts = Cache::remember('posts', 3600, function () {
-    return Post::with('user')->get();
-});
-\`\`\`
-
-### 2. Queue Jobs
-\`\`\`php
-dispatch(new SendEmailJob($user));
-\`\`\`
-
-### 3. Database Connection Optimization
-\`\`\`php
-'mysql' => [
-    'options' => [
-        PDO::ATTR_PERSISTENT => true,
-    ],
-],
-\`\`\`
-
-## Deployment Best Practices
-
-### 1. Environment Configuration
-\`\`\`bash
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
-\`\`\`
-
-### 2. Zero-Downtime Deployment
-Use tools like Laravel Envoy or Deployer for smooth deployments.
+### 3. Caching Strategies
+- Database-level caching
+- Application-level caching
+- Query result caching
 
 ## Conclusion
-Following these best practices will help you build robust, scalable Laravel applications. Remember to always:
-- Write tests
-- Use proper error handling
-- Optimize database queries
-- Implement proper security measures
-- Monitor performance
 
-Happy coding! 🚀`,
-      date: "2024-12-20",
-      readTime: "8 min",
-      tags: ["Laravel", "PHP", "Backend", "API"],
-      status: "Published"
-    },
-    "government-project-sindara": {
-      title: "Working on Government Projects: SINDARA Experience",
-      content: `# Working on Government Projects: SINDARA Experience
+Good database design is the foundation of any successful application. By following these patterns and principles, you can build databases that are both performant and maintainable, supporting your application's growth over time.
+    `,
+    author: "Rifki Noviandra",
+    publishedAt: "2024-03-05",
+    readTime: "10 min read",
+    category: "Database",
+    tags: ["Database", "PostgreSQL", "MySQL", "Design Patterns", "Performance"],
+    image: "/images/projects/sindara.png",
+    featured: false
+  },
+  {
+    id: 4,
+    title: "API Design Best Practices: RESTful Services That Scale",
+    slug: "api-design-best-practices-restful-services",
+    excerpt: "Essential guidelines for designing RESTful APIs that are maintainable, scalable, and developer-friendly, with real-world examples.",
+    content: `
+# API Design Best Practices: RESTful Services That Scale
 
-## Introduction
-Working on government projects brings unique challenges and responsibilities. In this post, I'll share my experience developing SINDARA, a national education platform for Indonesia's Ministry of Education.
+Building APIs that stand the test of time requires careful planning and adherence to proven design principles. Here's what I've learned from designing APIs for various applications.
 
-## Project Overview
-SINDARA (Sistem Informasi Nasional Data Referensi Aplikasi) is a comprehensive education platform designed to:
-- Manage national education data
-- Provide unified access to educational resources
-- Support government education initiatives
-- Ensure data security and compliance
+## RESTful Design Principles
 
-## Key Challenges
+### 1. Resource-Based URLs
+URLs should represent resources, not actions:
 
-### 1. Security Requirements
-Government projects require the highest security standards:
-- Multi-layer authentication
-- Data encryption at rest and in transit
-- Regular security audits
-- Compliance with national security protocols
-
-### 2. Scale and Performance
-The platform needed to handle:
-- Millions of student records
-- Thousands of concurrent users
-- High availability requirements
-- Disaster recovery capabilities
-
-### 3. Regulatory Compliance
-- Data privacy laws
-- Government accessibility standards
-- Documentation requirements
-- Audit trail maintenance
-
-## Technical Architecture
-
-### Backend Infrastructure
 \`\`\`
-├── API Gateway
-├── Authentication Service
-├── Data Processing Layer
-├── Database Cluster
-└── Monitoring & Logging
+✅ Good
+GET /api/users/123
+POST /api/users
+PUT /api/users/123
+DELETE /api/users/123
+
+❌ Bad
+GET /api/getUser/123
+POST /api/createUser
+PUT /api/updateUser/123
+DELETE /api/deleteUser/123
 \`\`\`
 
-### Security Implementation
-- JWT with refresh tokens
-- Role-based access control (RBAC)
-- API rate limiting
-- Input sanitization
-- SQL injection prevention
+### 2. HTTP Methods Usage
+Use HTTP methods correctly:
 
-### Performance Optimization
-- Database indexing strategies
-- Caching layers (Redis)
-- Load balancing
-- CDN implementation
-- Query optimization
+- **GET**: Retrieve data
+- **POST**: Create new resources
+- **PUT**: Update entire resource
+- **PATCH**: Partial updates
+- **DELETE**: Remove resources
 
-## Development Process
+### 3. Status Codes
+Return appropriate HTTP status codes:
 
-### 1. Requirements Gathering
-- Stakeholder meetings with ministry officials
-- User research with educators
-- Technical requirement analysis
-- Security assessment
+\`\`\`
+200 OK - Successful GET, PUT, PATCH
+201 Created - Successful POST
+204 No Content - Successful DELETE
+400 Bad Request - Invalid request
+401 Unauthorized - Authentication required
+404 Not Found - Resource doesn't exist
+500 Internal Server Error - Server error
+\`\`\`
 
-### 2. Agile Implementation
-- 2-week sprints
-- Regular stakeholder reviews
-- Continuous integration/deployment
+## Response Structure
+
+### 1. Consistent Response Format
+\`\`\`json
+{
+  "data": {},
+  "message": "Success",
+  "status": "success",
+  "timestamp": "2024-03-15T10:30:00Z"
+}
+\`\`\`
+
+### 2. Error Handling
+\`\`\`json
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Validation failed",
+    "details": [
+      {
+        "field": "email",
+        "message": "Email is required"
+      }
+    ]
+  },
+  "status": "error",
+  "timestamp": "2024-03-15T10:30:00Z"
+}
+\`\`\`
+
+## Pagination and Filtering
+
+### 1. Pagination
+\`\`\`
+GET /api/users?page=1&limit=20&offset=0
+\`\`\`
+
+### 2. Filtering and Sorting
+\`\`\`
+GET /api/users?filter=active&sort=created_at&order=desc
+\`\`\`
+
+## Authentication and Security
+
+### 1. JWT Authentication
+\`\`\`typescript
+// JWT middleware
+const authenticateToken = (req, res, next) => {
+  const token = req.header('Authorization')?.replace('Bearer ', '');
+  
+  if (!token) {
+    return res.status(401).json({ error: 'Access denied' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(403).json({ error: 'Invalid token' });
+  }
+};
+\`\`\`
+
+### 2. Rate Limiting
+\`\`\`typescript
+import rateLimit from 'express-rate-limit';
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: 'Too many requests, please try again later.'
+});
+\`\`\`
+
+## Documentation
+
+### 1. OpenAPI/Swagger
+Use OpenAPI specification for API documentation:
+
+\`\`\`yaml
+openapi: 3.0.0
+info:
+  title: User API
+  version: 1.0.0
+paths:
+  /users:
+    get:
+      summary: Get all users
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of users
+\`\`\`
+
+## Conclusion
+
+Well-designed APIs are the backbone of modern applications. By following these best practices, you can create APIs that are intuitive, maintainable, and scalable, providing a great developer experience for your API consumers.
+    `,
+    author: "Rifki Noviandra",
+    publishedAt: "2024-02-28",
+    readTime: "7 min read",
+    category: "API Development",
+    tags: ["API", "REST", "Backend", "Design Patterns", "Best Practices"],
+    image: "/images/projects/hasilbumi.png",
+    featured: false
+  },
+  {
+    id: 5,
+    title: "DevOps Essentials: Docker, CI/CD, and Deployment Strategies",
+    slug: "devops-essentials-docker-cicd-deployment",
+    excerpt: "A practical guide to modern DevOps practices including containerization with Docker, setting up CI/CD pipelines, and deployment strategies.",
+    content: `# DevOps Essentials: Docker, CI/CD, and Deployment Strategies
+
+Modern software development requires efficient deployment and operations practices. Here's my experience with essential DevOps tools and strategies.
+
+## Containerization with Docker
+
+### 1. Dockerfile Best Practices
+\`\`\`dockerfile
+# Multi-stage build for smaller images
+FROM node:16-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+
+FROM node:16-alpine
+WORKDIR /app
+COPY --from=builder /app/node_modules ./node_modules
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]
+\`\`\`
+
+### 2. Docker Compose for Development
+\`\`\`yaml
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: myapp
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:6-alpine
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
+\`\`\`
+
+## CI/CD Pipeline Setup
+
+### 1. GitHub Actions
+\`\`\`yaml
+name: CI/CD Pipeline
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy to production
+        run: |
+          # Deployment commands
+\`\`\`
+
+### 2. Quality Gates
 - Automated testing
+- Code coverage requirements
+- Security scanning
+- Performance benchmarks
 
-### 3. Quality Assurance
-- Code reviews
-- Automated testing
-- Security testing
-- Performance testing
-- User acceptance testing
+## Deployment Strategies
 
-## Lessons Learned
+### 1. Blue-Green Deployment
+- Zero-downtime deployments
+- Easy rollback capability
+- Full environment testing
 
-### 1. Communication is Key
-- Regular updates to stakeholders
-- Clear documentation
-- Translation considerations (Bahasa Indonesia)
-- Cultural sensitivity
+### 2. Rolling Deployment
+- Gradual rollout
+- Resource efficient
+- Continuous availability
 
-### 2. Security First Mindset
-- Implement security from day one
-- Regular security reviews
-- Incident response planning
-- Staff security training
-
-### 3. Scalability Planning
-- Design for growth from the start
-- Monitor performance metrics
-- Plan for traffic spikes
-- Implement graceful degradation
-
-## Impact and Results
-
-### Quantitative Metrics
-- 2M+ registered users
-- 99.9% uptime achieved
-- <2s average response time
-- Zero security incidents
-
-### Qualitative Benefits
-- Improved education data management
-- Enhanced accessibility for remote areas
-- Streamlined administrative processes
-- Better decision-making capabilities
-
-## Technical Stack
-- **Backend**: Laravel, PHP 8.1
-- **Database**: PostgreSQL, Redis
-- **Infrastructure**: Docker, Kubernetes
-- **Monitoring**: Prometheus, Grafana
-- **CI/CD**: GitLab CI, Ansible
-
-## Challenges and Solutions
-
-### Challenge: Data Migration
-**Problem**: Migrating legacy data from multiple systems
-**Solution**: Created ETL pipelines with data validation and rollback capabilities
-
-### Challenge: Performance at Scale
-**Problem**: Slow queries with large datasets
-**Solution**: Implemented database sharding and caching strategies
-
-### Challenge: Security Compliance
-**Problem**: Meeting strict government security requirements
-**Solution**: Implemented comprehensive security framework with regular audits
-
-## Future Considerations
-
-### 1. Continuous Improvement
-- Regular user feedback collection
+### 3. Canary Deployment
+- Risk mitigation
 - Performance monitoring
-- Security updates
-- Feature enhancements
+- Gradual traffic shifting
 
-### 2. Technology Evolution
-- Cloud migration planning
-- Microservices adoption
-- AI/ML integration opportunities
-- Mobile app development
+## Monitoring and Logging
+
+### 1. Application Monitoring
+\`\`\`javascript
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    version: process.env.APP_VERSION
+  });
+});
+\`\`\`
+
+### 2. Centralized Logging
+- Structured logging
+- Log aggregation
+- Real-time monitoring
+- Alert configuration
+
+## Infrastructure as Code
+
+### 1. Terraform Example
+\`\`\`hcl
+resource "aws_instance" "app_server" {
+  ami           = "ami-0c55b159cbfafe1d0"
+  instance_type = "t2.micro"
+  
+  tags = {
+    Name = "AppServer"
+    Environment = "production"
+  }
+}
+\`\`\`
 
 ## Conclusion
-Working on SINDARA was an incredible experience that taught me:
-- The importance of robust architecture
-- Government project complexities
-- Security-first development
-- Large-scale system design
-- Stakeholder management
 
-This project reinforced my passion for building systems that make a real difference in people's lives. The opportunity to contribute to Indonesia's education sector was both challenging and rewarding.
+DevOps practices are essential for modern software delivery. By implementing containerization, automated pipelines, and proper monitoring, teams can deliver software faster and more reliably while maintaining high quality standards.
+    `,
+    author: "Rifki Noviandra",
+    publishedAt: "2024-02-20",
+    readTime: "9 min read",
+    category: "DevOps",
+    tags: ["DevOps", "Docker", "CI/CD", "Deployment", "Infrastructure"],
+    image: "/images/projects/diklat.png",
+    featured: false
+  }
+];
 
-## Key Takeaways for Developers
-1. **Security is non-negotiable** in government projects
-2. **Documentation** is crucial for compliance
-3. **Performance testing** should start early
-4. **Stakeholder communication** makes or breaks projects
-5. **Continuous learning** is essential for complex systems
+interface BlogPostPageProps {
+  params: Promise<{
+    slug: string;
+  }>;
+}
 
----
+export default function BlogPostPage({ params }: BlogPostPageProps) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [slug, setSlug] = useState<string>('');
+  
+  useEffect(() => {
+    params.then((resolvedParams) => {
+      setSlug(resolvedParams.slug);
+      setIsLoading(false);
+    });
+  }, [params]);
 
-*Note: Specific technical details have been generalized to respect project confidentiality and security requirements.*`,
-      date: "2024-11-30",
-      readTime: "6 min",
-      tags: ["Government", "Education", "Indonesia", "Backend"],
-      status: "Published"
-    }
-  };
+  const post = blogPosts.find(p => p.slug === slug);
 
-  const post = blogPosts[slug];
-
-  if (!post) {
+  if (isLoading) {
     return (
-      <ResponsiveLayout>
-        <div className="flex-1 bg-neutral-900 flex items-center justify-center">
-          <div className="text-center text-gray-400">
-            <h1 className="text-2xl mb-4">Blog Post Not Found</h1>
-            <button 
-              onClick={() => router.push('/blog')}
-              className="text-blue-400 hover:text-blue-300"
-            >
-              ← Back to Blog
-            </button>
-          </div>
-        </div>
-      </ResponsiveLayout>
+      <div className="min-h-screen bg-neutral-950 flex items-center justify-center">
+        <div className="text-white">Loading...</div>
+      </div>
     );
   }
 
-  const lineCount = post.content.split('\n').length + 10;
+  if (!post) {
+    notFound();
+  }
+
+  const relatedPosts = blogPosts
+    .filter(p => p.id !== post.id && (p.category === post.category || p.tags.some(tag => post.tags.includes(tag))))
+    .slice(0, 3);
 
   return (
-    <ResponsiveLayout>
-      <div className="h-full flex flex-col relative bg-neutral-900 text-gray-300 font-mono overflow-hidden">
-              {/* Sticky Header */}
-              <div className="sticky top-0 left-0 w-full bg-neutral-900 px-4 py-2 flex items-center z-50 border-b border-neutral-700">
-                <button 
-                  onClick={() => router.push('/blog')}
-                  className="mr-3 text-gray-400 hover:text-blue-400 transition-colors"
-                >
-                  <VscArrowLeft className="w-4 h-4" />
-                </button>
-                <SiMarkdown className="mr-2 text-purple-400" />
-                <span className="text-sm">src &gt; blog &gt; {slug}.md</span>
-                <span className="ml-auto text-xs text-gray-500">
-                  {post.status} • {post.readTime}
-                </span>
-                
-                {/* Reading Progress Bar */}
-                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-neutral-700">
-                  <div 
-                    className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 ease-out"
-                    style={{ width: `${readingProgress}%` }}
-                  />
+    <div className="min-h-screen bg-neutral-950 text-white">
+      {/* Header */}
+      <div className="bg-neutral-900/50 backdrop-blur-sm border-b border-neutral-800 sticky top-0 z-40">
+        <div className="max-w-4xl mx-auto px-4 py-4">
+          <Link href="/blog" className="flex items-center space-x-3 text-white hover:text-blue-400 transition-colors">
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
+            </svg>
+            <span className="font-medium">Back to Blog</span>
+          </Link>
+        </div>
+      </div>
+
+      <article className="max-w-4xl mx-auto px-4 py-8">
+        {/* Article Header */}
+        <motion.header
+          className="mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="mb-6">
+            <div className="flex items-center space-x-4 mb-4 text-sm text-gray-400">
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-1 rounded-full text-white">
+                {post.category}
+              </span>
+              <span>{post.readTime}</span>
+              <span>{new Date(post.publishedAt).toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              })}</span>
+            </div>
+            
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+              {post.title}
+            </h1>
+            
+            <p className="text-xl text-gray-400 leading-relaxed mb-6">
+              {post.excerpt}
+            </p>
+            
+            <div className="flex items-center space-x-4 text-sm">
+              <div className="flex items-center space-x-2">
+                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                  R
                 </div>
-              </div>
-
-              {/* Layout */}
-              <div className="flex items-start flex-1 overflow-y-auto">
-                {/* VS Code-like Line Numbers */}
-                <div className="w-12 bg-neutral-900 sticky top-0">
-                  <Line line={lineCount} />
-                </div>
-
-                {/* Blog Post Content */}
-                <div className="flex-1 p-6 pb-32">
-                  {/* Meta Info */}
-                  <div className="mb-6 p-4 bg-neutral-800 border border-neutral-700 rounded-lg">
-                    <div className="flex items-center justify-between mb-3">
-                      <h1 className="text-2xl font-bold text-white">{post.title}</h1>
-                      <span className={`px-3 py-1 text-sm rounded ${
-                        post.status === 'Published' 
-                          ? 'bg-green-900 text-green-400 border border-green-600' 
-                          : 'bg-yellow-900 text-yellow-400 border border-yellow-600'
-                      }`}>
-                        {post.status}
-                      </span>
-                    </div>
-                    
-                    <div className="flex items-center space-x-6 text-sm text-gray-400">
-                      <div className="flex items-center space-x-2">
-                        <VscCalendar className="w-4 h-4" />
-                        <span>{new Date(post.date).toLocaleDateString('en-US', { 
-                          year: 'numeric', 
-                          month: 'long', 
-                          day: 'numeric' 
-                        })}</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <VscWatch className="w-4 h-4" />
-                        <span>{post.readTime}</span>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-2 mt-3">
-                      <VscTag className="w-4 h-4 text-gray-400" />
-                      <div className="flex flex-wrap gap-2">
-                        {post.tags.map((tag: string) => (
-                          <span
-                            key={tag}
-                            className="px-2 py-1 text-xs bg-neutral-700 text-blue-400 rounded border border-neutral-600"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Table of Contents */}
-                  <div className="mb-8 p-4 bg-neutral-800 border border-neutral-700 rounded-lg">
-                    <h3 className="text-lg font-bold text-white mb-3 flex items-center">
-                      <span className="text-purple-400 mr-2">📋</span>
-                      Table of Contents
-                    </h3>
-                    <div className="space-y-1 text-sm">
-                      {generateTOC(post.content)}
-                    </div>
-                  </div>
-
-                  {/* Article Content */}
-                  <div className="bg-neutral-800 border border-neutral-700 rounded-lg overflow-hidden">
-                    {/* Code Editor Header */}
-                    <div className="bg-neutral-900 px-4 py-2 border-b border-neutral-700 flex items-center">
-                      <div className="flex items-center space-x-2">
-                        <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                        <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                        <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                      </div>
-                      <span className="ml-3 text-xs text-gray-400">{slug}.md</span>
-                    </div>
-                    
-                    {/* Content */}
-                    <div className="p-6">
-                      <div className="blog-content">
-                        {renderContent(post.content)}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Back Button */}
-                  <div className="mt-12 pt-8 border-t border-neutral-700">
-                    <div className="flex items-center justify-between">
-                      <button 
-                        onClick={() => router.push('/blog')}
-                        className="flex items-center space-x-2 text-blue-400 hover:text-blue-300 transition-colors group"
-                      >
-                        <VscArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                        <span>Back to Blog</span>
-                      </button>
-                      
-                      {/* Reading stats */}
-                      <div className="text-xs text-gray-500 space-y-1">
-                        <div>📖 Thanks for reading!</div>
-                        <div>⏱️ Read in {post.readTime}</div>
-                      </div>
-                    </div>
-                    
-                    {/* Share/Feedback section */}
-                    <div className="mt-6 p-4 bg-neutral-800 border border-neutral-700 rounded-lg">
-                      <div className="text-center">
-                        <h4 className="text-white font-bold mb-2">Found this helpful?</h4>
-                        <p className="text-gray-400 text-sm mb-4">
-                          I&apos;d love to hear your thoughts or answer any questions!
-                        </p>
-                        <div className="flex justify-center space-x-4">
-                          <span className="px-3 py-1 bg-neutral-700 text-blue-400 rounded text-xs border border-neutral-600">
-                            💬 Comment
-                          </span>
-                          <span className="px-3 py-1 bg-neutral-700 text-green-400 rounded text-xs border border-neutral-600">
-                            📧 Email
-                          </span>
-                          <span className="px-3 py-1 bg-neutral-700 text-purple-400 rounded text-xs border border-neutral-600">
-                            🔗 Share
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <span className="text-gray-300">By {post.author}</span>
               </div>
             </div>
-    </ResponsiveLayout>
+          </div>
+          
+          <div className="relative h-64 md:h-80 rounded-2xl overflow-hidden bg-neutral-800 mb-8">
+            <Image
+              src={post.image}
+              alt={post.title}
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+        </motion.header>
+
+        {/* Article Content */}
+        <motion.div
+          className="prose prose-lg prose-invert max-w-none mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <div 
+            className="text-gray-300 leading-relaxed"
+            style={{ 
+              lineHeight: '1.7',
+              fontSize: '1.1rem'
+            }}
+            dangerouslySetInnerHTML={{ 
+              __html: post.content
+                .replace(/\n/g, '<br />')
+                .replace(/#{3}\s(.+)/g, '<h3 class="text-xl font-bold text-white mt-8 mb-4">$1</h3>')
+                .replace(/#{2}\s(.+)/g, '<h2 class="text-2xl font-bold text-white mt-10 mb-6">$1</h2>')
+                .replace(/#{1}\s(.+)/g, '<h1 class="text-3xl font-bold text-white mt-12 mb-8">$1</h1>')
+                .replace(/\*\*(.+?)\*\*/g, '<strong class="text-white font-semibold">$1</strong>')
+                .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre class="bg-neutral-900 border border-neutral-700 rounded-lg p-4 overflow-x-auto my-6"><code class="text-sm text-gray-300">$2</code></pre>')
+                .replace(/`([^`]+)`/g, '<code class="bg-neutral-800 px-2 py-1 rounded text-sm text-blue-400">$1</code>')
+                .replace(/^- (.+)/gm, '<li class="mb-2">$1</li>')
+                .replace(/((<li.*<\/li>\s*)+)/g, '<ul class="list-disc list-inside space-y-2 my-4 text-gray-300">$1</ul>')
+            }} 
+          />
+        </motion.div>
+
+        {/* Tags */}
+        <motion.div
+          className="mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          <h3 className="text-lg font-semibold text-white mb-4">Tags</h3>
+          <div className="flex flex-wrap gap-3">
+            {post.tags.map((tag, index) => (
+              <span
+                key={index}
+                className="bg-neutral-800 text-gray-300 px-4 py-2 rounded-lg text-sm hover:bg-neutral-700 transition-colors"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Related Posts */}
+        {relatedPosts.length > 0 && (
+          <motion.section
+            className="mt-16"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
+            <h3 className="text-2xl font-bold text-white mb-8">Related Articles</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              {relatedPosts.map((relatedPost, index) => (
+                <motion.article
+                  key={relatedPost.id}
+                  className="bg-neutral-900 rounded-xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all duration-300 group"
+                  whileHover={{ y: -5 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.6 + index * 0.1 }}
+                >
+                  <div className="relative h-32 overflow-hidden bg-neutral-800">
+                    <Image
+                      src={relatedPost.image}
+                      alt={relatedPost.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  
+                  <div className="p-4">
+                    <div className="flex items-center space-x-2 mb-2 text-xs text-gray-400">
+                      <span className="bg-neutral-800 px-2 py-1 rounded">{relatedPost.category}</span>
+                      <span>{relatedPost.readTime}</span>
+                    </div>
+                    
+                    <h4 className="text-sm font-bold text-white mb-2 group-hover:text-blue-400 transition-colors line-clamp-2">
+                      <Link href={`/blog/${relatedPost.slug}`}>
+                        {relatedPost.title}
+                      </Link>
+                    </h4>
+                    
+                    <p className="text-gray-400 text-xs leading-relaxed line-clamp-3">
+                      {relatedPost.excerpt}
+                    </p>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </motion.section>
+        )}
+
+        {/* Navigation */}
+        <motion.div
+          className="flex justify-between items-center mt-16 pt-8 border-t border-neutral-800"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+        >
+          <Link 
+            href="/blog"
+            className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors"
+          >
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
+            </svg>
+            <span>All Articles</span>
+          </Link>
+          
+          <div className="flex space-x-4">
+            <button className="text-gray-400 hover:text-white transition-colors">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
+              </svg>
+            </button>
+            <button className="text-gray-400 hover:text-white transition-colors">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+              </svg>
+            </button>
+          </div>
+        </motion.div>
+      </article>
+    </div>
   );
 }

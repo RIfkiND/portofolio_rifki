@@ -40,7 +40,7 @@ const getFileInfoForRoute = (pathname: string) => {
   return fileMap[pathname] || fileMap["/"];
 };
 
-export function useRouteSync() {
+export function useRouteSync(skipSync = false) {
   const pathname = usePathname();
   const { setSelectedFile, setOpenTabs, isHydrated, hydrate } = useTabStore();
   const previousPathname = useRef<string | undefined>(undefined);
@@ -52,9 +52,9 @@ export function useRouteSync() {
     }
   }, [isHydrated, hydrate]);
 
-  // Route sync effect - only run when pathname actually changes
+  // Route sync effect - only run when pathname actually changes and not skipping
   useEffect(() => {
-    if (!isHydrated || previousPathname.current === pathname) return;
+    if (!isHydrated || previousPathname.current === pathname || skipSync) return;
 
     const currentFileInfo = getFileInfoForRoute(pathname);
     
@@ -71,5 +71,5 @@ export function useRouteSync() {
 
     // Update the previous pathname
     previousPathname.current = pathname;
-  }, [pathname, isHydrated, setSelectedFile, setOpenTabs]); // Removed openTabs from dependencies
+  }, [pathname, isHydrated, setSelectedFile, setOpenTabs, skipSync]); // Added skipSync to dependencies
 }

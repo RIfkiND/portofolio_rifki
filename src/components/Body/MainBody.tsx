@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import TechStack from "@/components/Table/TechStack";
 import ShinyText from "@/components/Bits/ShinyText";
 import { useRouteSync } from "@/hooks/useRouteSync";
+import { useVSCodeContext } from "@/contexts/VSCodeContext";
 import { MobileMainBody } from "@/components/Mobile/MobileMainBody";
 import { motion } from "framer-motion";
 
@@ -22,7 +23,8 @@ interface MainBodyProps {
 }
 
 export function MainBody({ searchTerm }: MainBodyProps) {
-  useRouteSync(); // This will sync the current route with the tab store
+  const { isInVSCodeMode } = useVSCodeContext();
+  useRouteSync(isInVSCodeMode); // Skip route sync when in VSCode mode
   const router = useRouter();
 
   return (

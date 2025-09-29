@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import {
   VscFiles,
   VscSearch,
@@ -20,7 +19,6 @@ import {
   FaMarkdown,
 } from "react-icons/fa";
 import { SiKubernetes, SiGo, SiReact } from "react-icons/si";
-import { usePathname } from "next/navigation";
 import { useTabStore } from "@/components/store/useTabStore";
 import PythonLogo from "@/components/icons/PythonLogo";
 
@@ -33,34 +31,27 @@ export default function Sidebar() {
     setSidebarOpen,
     toggleSidebar,
   } = useTabStore();
-  const [openFolders, setOpenFolders] = useState<{ [key: string]: boolean }>(
-    {}
-  );
-  const route = usePathname();
-  const router = useRouter();
+  const [openFolders, setOpenFolders] = useState<{ [key: string]: boolean }>({
+    root: true // Default the folder to open so files are visible
+  });
 
-  // Sync sidebar, openTabs, and selectedFile state from localStorage after mount (avoids hydration error)
+  // Sync sidebar and openTabs state from localStorage after mount (avoids hydration error)
   useEffect(() => {
     // Sidebar open state
     const storedSidebar = localStorage.getItem("isSidebarOpen");
     if (storedSidebar !== null) setSidebarOpen(storedSidebar === "true");
 
-    // Open tabs
+    // Open tabs - but don't override if already set by store hydration
     const storedTabs = localStorage.getItem("openTabs");
-    if (storedTabs) {
+    if (storedTabs && openTabs.length <= 1) { // Only load if we have default tabs
       try {
         setOpenTabs(JSON.parse(storedTabs));
       } catch {}
     }
 
-    // Selected file
-    const storedSelected = localStorage.getItem("selectedFile");
-    if (storedSelected) {
-      try {
-        setSelectedFile(JSON.parse(storedSelected));
-      } catch {}
-    }
-  }, [setOpenTabs, setSelectedFile, setSidebarOpen]);
+    // DON'T sync selectedFile here - let the store handle it through hydration
+    // The LayoutWithTerminal's hydrate() will handle selectedFile restoration
+  }, [setSidebarOpen, setOpenTabs, openTabs.length]); // Fixed dependencies
 
   const toggleFolder = (folder: string) => {
     setOpenFolders((prev) => ({
@@ -69,12 +60,15 @@ export default function Sidebar() {
     }));
   };
   const handleOpenFile = (file: { name: string; icon: React.ReactElement; route: string }) => {
+    console.log("🖱️ Sidebar: File clicked:", file.name, "->", file.route);
+    
     // Check for duplicates by both name and route
     if (!openTabs.some((tab) => tab.name === file.name && tab.route === file.route)) {
       setOpenTabs([...openTabs, file]);
     }
+    
+    console.log("🖱️ Sidebar: Calling setSelectedFile...");
     setSelectedFile(file);
-    router.push(file.route);
   };
 
   const files = [
@@ -156,20 +150,25 @@ export default function Sidebar() {
 
             {openFolders["root"] && (
               <div className="space-y-2 py-2">
-                {files.map((file) => (
-                  <div
-                    key={file.name}
-                    className={`flex items-center cursor-pointer px-2 py-1 rounded ${
-                      route === file.route
-                        ? "bg-neutral-700"
-                        : "hover:bg-neutral-800"
-                    }`}
-                    onClick={() => handleOpenFile(file)}
-                  >
-                    {file.icon}
-                    <span className="ml-2">{file.name}</span>
-                  </div>
-                ))}
+                {files.map((file) => {
+                  const selectedFile = useTabStore.getState().selectedFile;
+                  const isSelected = selectedFile?.name === file.name;
+                  
+                  return (
+                    <div
+                      key={file.name}
+                      className={`flex items-center cursor-pointer px-2 py-1 rounded ${
+                        isSelected
+                          ? "bg-neutral-700"
+                          : "hover:bg-neutral-800"
+                      }`}
+                      onClick={() => handleOpenFile(file)}
+                    >
+                      {file.icon}
+                      <span className="ml-2">{file.name}</span>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>

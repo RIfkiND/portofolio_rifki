@@ -3,11 +3,10 @@ import React from "react";
 import { useWindowStore } from "@/components/store/useWindowStore";
 import { cn } from "@/lib/utils";
 import LayoutWithTerminal from "@/components/Layout/LayoutWithTerminal";
-import { MainBody } from "@/components/Body/MainBody";
 import { motion } from "framer-motion";
 
 export default function VSCodeSection() {
-  const { isMaximized, isMinimized, isFullscreen } = useWindowStore();
+  const { isMaximized, isMinimized, isFullscreen, isClosed, reopen } = useWindowStore();
 
   return (
     <section id="vscode" className="py-20 bg-neutral-950 relative overflow-hidden">
@@ -43,42 +42,55 @@ export default function VSCodeSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          {/* Fullscreen Mode */}
-          {isFullscreen && (
-            <div className="fixed inset-0 h-screen w-screen bg-neutral-950 z-50 overflow-hidden">
-              <LayoutWithTerminal>
-                <div className="h-full w-full overflow-y-auto">
-                  <MainBody />
+          {/* Show closed state when window is closed */}
+          {isClosed ? (
+            <div className="w-full max-w-6xl h-[70vh] border border-neutral-700 bg-neutral-900/50 backdrop-blur-sm rounded-lg flex items-center justify-center">
+              <div className="text-center">
+                <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                  <span className="text-white font-bold text-3xl">VS</span>
                 </div>
-              </LayoutWithTerminal>
+                <h3 className="text-2xl font-semibold text-white mb-4">VSCode Portfolio Closed</h3>
+                <p className="text-gray-400 mb-6">Click below to open the interactive portfolio experience</p>
+                <button
+                  onClick={reopen}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
+                >
+                  Open Portfolio
+                </button>
+              </div>
             </div>
-          )}
+          ) : (
+            <>
+              {/* Fullscreen Mode */}
+              {isFullscreen && (
+                <div className="fixed inset-0 h-screen w-screen bg-neutral-950 z-50 overflow-hidden">
+                  <LayoutWithTerminal />
+                </div>
+              )}
 
-          {/* Section VSCode Window */}
-          {!isFullscreen && (
-            <div 
-              className={cn(
-                "transition-all duration-300 shadow-2xl border border-neutral-700 bg-neutral-950/90 backdrop-blur-sm rounded-lg overflow-hidden",
-                // Responsive sizing
-                isMinimized 
-                  ? "w-80 h-12"
-                  : isMaximized
-                    ? "w-full h-[80vh]"
-                    : "w-full max-w-6xl h-[70vh]"
-              )}
-            >
-              {isMinimized ? (
-                <div className="flex items-center justify-center h-full bg-neutral-950 text-white">
-                  <span className="text-sm">VSCode Portfolio - Minimized</span>
+              {/* Section VSCode Window */}
+              {!isFullscreen && (
+                <div 
+                  className={cn(
+                    "transition-all duration-300 shadow-2xl border border-neutral-700 bg-neutral-950/90 backdrop-blur-sm rounded-lg overflow-hidden",
+                    // Responsive sizing with proper conditions
+                    isMinimized 
+                      ? "w-80 h-12"
+                      : isMaximized
+                        ? "w-full h-[85vh]"
+                        : "w-full max-w-6xl h-[70vh]"
+                  )}
+                >
+                  {isMinimized ? (
+                    <div className="flex items-center justify-center h-full bg-neutral-950 text-white cursor-pointer" onClick={() => useWindowStore.getState().minimize()}>
+                      <span className="text-sm">VSCode Portfolio - Minimized (Click to restore)</span>
+                    </div>
+                  ) : (
+                    <LayoutWithTerminal />
+                  )}
                 </div>
-              ) : (
-                <LayoutWithTerminal>
-                  <div className="flex-1 h-full">
-                    <MainBody />
-                  </div>
-                </LayoutWithTerminal>
               )}
-            </div>
+            </>
           )}
         </motion.div>
 
@@ -94,8 +106,9 @@ export default function VSCodeSection() {
             Use the window controls to minimize, maximize, or go fullscreen for the complete VSCode experience.
           </p>
           <div className="flex justify-center gap-4 mt-6">
-            <span className="text-sm text-gray-500 bg-neutral-800 px-3 py-1 rounded">💡 Click the maximize button for full experience</span>
+            <span className="text-sm text-gray-500 bg-neutral-800 px-3 py-1 rounded">💡 Click files in sidebar to switch content</span>
             <span className="text-sm text-gray-500 bg-neutral-800 px-3 py-1 rounded">🚀 Try fullscreen mode</span>
+            <span className="text-sm text-gray-500 bg-neutral-800 px-3 py-1 rounded">📦 Minimize to save space</span>
           </div>
         </motion.div>
       </div>

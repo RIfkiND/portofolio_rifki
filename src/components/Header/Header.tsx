@@ -17,12 +17,11 @@ export default function Header() {
   const { 
     isMaximized, 
     isMinimized, 
-  
     maximize, 
     minimize, 
     restore, 
-    toggleFullscreen, 
-    
+    toggleFullscreen,
+    close,
   } = useWindowStore();
 
   const handleMinimize = () => {
