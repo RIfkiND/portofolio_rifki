@@ -18,7 +18,7 @@ export default function ExperienceFile() {
         <div className="flex-1 p-4">
           <div className="leading-6 space-y-1">
             <div className="text-[#6a9955]"># Work Experience - Rifki Noviandra</div>
-            <div className="text-[#6a9955]"># Python Developer & Full Stack Engineer</div>
+            <div className="text-[#6a9955]"># Backend Developer & Software Engineer</div>
             <div className="h-4"></div>
             
             <div className="flex items-center">
@@ -45,64 +45,85 @@ export default function ExperienceFile() {
               <div className="flex items-center">
                 <span className="text-[#ce9178]">&quot;company&quot;</span>
                 <span className="text-white">:</span>
-                <span className="text-[#ce9178] ml-1">&quot;PT. Hasil Bumi Indonesia&quot;</span>
+                <span className="text-[#ce9178] ml-1">&quot;BMTI Bandung&quot;</span>
                 <span className="text-white">,</span>
               </div>
               <div className="flex items-center">
                 <span className="text-[#ce9178]">&quot;position&quot;</span>
                 <span className="text-white">:</span>
-                <span className="text-[#ce9178] ml-1">&quot;Full Stack Developer&quot;</span>
+                <span className="text-[#ce9178] ml-1">&quot;Backend Developer Intern&quot;</span>
                 <span className="text-white">,</span>
               </div>
               <div className="flex items-center">
                 <span className="text-[#ce9178]">&quot;duration&quot;</span>
                 <span className="text-white">:</span>
-                <span className="text-[#ce9178] ml-1">&quot;2023 - Present&quot;</span>
+                <span className="text-[#ce9178] ml-1">&quot;2024&quot;</span>
                 <span className="text-white">,</span>
               </div>
               <div className="flex items-center">
                 <span className="text-[#ce9178]">&quot;location&quot;</span>
                 <span className="text-white">:</span>
-                <span className="text-[#ce9178] ml-1">&quot;Jakarta, Indonesia&quot;</span>
+                <span className="text-[#ce9178] ml-1">&quot;Bandung, Indonesia&quot;</span>
                 <span className="text-white">,</span>
               </div>
               <div className="flex items-center">
-                <span className="text-[#ce9178]">&quot;tech_stack&quot;</span>
+                <span className="text-[#ce9178]">&quot;description&quot;</span>
                 <span className="text-white">:</span>
                 <span className="text-white ml-1">[</span>
               </div>
               <div className="ml-4 space-y-1">
-                <div className="flex items-center">
-                  <span className="text-[#ce9178]">&quot;Laravel&quot;</span>
-                  <span className="text-white">,</span>
-                  <span className="text-[#ce9178] ml-1">&quot;Vue.js&quot;</span>
-                  <span className="text-white">,</span>
-                  <span className="text-[#ce9178] ml-1">&quot;MySQL&quot;</span>
-                  <span className="text-white">,</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-[#ce9178]">&quot;Docker&quot;</span>
-                  <span className="text-white">,</span>
-                  <span className="text-[#ce9178] ml-1">&quot;Redis&quot;</span>
-                  <span className="text-white">,</span>
-                  <span className="text-[#ce9178] ml-1">&quot;Git&quot;</span>
-                </div>
-              </div>
-              <div className="text-white">],</div>
-              <div className="flex items-center">
-                <span className="text-[#ce9178]">&quot;achievements&quot;</span>
-                <span className="text-white">:</span>
-                <span className="text-white ml-1">[</span>
-              </div>
-              <div className="ml-4 space-y-1">
-                <div className="text-[#ce9178]">&quot;Developed enterprise ERP system&quot;,</div>
-                <div className="text-[#ce9178]">&quot;Improved system performance by 40%&quot;,</div>
-                <div className="text-[#ce9178]">&quot;Led team of 3 developers&quot;</div>
+                <div className="text-[#ce9178]">&quot;Developed backend applications&quot;,</div>
+                <div className="text-[#ce9178]">&quot;Worked on training management systems&quot;,</div>
+                <div className="text-[#ce9178]">&quot;Gained experience in professional development&quot;</div>
               </div>
               <div className="text-white">]</div>
             </div>
             
             <div className="ml-12 text-white">{"}"}</div>
+            <div className="ml-12 text-white">,</div>
+            
+            {/* PT Minilemon Experience */}
+            <div className="ml-12 text-white">{""}</div>
+            
+            <div className="ml-16 space-y-1">
+              <div className="flex items-center">
+                <span className="text-[#ce9178]">&quot;company&quot;</span>
+                <span className="text-white">:</span>
+                <span className="text-[#ce9178] ml-1">&quot;PT Minilemon&quot;</span>
+                <span className="text-white">,</span>
+              </div>
+              <div className="flex items-center">
+                <span className="text-[#ce9178]">&quot;position&quot;</span>
+                <span className="text-white">:</span>
+                <span className="text-[#ce9178] ml-1">&quot;Backend Developer Intern&quot;</span>
+                <span className="text-white">,</span>
+              </div>
+              <div className="flex items-center">
+                <span className="text-[#ce9178]">&quot;duration&quot;</span>
+                <span className="text-white">:</span>
+                <span className="text-[#ce9178] ml-1">&quot;2024&quot;</span>
+                <span className="text-white">,</span>
+              </div>
+              <div className="flex items-center">
+                <span className="text-[#ce9178]">&quot;location&quot;</span>
+                <span className="text-white">:</span>
+                <span className="text-[#ce9178] ml-1">&quot;Indonesia&quot;</span>
+                <span className="text-white">,</span>
+              </div>
+              <div className="flex items-center">
+                <span className="text-[#ce9178]">&quot;description&quot;</span>
+                <span className="text-white">:</span>
+                <span className="text-white ml-1">[</span>
+              </div>
+              <div className="ml-4 space-y-1">
+                <div className="text-[#ce9178]">&quot;Developed backend APIs and services&quot;,</div>
+                <div className="text-[#ce9178]">&quot;Worked with database design and optimization&quot;,</div>
+                <div className="text-[#ce9178]">&quot;Learned modern backend development practices&quot;</div>
+              </div>
+              <div className="text-white">]</div>
+            </div>
+            
+            <div className="ml-12 text-white">{""}</div>
             <div className="ml-8 text-white">]</div>
             
             <div className="h-4"></div>
@@ -124,19 +145,19 @@ export default function ExperienceFile() {
               <div className="flex items-center">
                 <span className="text-[#ce9178]">&quot;email&quot;</span>
                 <span className="text-white">:</span>
-                <span className="text-[#ce9178] ml-1">&quot;rifki@example.com&quot;</span>
+                <span className="text-[#ce9178] ml-1">&quot;rifkinauvaldzaki08@gmail.com&quot;</span>
                 <span className="text-white">,</span>
               </div>
               <div className="flex items-center">
                 <span className="text-[#ce9178]">&quot;linkedin&quot;</span>
                 <span className="text-white">:</span>
-                <span className="text-[#ce9178] ml-1">&quot;linkedin.com/in/rifki&quot;</span>
+                <span className="text-[#ce9178] ml-1">&quot;linkedin.com/in/rifkinauvaldzaki&quot;</span>
                 <span className="text-white">,</span>
               </div>
               <div className="flex items-center">
                 <span className="text-[#ce9178]">&quot;github&quot;</span>
                 <span className="text-white">:</span>
-                <span className="text-[#ce9178] ml-1">&quot;github.com/rifki&quot;</span>
+                <span className="text-[#ce9178] ml-1">&quot;github.com/RIfkiND&quot;</span>
               </div>
             </div>
             

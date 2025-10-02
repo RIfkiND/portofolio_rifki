@@ -40,29 +40,29 @@ export default function AboutSection() {
               Passionate Backend Developer & Software Engineering Student
             </h3>
             <p className="text-gray-300 mb-6 leading-relaxed text-lg">
-              I&apos;m a dedicated backend developer with over 1 year of
-              hands-on experience in building scalable web applications and
-              APIs. Currently pursuing Software Engineering, I combine academic
-              knowledge with practical skills to create robust solutions.
+              I&apos;m a dedicated backend developer currently majoring in
+              Software Engineering at Telkom University Purwokerto. I combine academic
+              knowledge with practical skills to create robust solutions and build
+              scalable web applications and APIs.
             </p>
             <p className="text-gray-300 mb-8 leading-relaxed text-lg">
               My passion lies in crafting efficient backend systems, working
-              with modern technologies, and constantly learning new approaches
-              to solve complex problems. I enjoy the challenge of optimizing
-              performance and ensuring system reliability.
+              with modern technologies, and exploring the exciting field of
+              Artificial Intelligence. I enjoy the challenge of optimizing
+              performance and constantly learning new approaches to solve complex problems.
             </p>
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-6 mb-8">
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-400 mb-2">1+</div>
-                <div className="text-gray-400 text-sm">Years Experience</div>
+                <div className="text-3xl font-bold text-blue-400 mb-2">SE</div>
+                <div className="text-gray-400 text-sm">Student</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-purple-400 mb-2">
-                  10+
+                  AI
                 </div>
-                <div className="text-gray-400 text-sm">Projects Built</div>
+                <div className="text-gray-400 text-sm">Enthusiast</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-cyan-400 mb-2">5+</div>
