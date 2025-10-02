@@ -1,7 +1,8 @@
 "use client";
-import HeaderMain from "@/components/Header/HeaderMain";
+
 import HeroSection from "@/components/Hero/HeroSection";
 import AboutSection from "@/components/sections/AboutSection";
+import ExperienceSection from "@/components/sections/ExperienceSection";
 import VSCodeSection from "@/components/sections/VSCodeSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
 import CommunitySection from "@/components/sections/CommunitySection";
@@ -21,14 +22,15 @@ function HomeContent() {
 
   return (
     <div className="min-h-screen bg-neutral-950">
-      {/* Main Header */}
-      <HeaderMain />
-      
+
       {/* Hero Section */}
       <HeroSection />
       
       {/* About Section */}
       <AboutSection />
+      
+      {/* Experience Section */}
+      <ExperienceSection />
       
       {/* Interactive VSCode Section */}
       <VSCodeSection />

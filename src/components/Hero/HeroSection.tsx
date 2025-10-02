@@ -90,7 +90,7 @@ export default function HeroSection() {
               transition={{ delay: 1.0, duration: 0.8 }}
             >
               Passionate about crafting scalable backend systems and learning cutting-edge technologies. 
-              With <span className="text-blue-300 font-semibold">1+ year</span> of hands-on experience in modern web development.
+              Majoring in <span className="text-blue-300 font-semibold">Software Engineering</span> at Telkom University Purwokerto and currently interested in <span className="text-purple-300 font-semibold">AI</span>.
             </motion.p>
 
             {/* Status Badge */}

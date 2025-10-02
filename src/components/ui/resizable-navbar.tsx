@@ -7,6 +7,7 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
+import Link from "next/link";
 
 import React, { useRef, useState } from "react";
 
@@ -231,15 +232,15 @@ export const MobileNavToggle = ({
 
 export const NavbarLogo = () => {
   return (
-    <a
-      href="#"
-      className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-white"
+    <Link
+      href="/"
+      className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-white hover:opacity-80 transition-opacity duration-200"
     >
       <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
         <span className="text-white font-bold text-lg">R</span>
       </div>
       <span className="font-medium text-white">Rifki Nauval</span>
-    </a>
+    </Link>
   );
 };
 
