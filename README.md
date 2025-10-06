@@ -10,7 +10,6 @@ While my main expertise is backend engineering And Devops, I also have experienc
 - 📧 Gmail: [rifkinauvaldzaki08@gmail.com](mailto:rifkinauvaldzaki08@gmail.com)  
 - 💼 LinkedIn: [linkedin.com/in/rifkinauvaldzaki](https://linkedin.com/in/rifkinauvaldzaki)  
 - 🐙 GitHub: [github.com/rifkinauvaldzaki](https://github.com/rifkinauvaldzaki)  
-- 🌐 Website/Portfolio: [yourwebsite.com](https://yourwebsite.com)  
 
 ---
 
